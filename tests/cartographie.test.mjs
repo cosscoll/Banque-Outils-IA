@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
 import vm from 'node:vm';
 const html=readFileSync(new URL('../cartographie.html',import.meta.url),'utf8');
-const home=readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const home=readFileSync(new URL('../recherche.html',import.meta.url),'utf8');
 const script=html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
 test('script immersif syntaxiquement valide',()=>{
  assert.ok(script,'script intégré');
