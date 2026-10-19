@@ -1,0 +1,33 @@
+/* Palette calme commune aux anciennes pages publiques, sans changer leurs fonctionnalités. */
+:root{color-scheme:light!important;--bg:#f5f4ef;--panel:#fcfcf9;--edge:#d2d9d3;--text:#1d292b;--sub:#5d706e;--accent:#516f6b;background:#f5f4ef!important;color:#1d292b!important}
+body{background:#f5f4ef!important;color:#1d292b!important;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif!important}
+h1,h2,h3,h4{color:#1b2b2e!important;letter-spacing:-.05em}
+p,li,small,.count{color:#556763!important}
+a{color:#344f52}
+header,footer,.next,.section{border-color:#d3dbd4!important}
+nav a,header a,footer a{color:#344e4e!important}
+.brand,.logo{color:#1b2929!important}
+.hero{background:transparent!important}
+.hero p{color:#586965!important}
+.hero h1 span,.gradient{-webkit-text-fill-color:#607c75!important;color:#607c75!important;background:none!important}
+.eyebrow,.label,.chip,.pill{color:#4d6e68!important;background:transparent!important;border-color:#c1d0c7!important}
+.controls,.searchbox,.panel,.card,.tool,.notice{color:#1d292b!important;background:#fdfdf9!important;background-image:none!important;border-color:#d3dbd5!important;box-shadow:none!important;border-radius:8px!important}
+.card,.tool{transition:background .2s,border-color .2s!important}
+.card:hover,.tool:hover{background:#eef2eb!important;border-color:#8fa79b!important;transform:none!important}
+.card p,.card .caution,.tool p,.panel p,.notice p{color:#5b6f6d!important}
+.card small,.tool small{color:#57716f!important}
+.card a,.notice a,.panel a,.next a{color:#355c59!important}
+.search input,.searchbox input,.searchbox input::placeholder{color:#2f4143!important}
+.search input,.searchbox input{background:#fbfcf9!important;border-color:#c8d5ce!important}
+input::placeholder{color:#798782!important}
+.filters button,.tags button,.controls button,.searchbox button,.notice a{background:#ecf0ea!important;color:#253d3d!important;border-color:#cfddd3!important;box-shadow:none!important}
+.filters button[aria-pressed=true],.tags button[aria-pressed=true]{background:#304e4b!important;color:white!important}
+.searchbox button[type=submit]{background:#304e4b!important;color:#fff!important}
+.searchbox{background:#f8faf7!important}
+.logo .glyph,.symbol{background:#e0e9e1!important;color:#355c59!important}
+.panel .chip{background:transparent!important}
+.empty{color:#516a65!important;border-color:#a9bdb2!important}
+:focus-visible{outline-color:#4d7571!important}
+@media(min-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.card{min-height:230px}}
+@media(max-width:600px){.hero h1{font-size:clamp(2.8rem,11vw,4rem)!important}.grid{grid-template-columns:1fr!important}header nav{flex-wrap:wrap!important}.searchbox input{min-height:46px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
