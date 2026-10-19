@@ -26,6 +26,26 @@ try{
    console.log('PASS',width,JSON.stringify(before));
    await page.close();
  }
+ for(const target of ['catalogue.html','recherche.html','avancement.html']){
+   const page=await browser.newPage({viewport:{width:390,height:844}});
+   const pageErrors=[];page.on('pageerror',error=>pageErrors.push(error.message));
+   await page.goto(pathToFileURL(join(root,target)).href,{waitUntil:'load'});
+   const result=await page.evaluate(()=>({background:getComputedStyle(document.body).backgroundColor,overflow:document.documentElement.scrollWidth-innerWidth}));
+   assert.equal(result.background,'rgb(245, 244, 239)',target+' new palette');
+   assert.ok(result.overflow<=2,target+' overflow: '+result.overflow);
+   assert.equal(pageErrors.length,0,target+' runtime');
+   if(target==='catalogue.html'){
+      await page.locator('[data-filter="creation"]').click();
+      assert.ok((await page.locator('.card:visible').count())>0,'catalogue filters');
+   }
+   if(target==='recherche.html'){
+      await page.locator('#query').fill('vidéo');
+      assert.ok((await page.locator('.tool:visible').count())>=1,'recherche locale');
+   }
+   await page.screenshot({path:join(dir,target.replace('.html','')+'-390.png'),fullPage:false});
+   console.log('PASS',target,JSON.stringify(result));
+   await page.close();
+ }
  const fallback=await browser.newPage({viewport:{width:390,height:800}});
  await fallback.addInitScript(()=>{const orig=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){if(type==='webgl')return null;return orig.call(this,type,...args)}});
  await fallback.goto(url);
