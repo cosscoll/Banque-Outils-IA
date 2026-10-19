@@ -1,0 +1,29 @@
+name: QA visuelle atlas 3D
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Installer Playwright et Chromium pour QA
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Tester scene WebGL et mobile
+        run: node tests/atlas-browser.mjs
+      - name: Captures de QA
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-browser-screenshots
+          path: qa-screenshots/
+          if-no-files-found: ignore
