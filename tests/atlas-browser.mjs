@@ -22,6 +22,24 @@ try{
    assert.ok(before.overflow<=2,'horizontal overflow '+before.overflow);
    await page.locator('[data-family="4"]').click();
    assert.equal(await page.locator('#familyTitle').innerText(),'Automatisation');
+   if(width===1440){
+     await page.locator('[data-family="2"]').hover();
+     assert.equal(await page.locator('#familyTitle').innerText(),'Développement','survol met a jour la famille');
+     const canvas=page.locator('#atlas3d');
+     await canvas.scrollIntoViewIfNeeded();
+     const frame=await canvas.boundingBox();
+     await page.mouse.move(frame.x+frame.width*.73,frame.y+frame.height*.32);
+     const px=await page.locator('#scene').evaluate(e=>e.style.getPropertyValue('--cursor-x'));
+     assert.ok(px&&px!=='50%', 'le halo repond a la souris');
+     const cta=page.locator('.button-primary');await cta.hover();
+     const r=await cta.boundingBox();
+     await page.mouse.move(r.x+r.width*.78,r.y+r.height*.73);
+     await page.waitForTimeout(120);
+     const magnet=await cta.evaluate(e=>e.style.getPropertyValue('--mag-x'));
+     assert.ok(magnet&&magnet!=='0px','CTA magnetique actif');
+     console.log('PASS hover familles, halo souris et bouton magnetique',px,magnet);
+   }
+
    await page.screenshot({path:join(dir,'atlas-'+width+'.png'),fullPage:true});
    console.log('PASS',width,JSON.stringify(before));
    await page.close();
