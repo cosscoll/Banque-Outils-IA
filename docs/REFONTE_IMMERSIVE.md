@@ -1,30 +1,34 @@
-# Refonte immersive — Banque Outils IA
+# Banque Outils IA — Atlas des possibles
 
-Mise à jour : 2026-10-19 (Europe/Paris).
+## Refondre à partir du retour utilisateur — 19 octobre 2026
 
-## Direction artistique
-Cartographie vivante de l'IA : graphite et bleu nuit, cyan et vert d'eau lumineux, modules reliés par des relations de workflow. Identité originale et distincte de Business 01. Pas d'assets ni de code repris des références créatives.
+Le premier accueil sombre, aux néons cyan, avait trop de textes et aucune perception de vrai volume. La refonte doit rester distincte de Business 01.
 
-## Architecture réellement intégrée sur branche
-- `cartographie.html` : 6 familles (texte, image, code, audio/vidéo, automatisation/agents, recherche/analyse), relations explicites et positions projetées, rendu via WebGL natif sans dépendances externes, repli canvas 2D si WebGL indisponible, nœuds HTML sélectionnables et liste accessible.
-- Recherche par correspondance locale de termes, non générative, filtres synchronisés avec nœuds/liste et panneau de détail, navigation vers les pages publiques existantes.
-- `index.html` : liens vers cartographie, catalogue, fiches publiques et avancement.
-- Écran responsive, focus visible, option reduced-motion, aucun checkout ni collecte.
+### Direction artistique actuelle (encore soumise à validation utilisateur)
+- Palette calme : ivoire #f5f4ef, graphite #182124, vert minéral #7b8a83.
+- Une entrée éditoriale avec un titre bref, un objet 3D dominant et des espaces généreux.
+- Six univers seulement, révélés à la demande ; le catalogue complet est une page secondaire.
+- Typographies système/Georgia, pas de fonts externes, de kits premium ni de services payants.
 
-## Tests effectués
-Le 19/10, dix vérifications statiques à partir des deux fichiers relus via le connecteur GitHub : PASS (6 familles, WebGL, fallback, recherche, filtres, annonce lecteurs d'écran, absence de checkout, réduction des mouvements, liens d'accueil, maintien de l'ancien champ de recherche). Ces contrôles ne valent PAS des tests Chromium, CI, Lighthouse, validation WCAG ni validation HTTPS.
+### Code réellement réalisé
+- `index.html` : accueil réécrit. `assets/atlas.css` : responsive et composants. `assets/atlas.js` : moteur natif WebGL.
+- WebGL **maillé en 3D** : sphères et anneaux torus, vertices/normales, éclairage, profondeur et perspective, rotation lente, glisser pour orienter, sélection de satellite et arrêt des animations.
+- Six catégories navigables avec boutons HTML accessibles, détails et liens vers les méthodes publiques.
+- Repli Canvas 2D en cas de panne WebGL ; le bug d'activation du repli a été corrigé.
+- Anciennes pages `catalogue.html`, `recherche.html` et `avancement.html` harmonisées via `assets/atlas-legacy.css`; contenu et fonctions préservés.
 
-## Autocritique et problèmes ouverts
-- Vérifier visuellement la scène sur navigateurs Android, Safari iPhone, desktop et fallback WebGL. Les performances LCP/CLS/animation ne sont pas mesurées.
-- Améliorer les transitions de caméra, l'indication explicite des connexions et le clavier dans la scène ; contrôler le contraste et les cibles tactiles.
-- Tester les branches des URL catalogue avant diffusion : le catalogue de 12 usages était sur cette même branche, pas encore dans main.
-- Ne pas prétendre que des fournisseurs ou tarifs sont vérifiés : catégories pédagogiques seulement.
-- Les outils et produits premium internes restent privés.
+### Tests et preuve
+- CI Node `Verify public preview` : PASS.
+- Nouvelle CI `QA visuelle atlas 3D` : Chromium headless Playwright, desktop 1440 px et mobile 390 px, **WebGL disponible et activé**, pas d'erreurs JS ni débordement horizontal, sélection des univers, mode Canvas 2D simulé et fonctionnel.
+- Contrôles de palette, débordement et interactions sur Catalogue/Recherche/Avancement : PASS.
+- Captures d'écran archivées dans l'artifact GitHub du workflow.
+- Pas encore de test de performance Lighthouse sur réseau réel ou de validation manuelle sur iPhone/Android physique.
 
-## État de publication
-Branche `feat/home-navigation-a11y-20261019-0020` modifiée. `main` et le site GitHub Pages public ne sont pas encore déclarés actualisés. Contrôler PR, CI et conflits avant toute fusion ; vérifier le site HTTPS séparément.
+### État publication
+Ce document couvre la PR #6 `redesign/atlas-calme-3d-20261019`. Ne pas déclarer la refonte publiée tant que sa fusion et le déploiement GitHub Pages sur le SHA résultant ne sont pas confirmés.
 
-## Prochain sprint
-1. Établir un test automatique DOM/Chromium sur le contenu exact de cartographie.html ; corriger les erreurs observées.
-2. Auditer performances et UX mobile réelles, corriger.
-3. Vérifier CI/PR et intégration de l'expérience dans main sans divulgation ni transaction.
+### Autocritique et prochaines itérations
+- Tester la lisibilité de la scène sur un appareil physique peu puissant ; mesurer FPS, LCP et CLS.
+- Renforcer les explications des liens entre familles si l'exploration est jugée peu compréhensible.
+- Confirmer avec l'utilisateur la palette claire et l'esthétique de sculpture avant toute multiplication de contenu.
+- Respecter toujours le mode réduit, les accès clavier, les produits premium privés et le budget zéro.
