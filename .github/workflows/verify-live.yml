@@ -1,7 +1,6 @@
 name: Verify live website after deployment
 on:
-  pull_request:
-    branches: [main]
+  # The live SHA can only match after main is published; PR is checked by Node/Chromium workflows.
   push:
     branches: [main]
     paths:
