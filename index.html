@@ -6,30 +6,30 @@
 <meta name="theme-color" content="#f5f4ef">
 <meta name="description" content="Explorez les possibilités de l'intelligence artificielle dans un atlas 3D clair et interactif. Six univers, des usages concrets, sans inscription.">
 <link rel="canonical" href="https://cosscoll.github.io/Banque-Outils-IA/">
-<title>Banque Outils IA — Un nouvel angle sur l'IA</title>
-<link rel="stylesheet" href="./assets/atlas.css">
-<script defer src="./assets/atlas.js"></script>
+<title>Banque Outils IA — Explorez un univers vivant</title>
+<link rel="stylesheet" href="./assets/atlas.css"><link rel="stylesheet" href="./assets/motion.css">
+<script defer src="./assets/atlas.js"></script><script defer src="./assets/hover-motion.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Aller au contenu</a>
 <header class="site-header wrap">
   <a href="./index.html" class="brand" aria-label="Banque Outils IA, accueil"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>BANQUE<br>OUTILS <b>IA</b></span></a>
   <nav aria-label="Navigation principale"><a href="#explorer">Les univers</a><a href="./catalogue.html">Catalogue</a><a href="./recherche.html">Recherche simple</a></nav>
-  <a class="header-cta" href="#explorer">Commencer <span aria-hidden="true">↗</span></a>
+  <a class="header-cta" data-magnet href="#explorer">Commencer <span aria-hidden="true">↗</span></a>
 </header>
 <main id="main">
 <section class="hero wrap" aria-labelledby="hero-title">
  <div class="hero-copy">
    <p class="eyebrow"><span class="eyebrow-line"></span> L'ATLAS DES POSSIBLES <span class="eyebrow-number">/ 001</span></p>
-   <h1 id="hero-title">L'IA.<br>Un autre<br><em>point de vue.</em></h1>
-   <p class="hero-description">Découvrez ce que l'intelligence artificielle peut faire pour vous, sans vous perdre dans la technologie.</p>
-   <div class="hero-actions"><a class="button-primary" href="#explorer">Explorer les univers <span aria-hidden="true">↗</span></a><span class="micro-note">Une expérience à votre rythme.</span></div>
+   <h1 id="hero-title"><span class="headline-line">L'IA.</span><span class="headline-line">Un autre</span><span class="headline-line"><em>point de vue.</em></span></h1>
+   <p class="hero-description">Six univers. Une infinité de possibilités. Explorez-les avec votre souris.</p>
+   <div class="hero-actions"><a class="button-primary" data-magnet href="#explorer">Explorer les univers <span aria-hidden="true">↗</span></a><span class="micro-note">Une expérience à votre rythme.</span></div>
  </div>
  <div class="scene-column">
   <div class="scene" id="scene" aria-label="Sculpture 3D interactive représentant six familles d'outils IA">
-   <div class="scene-static" aria-hidden="true"><span></span><span></span><span></span></div>
+   <div class="scene-static" aria-hidden="true"><span></span><span></span><span></span></div><div class="scene-aurora" aria-hidden="true"></div>
    <canvas id="atlas3d" aria-hidden="true"></canvas>
-   <div class="scene-top"><span class="scene-index">FIG. 01</span><span class="scene-live"><span aria-hidden="true"></span> ATLAS INTERACTIF</span></div>
+   <div class="scene-top"><span class="scene-index">EXPERIENCE 01 / 06</span><span class="scene-live"><span aria-hidden="true"></span> SURVOL INTERACTIF</span></div>
    <div class="scene-bottom"><p>Glisser pour tourner <span aria-hidden="true">↔</span></p><button id="rotateToggle" type="button" aria-pressed="false">Arrêter le mouvement <span aria-hidden="true">Ⅱ</span></button></div>
   </div>
   <div class="scene-caption"><span>01 — 06 / UNIVERS CONNECTÉS</span><span>Une exploration en trois dimensions</span></div>
@@ -37,8 +37,8 @@
 </section>
 <section class="discover" id="explorer" aria-labelledby="discover-title">
  <div class="wrap">
-   <div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> CHOISIR SON PARCOURS</p><h2 id="discover-title">Par où<br><em>commencer ?</em></h2></div><p>Choisissez un univers. La sculpture réagit à votre sélection et vous guide vers des usages adaptés.</p></div>
-   <div class="universe-shell">
+   <div class="section-heading"><div data-reveal><p class="eyebrow"><span class="eyebrow-line"></span> CHOISIR SON PARCOURS</p><h2 id="discover-title">Par où<br><em>commencer ?</em></h2></div><p>Choisissez un univers. La sculpture réagit à votre sélection et vous guide vers des usages adaptés.</p></div>
+   <div class="universe-shell" data-reveal>
     <div class="universe-list" role="group" aria-label="Six univers d'intelligence artificielle" id="universeList">
      <button type="button" class="universe is-active" data-family="0" aria-pressed="true"><span class="universe-num">01</span><span class="universe-name">Texte & idées</span><span class="universe-arrow" aria-hidden="true">↗</span></button>
      <button type="button" class="universe" data-family="1" aria-pressed="false"><span class="universe-num">02</span><span class="universe-name">Images & création</span><span class="universe-arrow" aria-hidden="true">↗</span></button>
@@ -58,8 +58,8 @@
  </div>
 </section>
 <section class="bottom-section wrap" aria-label="Continuer l'exploration">
- <div><p class="eyebrow"><span class="eyebrow-line"></span> ALLER PLUS LOIN</p><h2>Une idée.<br>À vous de <em>l'explorer.</em></h2></div>
- <div class="bottom-actions"><p>Des exemples concrets, un langage simple. Pas de compte ni de vente sur cette version de découverte.</p><a href="./catalogue.html" class="button-outline">Voir le catalogue <span aria-hidden="true">↗</span></a></div>
+ <div data-reveal><p class="eyebrow"><span class="eyebrow-line"></span> ALLER PLUS LOIN</p><h2>Une idée.<br>À vous de <em>l'explorer.</em></h2></div>
+ <div class="bottom-actions" data-reveal><p>Des exemples concrets, un langage simple. Pas de compte ni de vente sur cette version de découverte.</p><a href="./catalogue.html" class="button-outline" data-magnet>Voir le catalogue <span aria-hidden="true">↗</span></a></div>
 </section>
 </main>
 <footer class="footer wrap"><span>© 2026 Banque Outils IA</span><span>Un laboratoire de découverte, sans collecte.</span><a href="./avancement.html">Le projet ↗</a></footer>
