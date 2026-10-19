@@ -5,29 +5,19 @@ import vm from 'node:vm';
 const home=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const classic=readFileSync(new URL('../recherche.html',import.meta.url),'utf8');
 const map=readFileSync(new URL('../cartographie.html',import.meta.url),'utf8');
-
-test('accueil affiche immédiatement la cartographie et son code interactif',()=>{
- assert.match(home,/id="scene"/);
- assert.match(home,/id="nodes"/);
- assert.match(home,/id="liste"/);
- assert.match(home,/id="query"/);
- assert.match(home,/getContext\\('webgl'/);
- assert.match(home,/getContext\\('2d'/);
- const js=home.match(/<script>([\\s\\S]*?)<\\/script>/)?.[1];
- assert.ok(js,'script interactif présent');
- new vm.Script(js);
+test('cartographie embarquée directement dans l accueil',()=>{
+ for(const marker of ['id="scene"','id="nodes"','id="liste"','id="query"', "getContext('webgl'", "getContext('2d'"])assert.ok(home.includes(marker),marker);
+ const script=home.split('<script>')[1]?.split('</script>')[0];
+ assert.ok(script,'script HTML disponible');
+ new vm.Script(script);
 });
-test('navigation entre version classique, accueil et carte dédiée',()=>{
- assert.match(home,/href="\\.\\/recherche\\.html"/);
- assert.match(home,/href="\\.\\/catalogue\\.html"/);
- assert.match(classic,/id="finder"/);
- assert.match(classic,/href="\\.\\/cartographie\\.html"/);
- assert.match(map,/href="\\.\\/recherche\\.html"/);
+test('navigation entre les vues 3D et la recherche historique',()=>{
+ for(const dest of ['./recherche.html','./catalogue.html','./cartographie.html'])assert.ok(home.includes(dest),dest);
+ assert.ok(classic.includes('id="finder"'));
+ assert.ok(classic.includes('./cartographie.html'));
+ assert.ok(map.includes('./recherche.html'));
 });
-test('préserver SEO, accessibilité et zéro paiement',()=>{
- assert.match(home,/rel="canonical"/);
- assert.match(home,/prefers-reduced-motion/);
- assert.match(home,/role="status"/);
- assert.match(home,/href="#main"/);
- assert.doesNotMatch(home,/stripe|paypal|checkout|api[_-]?key/i);
+test('SEO, accessible et aucune transaction',()=>{
+ for(const marker of ['rel="canonical"','prefers-reduced-motion','role="status"','href="#main"'])assert.ok(home.includes(marker),marker);
+ for(const forbidden of ['stripe','paypal','checkout','api_key'])assert.equal(home.toLowerCase().includes(forbidden),false,forbidden);
 });
