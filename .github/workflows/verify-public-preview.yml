@@ -14,4 +14,4 @@ jobs:
       - name: Node version
         run: node --version
       - name: Check page and interactions
-        run: node --test tests/home.test.mjs
+        run: node --test tests/*.test.mjs
