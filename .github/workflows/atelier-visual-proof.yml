@@ -46,10 +46,10 @@ jobs:
               hasWebglClass:document.getElementById('workshop')?.classList.contains('has-webgl'),
               activeMode:document.querySelector('[data-mode][aria-pressed="true"]')?.getAttribute('data-mode')
             }));
-            if(page.locator('[data-mode="1"]').count){
-              await page.locator('[data-mode="1"]').click();
+            if(page.locator('button[data-mode="1"]').count){
+              await page.locator('button[data-mode="1"]').click();
             }
-            state.mode1Active=await page.locator('[data-mode="1"]').getAttribute('aria-pressed');
+            state.mode1Active=await page.locator('button[data-mode="1"]').getAttribute('aria-pressed');
             await page.screenshot({path:`artifacts/atelier-gpu/home-${w}.png`,fullPage:false});
             all.push({viewport:w,httpStatus:response?.status(),...state,errors});
             console.log('ATELIER_WEBGL_EVIDENCE',JSON.stringify(all[all.length-1]));
