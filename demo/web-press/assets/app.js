@@ -31,17 +31,39 @@ function relocateCanvas(){
  const dest=heroVisible?heroStage:stage;
  if(dest!==host){dest.appendChild(liveCanvas);host=dest;fit();}
  stage.classList.toggle('is-ready',!heroVisible&&liveCanvas.classList.contains('ready'));
+ qs('#top').classList.toggle('webgl-ready',liveCanvas.classList.contains('ready'));
  heroStage.classList.toggle('is-ready',heroVisible&&liveCanvas.classList.contains('ready'));
 }
 scene.add(new THREE.HemisphereLight(0xf9e8d8,0x1d3841,2.15));const sun=new THREE.DirectionalLight(0xffdfb3,4);sun.position.set(3,8,12);scene.add(sun);const rim=new THREE.DirectionalLight(0x84b9ed,4);rim.position.set(-6,6,-5);scene.add(rim);
 let env;try{const pmrem=new THREE.PMREMGenerator(renderer);env=pmrem.fromScene(new RoomEnvironment(),.04).texture;scene.environment=env;}catch(e){}
 let model,mixer,camera=new THREE.PerspectiveCamera(35,1,.01,150),duration=4.96,realCamera=null,currentCameraProg=0,pointerX=0,pointerY=0;
-camera.position.set(11,-13,9);camera.lookAt(0,0,1);let orbitX=0,orbitY=0,pressed=false;const canvas=qs('#three-canvas');
+// glTF exports Blender Z-up geometry to Three.js Y-up. Never position a fallback camera at negative Y.
+camera.position.set(9,6.5,12);camera.lookAt(0,1.05,0);let orbitX=0,orbitY=0,pressed=false;const canvas=qs('#three-canvas');
 canvas.addEventListener('pointerdown',e=>{pressed=true;previousPointer=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointerup',()=>{pressed=false;previousPointer=null});canvas.addEventListener('pointermove',e=>{const b=canvas.getBoundingClientRect();pointerX=(e.clientX-b.left)/b.width*2-1;pointerY=(e.clientY-b.top)/b.height*2-1;if(pressed&&previousPointer){orbitX=clamp(orbitX+(e.clientX-previousPointer[0])*.005,-.8,.8);orbitY=clamp(orbitY+(e.clientY-previousPointer[1])*.003,-.32,.32);previousPointer=[e.clientX,e.clientY]}});canvas.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')orbitX-=.1;if(e.key==='ArrowRight')orbitX+=.1;if(e.key==='ArrowUp')orbitY+=.08;if(e.key==='ArrowDown')orbitY-=.08});
 function fit(){const w=Math.max(1,host.clientWidth),h=Math.max(1,host.clientHeight);renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();if(realCamera){realCamera.aspect=w/h;realCamera.updateProjectionMatrix()}}const ro=new ResizeObserver(fit);ro.observe(stage);ro.observe(heroStage);fit();
-try{const gltf=await loader.loadAsync('assets/web-press-original.glb');model=gltf.scene;scene.add(model);mixer=new THREE.AnimationMixer(model);for(const clip of gltf.animations){const a=mixer.clipAction(clip);a.play();duration=Math.max(duration,clip.duration)}realCamera=model.getObjectByName('CAMERA_3D_BAKED');if(realCamera&&realCamera.isCamera){realCamera.aspect=host.clientWidth/host.clientHeight;realCamera.updateProjectionMatrix()}qs('#render-status').textContent='THREE.JS / MODÈLE BLENDER ACTIF';qs('#status-dot').classList.remove('fallback');canvas.classList.add('ready');relocateCanvas();}catch(e){qs('#render-status').textContent='RENDUS BLENDER / MODÈLE 3D NON CHARGÉ';ro.disconnect();renderer.dispose();return;}
+try{const gltf=await loader.loadAsync('assets/web-press-original.glb');model=gltf.scene;scene.add(model);mixer=new THREE.AnimationMixer(model);for(const clip of gltf.animations){const a=mixer.clipAction(clip);a.play();duration=Math.max(duration,clip.duration)}// Use a deterministic, positive-Y camera track until the baked glTF camera can be calibrated against GPU screenshots.
+realCamera=null;
+const bound=new THREE.Box3().setFromObject(model), center=bound.getCenter(new THREE.Vector3()), size=bound.getSize(new THREE.Vector3());
+console.info('[WEB PRESS] GLB bounds:',{center:center.toArray(),size:size.toArray()});
+window.__webPressDebug={cameraMode:'studio-path-y-up',modelBounds:{center:center.toArray(),size:size.toArray()},cameraPosition:null,progress:0};qs('#render-status').textContent='THREE.JS / MODÈLE BLENDER ACTIF';qs('#status-dot').classList.remove('fallback');canvas.classList.add('ready');relocateCanvas();}catch(e){qs('#render-status').textContent='RENDUS BLENDER / MODÈLE 3D NON CHARGÉ';ro.disconnect();renderer.dispose();return;}
 sceneApi={setProgress:v=>{currentCameraProg=v},setMode:v=>{if(!model)return;model.traverse(o=>{if(o.isMesh&&o.material){if(o.userData.originalColor===undefined&&o.material.color)o.userData.originalColor=o.material.color.clone();if(o.name.includes('Module gloss inlay')&&o.material.color){o.material=o.material.clone();o.material.emissive=new THREE.Color(v==='motion'?0xff6a32:v==='grid'?0x8ac1e5:0xdab978);o.material.emissiveIntensity=.35;}}})}};
-let last=-100;const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;function frame(){requestAnimationFrame(frame);relocateCanvas();if(document.hidden||!model||host.getBoundingClientRect().bottom<0||host.getBoundingClientRect().top>innerHeight)return;const dt=clock.getDelta();if(mixer){mixer.setTime(clamp(currentCameraProg,0,1)*duration)}if(realCamera){realCamera.updateMatrixWorld(true);const pos=new THREE.Vector3(),q=new THREE.Quaternion();realCamera.getWorldPosition(pos);realCamera.getWorldQuaternion(q);camera.position.copy(pos);camera.quaternion.copy(q);camera.rotateY(orbitX*.5+pointerX*.015);camera.rotateX(orbitY*.3+pointerY*.007);camera.updateProjectionMatrix()}else{camera.position.set(10+orbitX*3,-13,7+orbitY*2);camera.lookAt(0,0,1)}renderer.render(scene,camera)}frame();}
+let last=-100;const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;function frame(){requestAnimationFrame(frame);relocateCanvas();if(document.hidden||!model||host.getBoundingClientRect().bottom<0||host.getBoundingClientRect().top>innerHeight)return;const dt=clock.getDelta();if(mixer){mixer.setTime(clamp(currentCameraProg,0,1)*duration)}// Five authored views of the machine, in Three.js Y-up coordinates.
+const shots=[
+  {at:[9.3,6.5,12.8],look:[0,1.0,0]},
+  {at:[7.3,5.8,9.8],look:[0,1.2,0]},
+  {at:[9.4,7.9,10.6],look:[0,1.65,0]},
+  {at:[6.8,5.0,8.5],look:[0,1.2,0]},
+  {at:[9.4,6.8,12.4],look:[0,1.0,0]}
+];
+const scaled=clamp(currentCameraProg,0,1)*4, ix=Math.min(3,Math.floor(scaled));
+const t=scaled-ix, smooth=t*t*(3-2*t);const a=shots[ix],b=shots[ix+1];
+const lerp=(i,j)=>i+(j-i)*smooth;
+camera.position.set(
+ lerp(a.at[0],b.at[0])+orbitX*2.5+pointerX*.08,
+ lerp(a.at[1],b.at[1])+orbitY*1.9-pointerY*.06,
+ lerp(a.at[2],b.at[2]));
+camera.lookAt(lerp(a.look[0],b.look[0]),lerp(a.look[1],b.look[1]),lerp(a.look[2],b.look[2]));
+if(window.__webPressDebug){window.__webPressDebug.cameraPosition=camera.position.toArray();window.__webPressDebug.progress=currentCameraProg;}renderer.render(scene,camera)}frame();}
 // GSAP coordinates editable design timelines; manual scroll remains a safe fallback.
 if(window.gsap && window.ScrollTrigger){
   gsap.registerPlugin(ScrollTrigger);
