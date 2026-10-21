@@ -69,7 +69,6 @@ def sheet(name, layer, material_ref, width, amplitude, shift):
     solid.offset=0
     bevel=obj.modifiers.new('Light-catching edge','BEVEL')
     bevel.width=.025; bevel.segments=2
-    normal=obj.modifiers.new('Weighted normals','WEIGHTED_NORMAL')
     for p in mesh.polygons:p.use_smooth=True
     return obj
 
@@ -87,7 +86,6 @@ def block(name,location,scale, mat, bevel=.06):
     o.parent=sculpt
     if bevel:
         b=o.modifiers.new('Soft product edges','BEVEL'); b.width=bevel;b.segments=3
-        o.modifiers.new('Normals','WEIGHTED_NORMAL')
     return o
 
 block('WEBSITE_UI__navigation_shell',(-1.26,-1.05,.88),(1.42,.12,.18),ink,.045)
