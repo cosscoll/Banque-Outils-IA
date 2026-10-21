@@ -49,4 +49,21 @@ La direction artistique **Transformation** (sélectionnée dans `directions/v2/#
 
 La validation syntaxique des scripts, la présence des fichiers et le test simulé des événements hover/tactile/clavier sont réalisés. **Cela ne prouve pas le rendu GPU, le responsive réel ni le déploiement GitHub Pages**. Vérifier en navigateur avant de communiquer une validation visuelle.
 
-Ce changement est effectué directement sur `main`, sans activer d'automatisation, aucun service IA facturé et aucun service de paiement. 
+Ce changement est effectué directement sur `main`, sans activer d'automatisation, aucun service IA facturé et aucun service de paiement.
+
+## Garantie de non-régression — 21 octobre 2026
+
+Après la refonte Transformation, le fichier `index.html` avait perdu sa balise de chargement `assets/vendor/three.min.js`. Le moteur `assets/atelier.js` attend `window.THREE` : **c'était la cause directe de la disparition du rendu 3D**. De plus, la scène avait été déplacée après plusieurs sections, et les cibles des animations au scroll étaient devenues obsolètes.
+
+Ces défauts sont corrigés dans `main` :
+- rétablissement de Three.js local chargé **avant** le moteur de scène ;
+- atelier 3D remonté immédiatement après la comparaison, plus un lien de navigation direct ;
+- survol et interaction par glissement sur l'ordinateur 3D, quatre modes de création ;
+- caméra 3D liée au scroll de son propre conteneur et animations d'entrée rétablies ;
+- six aperçus contextualisés au survol des usages ;
+- comparateur avant/après maintenu sans clic sur ordinateur, tactile et clavier conservés ;
+- indicateur réel `3D ACTIVE` / `APERÇU 2D` selon disponibilité de WebGL.
+
+**Règle de maintenance :** aucune future refonte graphique ne doit supprimer, masquer ni déplacer hors de portée la 3D et les interactions déjà validées sans demande explicite. Faire passer `node scripts/check-visual-features.mjs` avant de publier des changements, et conserver une vérification visuelle avec vrai GPU indépendante de ces contrôles statiques. Ce script ne déclenche ni action GitHub ni service payant.
+
+**Validation disponible :** liens GitHub confirmés, 16 vérifications de structure/interactions réussies, syntaxe JavaScript vérifiée. **Non vérifié :** capture WebGL sur navigateur réel et accessibilité publique de GitHub Pages depuis cet environnement. Un commit ne vaut pas preuve de rendu.
