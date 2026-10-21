@@ -26,6 +26,7 @@ jobs:
         env:
           PYTHONPATH: /usr/lib/python3/dist-packages
         run: |
+          echo 'WEB_PRESS_CPU_RENDER_RETRY_2026_10_21'
           blender --background -t 4 --python demo/web-press/scripts/build_webpress.py -- --out demo/web-press/assets --samples 16 --size 1000 > web-press-build.log 2>&1 || (tail -160 web-press-build.log; exit 1)
           grep -q WEBPRESS_G2_ARTIFACTS_OK web-press-build.log
           ls -lh demo/web-press/assets/
