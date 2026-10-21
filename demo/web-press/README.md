@@ -12,3 +12,7 @@ Code and generated machine are original to this project. Three.js licensed MIT. 
 
 ## Limitations
 This is an interactive demo, not a claim of equivalence to Igloo / Noomo / Studio Mirage. Manual creative review of final render and Chrome WebGL is required to approve the gate.
+
+
+## Blender CI compatibility
+The free runner's Debian Blender build may lack OpenImageDenoiser. The Cycles render script explicitly disables OIDN; output remains a real CPU path-traced image (more noise at low sample counts). Source committed at `d0107d30`. Generated PNG/GLB/.blend are required before claiming the demo is graphically published.
