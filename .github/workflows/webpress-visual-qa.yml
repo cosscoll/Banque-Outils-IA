@@ -63,3 +63,4 @@ jobs:
           path: demo/web-press/evidence/
           if-no-files-found: warn
           retention-days: 7
+# G4 check: WebGL scene must render at homepage before the build is called verified.
