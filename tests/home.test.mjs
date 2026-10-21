@@ -20,7 +20,7 @@ test('catalogue accessible et interactions syntaxiquement valides',()=>{
 
 test('18 ressources locales réelles et six familles de filtres',()=>{
   assert.equal((html.match(/<article class="resource"/g)||[]).length,18);
-  for(const key of ['redaction','image','code','media','automatisation','recherche'])
+  for(const key of ['redaction','creation','dev','medias','auto','recherche'])
     assert.ok(html.includes('data-cat="'+key+'"')||html.includes('data-filter="'+key+'"'),key);
   assert.match(script,/s\.normalize\('NFD'\)/);
   assert.match(script,/item\.hidden=!keep/);
