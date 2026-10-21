@@ -1,0 +1,37 @@
+name: WEB PRESS — original Blender scene and proof renders
+on:
+  push:
+    paths:
+      - '.github/workflows/webpress-scene.yml'
+      - 'toolchain/studio-web-3d/experiments/webpress/scripts/build_webpress.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: webpress-one-shot
+  cancel-in-progress: false
+jobs:
+  render:
+    if: github.repository == 'cosscoll/Banque-Outils-IA'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Blender CPU — standard public runner (no paid GPU)
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y blender
+          blender --version | head -2
+      - name: Generate original Blender project, GLB and four frames
+        run: |
+          blender -b -t 4 --python toolchain/studio-web-3d/experiments/webpress/scripts/build_webpress.py -- --out toolchain/studio-web-3d/experiments/webpress/output --size 960 --samples 18
+          test -s toolchain/studio-web-3d/experiments/webpress/output/web-press-original.blend
+          test -s toolchain/studio-web-3d/experiments/webpress/output/web-press-original.glb
+          for i in 01-hero 02-exploded 03-macro 04-final; do test -s toolchain/studio-web-3d/experiments/webpress/output/$i.png; done
+      - name: Commit real Blender assets and CPU renders to GitHub
+        run: |
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.name 'github-actions[bot]'
+          git add toolchain/studio-web-3d/experiments/webpress/output
+          git diff --cached --quiet || git commit -m 'Render WEB PRESS original Blender scene and keyframe previews'
+          git push
