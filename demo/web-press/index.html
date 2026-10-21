@@ -26,12 +26,11 @@
 <script src="assets/vendor/ScrollTrigger.min.js"></script>
 <script type="importmap">{"imports":{"three":"./assets/vendor/three-shim.js","three/addons/loaders/GLTFLoader.js":"./assets/vendor/loaders/GLTFLoader.js","three/addons/environments/RoomEnvironment.js":"./assets/vendor/environments/RoomEnvironment.js","gsap":"./assets/vendor/gsap-shim.js","gsap/ScrollTrigger":"./assets/vendor/gsap-scrolltrigger-shim.js"}}</script>
 <script type="module">
-try { await import('./assets/app.bundle.js'); }
-catch (bundleError) {
-  try { await import('./assets/app.js'); }
-  catch (error) {
-    document.querySelector('#render-status').textContent = 'MODÈLE 3D NON DISPONIBLE — RENDU PHOTOGRAPHIQUE';
-    console.error('[WEB PRESS] Chargement moteur 3D impossible', {bundleError, error});
-  }
-}
+import('./assets/app.js').catch(error=>{
+  const status=document.querySelector('#render-status');
+  if(status)status.textContent='RENDU BLENDER · MOTEUR 3D NON DISPONIBLE';
+  const hint=document.querySelector('.hero-3d-hint');
+  if(hint)hint.textContent='APERÇU STATIQUE · 3D NON CHARGÉE';
+  console.error('[WEB PRESS] Module Three.js indisponible',error);
+});
 </script></body></html>
