@@ -29,9 +29,11 @@ jobs:
       - name: Blender + Python geometry validation — free Ubuntu runner only
         run: |
           sudo apt-get update -qq
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y blender python3-trimesh
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y blender python3-venv
+          python3 -m venv .venv
+          .venv/bin/python -m pip install --disable-pip-version-check --no-input trimesh==4.8.3
           blender --background --python scripts/build_scene_blender.py -- --out web/public/assets
-          python3 scripts/verify_asset.py web/public/assets/webpage-sculpture.glb
+          .venv/bin/python scripts/verify_asset.py web/public/assets/webpage-sculpture.glb
       - name: Build interactive Three.js + GSAP site
         run: |
           cd web
