@@ -12,7 +12,9 @@ a = args.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [
 bpy.ops.object.select_all(action='SELECT'); bpy.ops.object.delete(use_global=False)
 for x in list(bpy.data.materials): bpy.data.materials.remove(x)
 S = bpy.context.scene; S.render.engine='CYCLES'; S.cycles.samples=a.samples
-if hasattr(S.cycles,'use_denoising'): S.cycles.use_denoising=True
+if hasattr(S.cycles,'use_denoising'): S.cycles.use_denoising=False
+for L in S.view_layers:
+ if hasattr(L.cycles,'use_denoising'): L.cycles.use_denoising=False
 S.render.resolution_x=a.size; S.render.resolution_y=int(a.size*.69); S.render.resolution_percentage=100
 S.render.image_settings.file_format='PNG'; S.render.film_transparent=False
 S.view_settings.view_transform='Filmic'; S.view_settings.look='Medium High Contrast'; S.view_settings.exposure=0; S.view_settings.gamma=1
