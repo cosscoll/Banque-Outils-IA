@@ -1,0 +1,50 @@
+name: Studio Web 3D — modéliser et tester sans paiement
+on:
+  workflow_dispatch:
+    inputs:
+      publish_assets:
+        description: 'Publier les assets créés sur la branche (nécessite accès en écriture)'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: studio-3d-production
+  cancel-in-progress: true
+jobs:
+  produce:
+    if: github.repository == 'cosscoll/Banque-Outils-IA'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: toolchain/studio-web-3d
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Blender + Python geometry validation — free Ubuntu runner only
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y blender python3-trimesh
+          blender --background --python scripts/build_scene_blender.py -- --out web/public/assets
+          python3 scripts/verify_asset.py web/public/assets/webpage-sculpture.glb
+      - name: Build interactive Three.js + GSAP site
+        run: |
+          cd web
+          npm install --no-audit --no-fund
+          npm run build
+      - name: Browser smoke tests
+        run: |
+          cd web
+          npx playwright install --with-deps chromium
+          npm run test:browser
+      - name: Save generated original assets only when requested
+        if: ${{ inputs.publish_assets }}
+        run: |
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.name 'github-actions[bot]'
+          git add toolchain/studio-web-3d/web/public/assets/
+          git diff --cached --quiet || git commit -m 'Generate original 3D model and render preview [skip ci]'
+          git push

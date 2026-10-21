@@ -1,0 +1,20 @@
+{
+  "name": "studio-web-3d-production-prototype",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "three": "0.166.1",
+    "gsap": "3.12.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "vite": "5.4.0"
+  }
+}
