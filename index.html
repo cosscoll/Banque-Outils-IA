@@ -1,120 +1,98 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#0e1715">
-  <meta name="description" content="Banque Outils IA — Explorez ce que l'intelligence artificielle permet vraiment de créer, d'automatiser et de comprendre. Une expérience 3D interactive, des cas d'usage et un catalogue accessible.">
-  <meta property="og:title" content="Banque Outils IA — Passez de l'idée à l'action">
-  <meta property="og:description" content="Un atelier interactif pour découvrir l'IA par ce qu'elle permet de faire.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://cosscoll.github.io/Banque-Outils-IA/">
-  <link rel="canonical" href="https://cosscoll.github.io/Banque-Outils-IA/">
-  <link rel="stylesheet" href="./assets/atelier.css">
-  <script defer src="./assets/vendor/three.min.js"></script>
-  <script defer src="./assets/atelier.js"></script>
-  <title>Banque Outils IA — L'IA prend forme.</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ecf0ef">
+<meta name="description" content="Banque Outils IA : découvrez ce que les outils d'intelligence artificielle vous permettent d'accomplir. Comparez un avant/après, explorez les usages et trouvez votre outil.">
+<meta property="og:title" content="Banque Outils IA — Moins de discours. Montrez-moi.">
+<meta property="og:description" content="Des idées, des résultats concrets, des outils pour y parvenir.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cosscoll.github.io/Banque-Outils-IA/">
+<link rel="canonical" href="https://cosscoll.github.io/Banque-Outils-IA/">
+<link rel="stylesheet" href="./assets/transformation.css">
+<script defer src="./assets/transformation.js"></script>
+<script type="module" src="./assets/atelier.js"></script>
+<title>Banque Outils IA — Moins de discours. Montrez-moi.</title>
 </head>
 <body>
 <a class="skip-link" href="#contenu">Aller au contenu</a>
-<div class="cursor-orbit" aria-hidden="true"></div>
-<header class="header">
-  <a class="identity" href="./index.html" aria-label="Banque Outils IA, accueil">
-    <span class="identity-symbol" aria-hidden="true"><span></span><span></span><span></span></span>
-    <span>BANQUE<span class="identity-divider">/</span>OUTILS<span class="identity-accent">IA</span></span>
-  </a>
-  <nav aria-label="Navigation principale" class="desktop-nav">
-    <a href="#experience">L'expérience</a><a href="#univers">Les usages</a><a href="./catalogue.html">Le catalogue</a>
+<header class="masthead">
+  <a class="m-logo" href="./index.html" aria-label="Banque Outils IA, accueil">banque<span>/</span>outils<span>ia</span></a>
+  <nav class="masthead-nav" aria-label="Navigation principale">
+    <a href="#comparer">Comparer</a><a href="#usages">Les usages</a><a href="./catalogue.html">Catalogue</a><a href="./fiches.html">Méthodes</a>
   </nav>
-  <a class="header-action" href="./catalogue.html#recherche">Trouver mon outil <span aria-hidden="true">↗</span></a>
-  <button class="menu-button" aria-label="Ouvrir le menu" aria-controls="mobileNav" aria-expanded="false"><span></span><span></span></button>
+  <a class="masthead-cta" href="./catalogue.html#recherche">Trouver un outil <span aria-hidden="true">↗</span></a>
+  <button class="mobile-menu-toggle" type="button" aria-label="Ouvrir le menu" aria-controls="mobile-menu" aria-expanded="false">MENU ☰</button>
+  <nav id="mobile-menu" class="masthead-mobile" aria-label="Navigation mobile" hidden>
+    <a href="#comparer">Comparer</a><a href="#usages">Les usages</a><a href="./catalogue.html">Catalogue</a><a href="./fiches.html">Méthodes</a><a href="./parcours.html">Parcours interactif</a>
+  </nav>
 </header>
-<nav id="mobileNav" class="mobile-nav" aria-label="Navigation mobile" hidden>
-  <a href="#experience">L'expérience</a><a href="#univers">Les usages</a><a href="./catalogue.html">Le catalogue</a><a href="./catalogue.html#recherche">Trouver mon outil ↗</a>
-</nav>
 <main id="contenu">
-  <section class="hero" id="experience" aria-labelledby="hero-heading">
-    <div class="hero-grid" aria-hidden="true"></div>
-    <div class="hero-text">
-      <div class="hero-kicker"><span class="signal"></span> LE LABORATOIRE DES POSSIBLES <span class="kicker-index">01 — 04</span></div>
-      <h1 id="hero-heading">L'IA<br>prend <span class="title-italic">forme<span class="period">.</span></span></h1>
-      <p class="hero-intro">Pas une liste infinie de logiciels. Un endroit pour comprendre <em>ce qu'on peut vraiment faire</em> avec l'intelligence artificielle.</p>
-      <div class="hero-buttons">
-        <a class="btn-main magnetic" href="#univers">Explorer les possibilités <span aria-hidden="true">↗</span></a>
-        <a class="btn-text" href="./catalogue.html">Accéder au catalogue <span aria-hidden="true">↗</span></a>
-      </div>
-      <div class="hero-meta"><span>ÉDITION / 2026</span><span><span class="live-dot"></span> EXPLORATION LIBRE</span></div>
-    </div>
-    <div class="workshop" id="workshop" aria-label="Atelier 3D interactif : un ordinateur de création dont le contenu change selon les différents usages de l'IA">
-      <canvas id="atelier3d" aria-hidden="true"></canvas>
-      <div class="workshop-fallback" id="workshopFallback" aria-hidden="true">
-        <div class="fallback-device">
-          <div class="fallback-screen"><div class="fallback-top"><span class="f-logo">bo/ia</span><span>STUDIO / 01</span><span class="f-dot">●</span></div><span class="fallback-number">01 / CRÉATION</span><div class="fallback-art"><span class="f-arc arc-one"></span><span class="f-arc arc-two"></span><span class="f-oval"></span><b>Imaginez.<br>Créez.</b></div><div class="fallback-bottom"><span>UN BRIEF → UN RÉSULTAT</span><span>↗</span></div></div>
-          <div class="fallback-base"></div>
-        </div>
-      </div>
-      <div class="stage-top"><span>BO/IA — WORKSPACE</span><span class="stage-condition"><span></span> INTERACTIF</span></div>
-      <div class="stage-bottom"><span>STUDIO VIRTUEL · 3D EN TEMPS RÉEL</span><span class="drag-hint">SURVOLEZ / GLISSEZ POUR EXPLORER ↗</span></div>
-    </div>
-    <div class="hero-control">
-      <div class="control-label"><span>CHOISISSEZ UNE DÉMONSTRATION</span><span>UNE ACTION = UN RÉSULTAT</span></div>
-      <div class="mode-list" role="group" aria-label="Démonstrations de l'atelier">
-        <button class="mode is-current" type="button" data-mode="0" aria-pressed="true"><span class="mode-id">01</span><span class="mode-name">Créer</span><span class="mode-arrow" aria-hidden="true">↗</span></button>
-        <button class="mode" type="button" data-mode="1" aria-pressed="false"><span class="mode-id">02</span><span class="mode-name">Écrire</span><span class="mode-arrow" aria-hidden="true">↗</span></button>
-        <button class="mode" type="button" data-mode="2" aria-pressed="false"><span class="mode-id">03</span><span class="mode-name">Automatiser</span><span class="mode-arrow" aria-hidden="true">↗</span></button>
-        <button class="mode" type="button" data-mode="3" aria-pressed="false"><span class="mode-id">04</span><span class="mode-name">Analyser</span><span class="mode-arrow" aria-hidden="true">↗</span></button>
-      </div>
-    </div>
-    <a href="#manifeste" class="scroll-cue" aria-label="Descendre pour découvrir la suite"><span class="scroll-line"></span> FAITES DÉFILER POUR DÉCOUVRIR</a>
-  </section>
-  <section class="statement" id="manifeste" aria-labelledby="statement-heading">
-    <div class="statement-meta"><span>NOTRE CONVICTION</span><span>002 / EN DEUX MOTS</span></div>
-    <h2 id="statement-heading" class="reveal-lines">Moins de <span class="cut">complexité.</span><br>Plus de <span class="serif-italic">possibilités.</span></h2>
-    <div class="statement-foot"><p>L'outil parfait n'est pas le plus impressionnant. C'est celui qui vous aide à passer d'une idée à un résultat concret.</p><span class="statement-stamp" aria-hidden="true">À VOUS<br>DE JOUER ↗</span></div>
-  </section>
-  <section class="universes" id="univers" aria-labelledby="univers-heading">
-    <div class="universes-header">
-      <div><p class="section-overline">03 / LA BANQUE DES USAGES</p><h2 id="univers-heading">À chacun<br>son <em>terrain de jeu.</em></h2></div>
-      <p>Six portes d'entrée pour découvrir comment l'IA peut simplifier un travail, accélérer une idée ou ouvrir une nouvelle manière de créer.</p>
-    </div>
-    <div class="universe-rows" id="universeRows">
-      <a class="universe-row" href="./catalogue.html" data-preview="editorial">
-        <span class="row-num">01 /</span><span class="row-title">Écriture & idées</span><span class="row-desc">Transformer un brief en texte clair</span><span class="row-icon" aria-hidden="true">↗</span>
-        <span class="row-preview editorial-preview" aria-hidden="true"><span>THE<br>GOOD<br>IDEA<span class="p-dot">.</span></span></span>
-      </a>
-      <a class="universe-row" href="./catalogue.html" data-preview="visual">
-        <span class="row-num">02 /</span><span class="row-title">Image & création</span><span class="row-desc">Donner une forme à vos idées</span><span class="row-icon" aria-hidden="true">↗</span>
-        <span class="row-preview visual-preview" aria-hidden="true"><span class="petal petal-one"></span><span class="petal petal-two"></span><span class="petal petal-three"></span><b>STUDIO</b></span>
-      </a>
-      <a class="universe-row" href="./catalogue.html" data-preview="code">
-        <span class="row-num">03 /</span><span class="row-title">Code & web</span><span class="row-desc">Passer d'un prototype au concret</span><span class="row-icon" aria-hidden="true">↗</span>
-        <span class="row-preview code-preview" aria-hidden="true"><small>index.tsx</small><b>&lt;make<br>&nbsp; something<br>&nbsp; possible /&gt;</b></span>
-      </a>
-      <a class="universe-row" href="./catalogue.html" data-preview="sound">
-        <span class="row-num">04 /</span><span class="row-title">Vidéo & audio</span><span class="row-desc">Faire bouger vos histoires</span><span class="row-icon" aria-hidden="true">↗</span>
-        <span class="row-preview sound-preview" aria-hidden="true"><span class="bars">▂ ▅ ▇ ▃ ▆ ▂ ▇ ▄ ▂</span><b>REC ●</b></span>
-      </a>
-      <a class="universe-row" href="./fiches.html#flux" data-preview="flow">
-        <span class="row-num">05 /</span><span class="row-title">Automatisation</span><span class="row-desc">Faire moins, accomplir plus</span><span class="row-icon" aria-hidden="true">↗</span>
-        <span class="row-preview flow-preview" aria-hidden="true"><span>TRIGGER</span><i>→</i><span>ACTION</span><i>→</i><span>DONE</span></span>
-      </a>
-      <a class="universe-row" href="./catalogue.html" data-preview="data">
-        <span class="row-num">06 /</span><span class="row-title">Recherche & analyse</span><span class="row-desc">Lire les données autrement</span><span class="row-icon" aria-hidden="true">↗</span>
-        <span class="row-preview data-preview" aria-hidden="true"><span class="graph-bar" style="height:24%"></span><span class="graph-bar" style="height:53%"></span><span class="graph-bar" style="height:38%"></span><span class="graph-bar" style="height:80%"></span><span class="graph-bar" style="height:65%"></span></span>
-      </a>
-    </div>
-    <div class="universes-end"><span>SIX UNIVERS. DES CENTAINES DE POSSIBILITÉS.</span><a class="lined-link" href="./catalogue.html">Ouvrir le catalogue complet <span aria-hidden="true">↗</span></a></div>
-  </section>
-  <section class="approach" aria-labelledby="approach-heading">
-    <div class="approach-art" aria-hidden="true">
-      <div class="approach-rings"><span class="ring r-one"></span><span class="ring r-two"></span><span class="ring r-three"></span><span class="ring r-four"></span></div>
-      <span class="approach-center">?</span><span class="approach-tag">HUMAIN<br>AVANT TOUT</span>
-    </div>
-    <div class="approach-copy"><p class="section-overline">04 / LA BONNE MÉTHODE</p><h2 id="approach-heading">On part de<br>votre <em>besoin.</em><br>Pas d'un outil.</h2><p>Vous savez ce que vous voulez accomplir, mais pas avec quoi ? Explorez des usages concrets, découvrez les méthodes, puis comparez les solutions avec recul.</p><a href="./catalogue.html#recherche" class="btn-main magnetic">Trouver ma direction <span aria-hidden="true">↗</span></a><div class="approach-steps"><span>01. DÉFINIR</span><span>02. EXPLORER</span><span>03. TESTER</span></div></div>
-  </section>
-  <section class="closing" aria-labelledby="closing-heading"><div class="closing-top"><span>LE PROCHAIN GRAND PROJET</span><span>COMMENCE ICI ↓</span></div><h2 id="closing-heading">Et si on<br><em>essayait ?</em></h2><div class="closing-bottom"><p>La banque évolue. En attendant le lancement des outils et contenus complets, explorez librement les premières fiches et familles d'usages.</p><a class="closing-cta" href="./fiches.html">Découvrir les premières méthodes <span aria-hidden="true">↗</span></a></div></section>
+<section class="metamorphose m-hero-entry hero" id="comparer" aria-labelledby="main-title">
+ <div class="metamorphose-main">
+  <div class="m-upper">
+   <div><p class="m-overline">BANQUE OUTILS IA / DÉCOUVRIR PAR LE RÉSULTAT</p><h1 id="main-title">Moins de discours.<br><em>Montrez-moi.</em></h1></div>
+   <p class="m-explain">Pas besoin de comprendre l'IA en théorie. Déplacez simplement votre souris pour explorer comment une idée peut devenir un résultat.</p>
+  </div>
+  <div class="m-casebar" role="group" aria-label="Choisir un exemple de transformation">
+   <button type="button" data-case="0" aria-pressed="true">Imaginer une affiche</button>
+   <button type="button" data-case="1" aria-pressed="false">Écrire un message</button>
+   <button type="button" data-case="2" aria-pressed="false">Organiser un projet</button>
+  </div>
+  <div class="m-stage" id="compareStage" style="--split:50%" aria-label="Comparateur interactif montrant le point de départ et une première proposition de résultat">
+   <div class="m-before">
+    <div class="m-before-inner"><span>01 / LE DÉPART — UNE NOTE IMPARFAITE</span><h2 id="beforeTitle">atelier samedi<br>créatif ?</h2><p id="beforeText">un truc pour annoncer l'atelier, donner envie aux gens de venir, avec la date et le lieu…</p></div>
+   </div>
+   <div class="m-after">
+    <div class="m-after-content"><div class="m-type">RÉSULTAT / EXEMPLE FICTIF</div><strong id="afterTitle">FAIS<br>PLACE<br>AUX IDÉES.</strong><div class="m-signoff" id="afterText">SAMEDI 14H — ATELIER DE CRÉATION</div></div>
+   </div>
+   <div class="m-splitline" aria-hidden="true"></div>
+   <input class="m-range" id="rangeBeforeAfter" type="range" min="0" max="100" value="50" aria-label="Comparer le brouillon et la proposition de résultat, avec les flèches ou par glissement tactile">
+  </div>
+  <div class="m-guide"><span>← AVANT : IDÉE BRUTE</span><span>BOUGEZ LA SOURIS POUR COMPARER</span><span>APRÈS : PREMIÈRE PROPOSITION →</span></div>
+  <div class="m-result-steps" aria-label="Étapes communes"><span>1 / UN BESOIN</span><span>2 / UNE MÉTHODE</span><span>3 / UN OUTIL</span><span>4 / UNE VÉRIFICATION</span></div>
+  <div class="m-subsection"><h2>Le résultat d'abord.<br>L'outil ensuite.</h2><p>Une tâche à simplifier, un contenu à préparer, une idée à concrétiser ? Commencez par choisir ce que vous voulez faire. Nous vous indiquons les méthodes et les pistes à explorer, sans jargon inutile ni promesse magique.</p></div>
+ </div>
+</section>
+<section class="transformations" id="usages" aria-labelledby="uses-title">
+ <div class="transformations-heading">
+  <div><div class="editorial-mark" style="color:#b7d0c5">LES USAGES / 6 PORTES D'ENTRÉE</div><h2 id="uses-title">Qu'est-ce qu'on<br>fait aujourd'hui ?</h2></div>
+  <p>On n'ouvre pas un catalogue pour collectionner des logos. On vient chercher une solution à une situation précise. Choisissez la vôtre.</p>
+ </div>
+ <div class="use-index">
+  <a class="use-link" href="./catalogue.html?categorie=redaction#recherche"><span class="use-number">01</span><span class="use-title">Trouver les bons mots</span><span class="use-desc">Courrier, article, idées, présentation</span><span class="use-arrow" aria-hidden="true">↗</span></a>
+  <a class="use-link" href="./catalogue.html?categorie=creation#recherche"><span class="use-number">02</span><span class="use-title">Donner forme à une idée</span><span class="use-desc">Identité, affiche, photographie, maquette</span><span class="use-arrow" aria-hidden="true">↗</span></a>
+  <a class="use-link" href="./catalogue.html?categorie=dev#recherche"><span class="use-number">03</span><span class="use-title">Fabriquer un outil numérique</span><span class="use-desc">Site web, code, prototype, interface</span><span class="use-arrow" aria-hidden="true">↗</span></a>
+  <a class="use-link" href="./catalogue.html?categorie=medias#recherche"><span class="use-number">04</span><span class="use-title">Raconter en images et en son</span><span class="use-desc">Vidéo, voix, sous-titres, montage</span><span class="use-arrow" aria-hidden="true">↗</span></a>
+  <a class="use-link" href="./catalogue.html?categorie=auto#recherche"><span class="use-number">05</span><span class="use-title">Libérer du temps</span><span class="use-desc">Automatisation, étapes répétitives</span><span class="use-arrow" aria-hidden="true">↗</span></a>
+  <a class="use-link" href="./catalogue.html?categorie=recherche#recherche"><span class="use-number">06</span><span class="use-title">Voir plus clair</span><span class="use-desc">Recherche, données, analyse, synthèse</span><span class="use-arrow" aria-hidden="true">↗</span></a>
+ </div>
+ <div class="transformations-bottom"><span>UNE BANQUE D'OUTILS ORGANISÉE PAR OBJECTIF.</span><a href="./catalogue.html">Voir tous les outils disponibles ↗</a></div>
+</section>
+<section class="home-method" id="methode" aria-labelledby="method-title">
+ <div class="method-copy"><p class="editorial-mark">UNE MÉTHODE SIMPLE / PAS DE MIRACLE</p><h2 id="method-title">Ce qui compte,<br>c'est ce que<br>vous en faites.</h2><p>Une IA peut proposer une première version. Vous décidez de la direction, corrigez les erreurs et choisissez ce qui vaut la peine d'être gardé.</p><a href="./fiches.html" class="home-method-link">Découvrir les premières méthodes <span aria-hidden="true">↗</span></a></div>
+ <div class="method-flow" aria-label="Trois étapes pour utiliser une IA"><div><b>01</b><span>Définir le résultat recherché.</span></div><div><b>02</b><span>Tester sur un exemple concret.</span></div><div><b>03</b><span>Garder le contrôle et vérifier.</span></div></div>
+</section>
+<section class="home-workshop" id="atelier" aria-labelledby="workshop-title">
+ <div class="home-workshop-copy"><p class="editorial-mark">UN MÊME POSTE / PLUSIEURS USAGES</p><h2 id="workshop-title">Changer d'outil.<br>Pas de façon<br>de penser.</h2><p>Dans cet espace de travail en 3D, l'écran change selon le type de tâche sélectionné. C'est une visualisation illustrative, pas une application IA connectée.</p>
+ <div class="demo-modes" role="group" aria-label="Choisir l'interface de démonstration en 3D"><button type="button" data-mode="0" class="is-current" aria-pressed="true">Créer</button><button type="button" data-mode="1" aria-pressed="false">Écrire</button><button type="button" data-mode="2" aria-pressed="false">Automatiser</button><button type="button" data-mode="3" aria-pressed="false">Analyser</button></div>
+ </div>
+ <div class="workshop" id="workshop" aria-label="Ordinateur 3D interactif présentant quatre usages de l'intelligence artificielle">
+   <div class="workshop-fallback" id="workshopFallback" aria-hidden="true"><div class="fallback-device"><div class="fallback-screen"><div class="fallback-top"><span>BO / IA</span><span>WORKSPACE</span></div><div class="fallback-number">01 / CRÉATION VISUELLE</div><div class="fallback-art"><b>Imaginez. Créez.</b></div><div class="fallback-bottom"><span>UN BRIEF → UN RÉSULTAT</span><span>↗</span></div></div><div class="fallback-base"></div></div></div>
+   <canvas id="atelier3d" aria-hidden="true"></canvas>
+   <div class="stage-top"><span>ATELIER NUMÉRIQUE</span><span class="stage-condition"><span></span> INTERACTIF</span></div><div class="stage-bottom"><span>SCÈNE 3D / GLISSEZ POUR ORIENTER</span><span>UNE INTERFACE À LA FOIS</span></div>
+ </div>
+</section>
+<section class="endcap" aria-labelledby="end-title">
+ <div><p class="editorial-mark" style="color:#fff">BANQUE OUTILS IA / VERSION DE DÉCOUVERTE</p><h2 id="end-title">Et maintenant,<br>à vous.</h2></div>
+ <a href="./catalogue.html#recherche">Explorer le catalogue <span aria-hidden="true">↗</span></a>
+</section>
 </main>
-<footer class="footer"><a class="identity footer-logo" href="./index.html"><span class="identity-symbol" aria-hidden="true"><span></span><span></span><span></span></span><span>BANQUE<span class="identity-divider">/</span>OUTILS<span class="identity-accent">IA</span></span></a><span>© 2026 · EN COURS DE CONSTRUCTION · AUCUN PAIEMENT ACTIF</span><div class="footer-links"><a href="./catalogue.html">Catalogue</a><a href="./avancement.html">Avancement</a><a href="https://github.com/cosscoll/Banque-Outils-IA" rel="noopener noreferrer" target="_blank">GitHub ↗</a></div></footer>
-<noscript><p class="noscript">JavaScript est désactivé : le site reste consultable et toutes les rubriques sont accessibles via les liens ci-dessus. La scène 3D est facultative.</p></noscript>
-</body>
-</html>
+<footer class="site-footer">
+ <a class="m-logo" href="./index.html">banque<span>/</span>outils<span>ia</span></a>
+ <small>© 2026 · PRÉ-LANCEMENT / AUCUNE VENTE ACTIVE</small>
+ <nav aria-label="Liens de pied de page"><a href="./catalogue.html">Catalogue</a><a href="./fiches.html">Méthodes</a><a href="./parcours.html">Parcours</a><a href="./avancement.html">Le projet</a></nav>
+</footer>
+<noscript><p style="padding:25px;background:#fff">Les fonctionnalités interactives nécessitent JavaScript. Vous pouvez consulter les <a href="./catalogue.html">outils</a> et les <a href="./fiches.html">méthodes</a> sans animation.</p></noscript>
+</body></html>
