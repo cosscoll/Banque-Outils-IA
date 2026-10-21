@@ -3,7 +3,6 @@ on:
   push:
     branches: [main]
     paths:
-      - 'demo/web-press/index.html'
       - 'demo/web-press/assets/app.js'
       - '.github/workflows/web-press-bundle.yml'
   workflow_dispatch:
