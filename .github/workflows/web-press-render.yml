@@ -1,0 +1,54 @@
+name: Web Press — render original Blender scene
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'demo/web-press/**'
+      - '.github/workflows/web-press-render.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: web-press-blender-render
+  cancel-in-progress: false
+jobs:
+  render:
+    if: github.repository == 'cosscoll/Banque-Outils-IA' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install free Blender & model validator
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y blender python3-numpy python3-pil
+      - name: Render authored scene
+        run: |
+          blender --background -t 4 --python demo/web-press/scripts/build_webpress.py -- --out demo/web-press/assets --samples 16 --size 1000 > web-press-build.log 2>&1 || (tail -160 web-press-build.log; exit 1)
+          grep -q WEBPRESS_G2_ARTIFACTS_OK web-press-build.log
+          ls -lh demo/web-press/assets/
+          test -s demo/web-press/assets/web-press-original.glb
+          test -s demo/web-press/assets/web-press-original.blend
+          test -s demo/web-press/assets/01-hero.png
+      - name: Validate Blender glTF and save original sources
+        run: |
+          python - <<'PY'
+          import os,struct
+          p='demo/web-press/assets/web-press-original.glb'
+          with open(p,'rb') as f:h=f.read(12)
+          assert h[:4]==b'glTF' and struct.unpack('<I',h[4:8])[0]==2
+          for n in ['01-hero.png','02-exploded.png','03-macro.png','04-final.png']:
+              p='demo/web-press/assets/'+n
+              assert os.path.getsize(p)>5000
+          print('GLTF_AND_RENDER_ASSETS_VALID')
+          PY
+      - name: Commit the new original assets to main
+        run: |
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.name 'github-actions[bot]'
+          git add demo/web-press/assets/*.png demo/web-press/assets/*.glb demo/web-press/assets/*.blend
+          if ! git diff --cached --quiet; then
+            git commit -m 'Render original Web Press Blender model, GLB and studio images'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
