@@ -23,6 +23,8 @@ jobs:
           sudo apt-get update -qq
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y blender python3-numpy python3-pil
       - name: Render authored scene
+        env:
+          PYTHONPATH: /usr/lib/python3/dist-packages
         run: |
           blender --background -t 4 --python demo/web-press/scripts/build_webpress.py -- --out demo/web-press/assets --samples 16 --size 1000 > web-press-build.log 2>&1 || (tail -160 web-press-build.log; exit 1)
           grep -q WEBPRESS_G2_ARTIFACTS_OK web-press-build.log
@@ -30,6 +32,12 @@ jobs:
           test -s demo/web-press/assets/web-press-original.glb
           test -s demo/web-press/assets/web-press-original.blend
           test -s demo/web-press/assets/01-hero.png
+      - name: Upload Blender log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-press-render-log
+          path: web-press-build.log
       - name: Validate Blender glTF and save original sources
         run: |
           python - <<'PY'
