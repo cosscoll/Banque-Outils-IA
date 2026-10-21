@@ -1,0 +1,39 @@
+name: Web Press - bundle real Three.js locally
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'demo/web-press/index.html'
+      - 'demo/web-press/assets/app.js'
+      - '.github/workflows/web-press-bundle.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: web-press-bundle
+  cancel-in-progress: false
+jobs:
+  bundle:
+    if: github.repository == 'cosscoll/Banque-Outils-IA' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Package Three.js GSAP GLTFLoader offline
+        run: |
+          cd demo/web-press
+          npm install --no-save --no-fund --no-audit three@0.166.1 gsap@3.12.5 esbuild@0.24.0
+          npx esbuild assets/app.js --bundle --minify --format=iife --platform=browser --target=es2020 --outfile=assets/app.bundle.js
+          test $(wc -c < assets/app.bundle.js) -gt 200000
+          node --check assets/app.bundle.js
+          test -s assets/web-press-original.glb
+      - name: Publish self-hosted build
+        run: |
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.name 'github-actions[bot]'
+          git add demo/web-press/assets/app.bundle.js
+          if ! git diff --cached --quiet; then
+            git commit -m 'Bundle Three.js and GSAP locally for visible WebGL'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
