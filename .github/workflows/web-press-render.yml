@@ -10,7 +10,7 @@ permissions:
   contents: write
 concurrency:
   group: web-press-blender-render
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   render:
     if: github.repository == 'cosscoll/Banque-Outils-IA' && github.actor != 'github-actions[bot]'
@@ -39,6 +39,20 @@ jobs:
         with:
           name: web-press-render-log
           path: web-press-build.log
+      - name: Generate lightweight visual-review JPEGs
+        run: |
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          p=Path('demo/web-press/assets')
+          for name in ['01-hero','02-exploded','03-macro','04-final']:
+              img=Image.open(p/(name+'.png')).convert('RGB')
+              img.thumbnail((580,440))
+              output=p/('review-'+name+'.jpg')
+              img.save(output,'JPEG',quality=66,optimize=True)
+              assert output.stat().st_size>5000
+              print(output, output.stat().st_size)
+          PY
       - name: Validate Blender glTF and save original sources
         run: |
           python - <<'PY'
@@ -55,7 +69,7 @@ jobs:
         run: |
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git config user.name 'github-actions[bot]'
-          git add demo/web-press/assets/*.png demo/web-press/assets/*.glb demo/web-press/assets/*.blend
+          git add demo/web-press/assets/*.png demo/web-press/assets/*.jpg demo/web-press/assets/*.glb demo/web-press/assets/*.blend
           if ! git diff --cached --quiet; then
             git commit -m 'Render original Web Press Blender model, GLB and studio images'
             git pull --rebase origin main
