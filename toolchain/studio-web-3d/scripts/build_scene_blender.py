@@ -135,6 +135,10 @@ bpy.context.scene.camera=cam
 sculpt.rotation_euler=(.08,.08,.16)
 scene=bpy.context.scene
 scene.render.engine='CYCLES';scene.cycles.device='CPU';scene.cycles.samples=18
+# Ubuntu Blender may be compiled without OpenImageDenoiser. Do not depend on it.
+if hasattr(scene.cycles, 'use_denoising'): scene.cycles.use_denoising=False
+for layer in scene.view_layers:
+    if hasattr(layer.cycles, 'use_denoising'): layer.cycles.use_denoising=False
 scene.render.resolution_x=1200;scene.render.resolution_y=900;scene.render.resolution_percentage=70
 scene.render.image_settings.file_format='PNG'
 scene.render.film_transparent=False

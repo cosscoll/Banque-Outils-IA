@@ -26,6 +26,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      # Run 4: CPU render with denoising explicitly disabled
       - name: Blender + Python geometry validation — free Ubuntu runner only
         run: |
           sudo apt-get update -qq
