@@ -91,13 +91,14 @@ function screenTextureCanvas(mode){
 function keyboardCanvas(){const c=document.createElement('canvas');c.width=1024;c.height=450;const x=c.getContext('2d');x.fillStyle='#5a665d';x.fillRect(0,0,1024,450);
  for(let r=0;r<4;r++){for(let col=0;col<14;col++){const px=35+col*69+(r%2)*5,py=22+r*93;x.fillStyle='#15231e';x.beginPath();x.roundRect(px,py,59,70,7);x.fill();x.fillStyle='#39473e';x.fillRect(px+8,py+8,42,3);x.fillStyle='#8b9488';x.font='12px Arial';x.fillText('•',px+12,py+44);}}
  x.fillStyle='#15231e';x.beginPath();x.roundRect(290,392,440,32,8);x.fill();return c;}
+function set3DStatus(label){const node=document.getElementById('renderStatus');if(node)node.textContent=label}
 async function init3D(){
  const holder=document.getElementById('workshop'),canvas=document.getElementById('atelier3d');if(!holder||!canvas)return;
  const THREE=window.THREE;
- if(!THREE){console.warn('Three.js local indisponible. Vue de remplacement utilisée.');window.__atelierDebug={webgl:false,reason:'three-local'};return}
+ if(!THREE){console.warn('Three.js local indisponible. Vue de remplacement utilisée.');window.__atelierDebug={webgl:false,reason:'three-local'};set3DStatus('APERÇU 2D');return}
  let renderer;
  try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.6));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.35}
- catch(error){console.warn('WebGL inaccessible. Vue de remplacement utilisée.',error);window.__atelierDebug={webgl:false,reason:'context'};return}
+ catch(error){console.warn('WebGL inaccessible. Vue de remplacement utilisée.',error);window.__atelierDebug={webgl:false,reason:'context'};set3DStatus('APERÇU 2D');return}
  const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(39,1,.1,100);
  camera.position.set(0,2.45,10.5);camera.lookAt(0,.1,.2);
  scene.add(new THREE.HemisphereLight(0xe8fff0,0x2b362e,2.2));
@@ -131,7 +132,7 @@ async function init3D(){
  const shadow=add(new THREE.PlaneGeometry(7.5,6.3),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(shadowCanvas),transparent:true,depthWrite:false,opacity:.72}));shadow.rotation.x=-Math.PI/2;shadow.position.set(.3,-1.34,1.08);
  const textures=modes.map((_,i)=>{const t=new THREE.CanvasTexture(screenTextureCanvas(i));t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=Math.min(renderer.capabilities.getMaxAnisotropy(),4);return t;});
  surfaceMaterial.map=textures[current];surfaceMaterial.needsUpdate=true;
- holder.classList.add('has-webgl');window.__atelierDebug={webgl:true,object:'interactive workbench',modes:modes.length};
+ holder.classList.add('has-webgl');set3DStatus('3D ACTIVE');window.__atelierDebug={webgl:true,object:'interactive workbench',modes:modes.length};
  let scroll=.0,pointerX=0,pointerY=0,rotX=.0,rotY=.0,turn=0,drag=false,startX=0,dragStart=0,visible=true,frame=0,alive=true,targetMode=current;
  function resize(){const rect=holder.getBoundingClientRect();const w=Math.max(1,rect.width),h=Math.max(1,rect.height);renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=w<530?47:w<870?43:39;camera.position.set(0,w<530?2.55:2.45,w<530?12.3:10.5);camera.updateProjectionMatrix();}
  threeResize=resize;resize();
@@ -152,7 +153,7 @@ async function init3D(){
  function renderOnce(){pose();renderer.render(scene,camera)}
  function tick(){frame=0;if(!alive||!visible)return;pose();renderer.render(scene,camera);if(!reducedMotion)frame=requestAnimationFrame(tick)}
  renderOnce();if(!reducedMotion)frame=requestAnimationFrame(tick);
- canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();alive=false;if(frame)cancelAnimationFrame(frame);holder.classList.remove('has-webgl');window.__atelierDebug.webgl=false;console.warn('Contexte WebGL perdu : repli disponible')});
+ canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();alive=false;if(frame)cancelAnimationFrame(frame);holder.classList.remove('has-webgl');set3DStatus('APERÇU 2D');window.__atelierDebug.webgl=false;console.warn('Contexte WebGL perdu : repli disponible')});
  document.addEventListener('visibilitychange',()=>{if(document.hidden){if(frame)cancelAnimationFrame(frame);frame=0}else if(visible&&!reducedMotion&&!frame)frame=requestAnimationFrame(tick)});
 }
-init3D().catch(error=>{console.warn('Scène 3D indisponible : mode de repli conservé',error);window.__atelierDebug={webgl:false,reason:'render-error'}});
+init3D().catch(error=>{console.warn('Scène 3D indisponible : mode de repli conservé',error);window.__atelierDebug={webgl:false,reason:'render-error'};set3DStatus('APERÇU 2D')});
