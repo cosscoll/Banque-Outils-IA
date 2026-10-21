@@ -43,7 +43,7 @@ test('liens valides et catalogue actuel cohérent',()=>{
  assert.match(catalogue,/id="resetQuery"/);
  assert.match(catalogue,/id="toolsGrid"/);
  assert.match(catalogue,/id="resultCount"/);
- assert.match(home,/href="\.\/catalogue\.html"/);
+ assert.match(home,/href="\.\/catalogue\.html#recherche"/);
 });
 
 test('confidentialité et absence de paiement',()=>{
