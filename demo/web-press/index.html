@@ -11,6 +11,12 @@
 .hero-3d canvas{cursor:grab}.hero-3d canvas:active{cursor:grabbing}
 @media(max-width:1000px){.hero-3d{top:8%;bottom:11%;width:74%}.hero-photo{opacity:.5}}
 @media(max-width:700px){.hero-3d{top:31%;bottom:7%;left:0;right:0;width:100%;opacity:.95}.hero-3d:after{background:linear-gradient(180deg,var(--bg),transparent 27%,transparent 75%,var(--bg))}.hero-3d-hint{right:5%;bottom:11%;font-size:8px}.hero-copy{top:14%;pointer-events:none}.hero-buttons{pointer-events:auto}.hero-photo{opacity:.45}.hero-copy h1{font-size:clamp(64px,15vw,106px)}}
+
+/* Never composite the original Blender photograph underneath the active WebGL scene. */
+.hero.webgl-ready .hero-photo{opacity:0!important;visibility:hidden;animation:none!important}
+.hero-3d canvas{background:transparent}
+.hero.webgl-ready .hero-3d{background:radial-gradient(ellipse at 58% 58%,#27363b 0%,#11181b 75%)}
+@media(max-width:700px){.hero.webgl-ready .hero-3d{background:radial-gradient(ellipse at 52% 52%,#253039 0%,#11181b 80%)}}
 </style>
 </head><body>
 <nav class="nav"><a href="#top" class="brand" aria-label="Web Press, accueil"><span class="brand-mark"></span>WP<span style="font-size:10px;font-family:var(--mono);font-weight:400;letter-spacing:.08em;margin-left:6px">STUDIO / 001</span></a><div class="nav-c"><a class="mono hide" href="#machine">La machine</a><a class="mono hide" href="#atelier">Le laboratoire</a><a class="mono nav-action" href="#journey">Explorer ↗</a></div></nav>
