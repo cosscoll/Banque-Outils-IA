@@ -1,9 +1,5 @@
 name: WEB PRESS — original Blender scene and proof renders
 on:
-  push:
-    paths:
-      - '.github/workflows/webpress-scene.yml'
-      - 'toolchain/studio-web-3d/experiments/webpress/scripts/build_webpress.py'
   workflow_dispatch:
 permissions:
   contents: write
