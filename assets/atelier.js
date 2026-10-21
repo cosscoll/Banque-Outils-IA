@@ -8,21 +8,32 @@ const buttons=[...document.querySelectorAll('[data-mode]')];
 const fallback=document.getElementById('workshopFallback');
 const fbText=fallback?.querySelector('.fallback-art b');
 const fbKind=fallback?.querySelector('.fallback-number');
-const revealTargets=[document.querySelector('.statement h2'),document.querySelector('.statement-foot'),document.querySelector('.universes-header'),...document.querySelectorAll('.universe-row'),document.querySelector('.approach-copy'),document.querySelector('.closing h2')].filter(Boolean);
-for(const el of revealTargets)el.setAttribute('data-reveal','');
-document.body.classList.add('js-ready');
-const revealObserver=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target)}},{threshold:.12,rootMargin:'0px 0px -20px 0px'});
-for(const el of revealTargets)revealObserver.observe(el);
+const revealTargets=[...document.querySelectorAll('.home-workshop-copy, .home-workshop .workshop, .transformations-heading, .use-link, .home-method .method-copy, .method-flow, .endcap h2')];
+if(!reducedMotion&&typeof IntersectionObserver!=='undefined'){
+ const revealObserver=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target)}},{threshold:.08,rootMargin:'0px 0px -12px 0px'});
+ for(const el of revealTargets){el.classList.add('scroll-reveal');revealObserver.observe(el)}
+ document.body.classList.add('motion-ready');
+}
 function changeMode(index){if(!Number.isInteger(index)||index<0||index>=modes.length)return;current=index;buttons.forEach((b,i)=>{b.classList.toggle('is-current',i===current);b.setAttribute('aria-pressed',String(i===current))});if(fbText)fbText.textContent=modes[index].title;if(fbKind)fbKind.textContent=String(index+1).padStart(2,'0')+' / '+modes[index].genre;fallback?.setAttribute('data-mode',String(index));threeSelect(index);}
 for(const b of buttons){b.addEventListener('click',()=>changeMode(Number(b.dataset.mode)));if(finePointer)b.addEventListener('mouseenter',()=>changeMode(Number(b.dataset.mode)));}
-const menuButton=document.querySelector('.menu-button'),mobileNav=document.getElementById('mobileNav');
-menuButton?.addEventListener('click',()=>{const opening=menuButton.getAttribute('aria-expanded')!=='true';menuButton.setAttribute('aria-expanded',String(opening));menuButton.setAttribute('aria-label',opening?'Fermer le menu':'Ouvrir le menu');mobileNav.hidden=!opening});
-for(const a of mobileNav?.querySelectorAll('a')||[])a.addEventListener('click',()=>{mobileNav.hidden=true;menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Ouvrir le menu')});
-const cursor=document.querySelector('.cursor-orbit');
-if(finePointer&&!reducedMotion&&cursor){window.addEventListener('pointermove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';cursor.classList.add('active')},{passive:true});for(const el of document.querySelectorAll('a,button')){el.addEventListener('pointerenter',()=>cursor.classList.add('over'));el.addEventListener('pointerleave',()=>cursor.classList.remove('over'))}}
+// The primary site navigation is handled by transformation.js; keep scene controls isolated.
 let ticking=false;
-function handleScroll(){if(ticking)return;ticking=true;requestAnimationFrame(()=>{const hero=document.querySelector('.hero'),progress=Math.min(1,Math.max(0,window.scrollY/Math.max(hero?.offsetHeight||1,1)));threeScroll(progress);ticking=false})}
+function handleScroll(){
+ if(ticking)return;
+ ticking=true;
+ requestAnimationFrame(()=>{
+  const holder=document.getElementById('workshop');
+  if(holder){
+   const rect=holder.getBoundingClientRect();
+   const travel=Math.max(1,rect.height+innerHeight*.65);
+   const progress=Math.min(1,Math.max(0,(innerHeight*.78-rect.top)/travel));
+   threeScroll(progress);
+  }
+  ticking=false;
+ });
+}
 window.addEventListener('scroll',handleScroll,{passive:true});
+window.addEventListener('load',handleScroll,{once:true});
 window.addEventListener('resize',()=>threeResize(),{passive:true});
 const colors={ink:'#192b25',light:'#f3ead6',coral:'#e98766',peach:'#f5ba91',sage:'#aebdab',deep:'#253d32'};
 function screenTextureCanvas(mode){
