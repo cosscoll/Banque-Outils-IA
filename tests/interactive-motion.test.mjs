@@ -1,46 +1,38 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import vm from 'node:vm';
-
 const base=new URL('../',import.meta.url);
 const html=fs.readFileSync(new URL('index.html',base),'utf8');
-const scene=fs.readFileSync(new URL('assets/atlas.js',base),'utf8');
-const motion=fs.readFileSync(new URL('assets/hover-motion.js',base),'utf8');
-const css=fs.readFileSync(new URL('assets/motion.css',base),'utf8');
+const js=fs.readFileSync(new URL('assets/atelier.js',base),'utf8');
+const css=fs.readFileSync(new URL('assets/atelier.css',base),'utf8');
 
-test('noyau de connaissance polygonal non décoratif',()=>{
- new vm.Script(scene);
- assert.match(scene,/function crystal\(/);
- assert.match(scene,/app\.crystal/);
- assert.match(scene,/app\.satellite/);
- assert.match(scene,/drawMesh\(app\.crystal/);
- assert.match(scene,/drawMesh\(app\.satellite/);
- assert.match(scene,/DATA\.forEach/);
- assert.match(scene,/scrollDepth/);
- assert.match(scene,/hoverX/);
+test('quatre usages réellement sélectionnables',()=>{
+  const ids=[...html.matchAll(/<button[^>]*data-mode="(\d+)"[^>]*>/g)].map(m=>m[1]);
+  assert.deepEqual(ids,['0','1','2','3']);
+  assert.match(js,/addEventListener\('click',\(\)=>changeMode/);
+  assert.match(js,/setAttribute\('aria-pressed'/);
+  assert.match(js,/surfaceMaterial\.map=textures\[i\]/);
 });
-test('survol realimentant selection et contenu',()=>{
- new vm.Script(motion);
- assert.match(motion,/pointerenter/);
- assert.match(motion,/button\.click\(\)/);
- assert.match(motion,/dataset\.family/);
- assert.match(motion,/pointermove/);
- assert.match(motion,/requestAnimationFrame/);
- assert.match(motion,/IntersectionObserver/);
- assert.match(css,/\[data-magnet\]/);
- assert.match(css,/\.universe:hover/);
- assert.match(css,/headline-rise/);
- assert.match(css,/aurora-drift/);
+
+test('survol et drag changent vraiment la scène active',()=>{
+  assert.match(js,/mouseenter/);
+  assert.match(js,/pointermove/);
+  assert.match(js,/pointerdown/);
+  assert.match(js,/pointerup/);
+  assert.match(js,/setPointerCapture/);
+  assert.match(js,/requestAnimationFrame/);
+  assert.match(js,/IntersectionObserver/);
+  assert.match(js,/root\.rotation\.y/);
+  assert.match(js,/renderer\.render\(scene,camera\)/);
 });
-test('navigation privee, lisible et option animations reduites',()=>{
- assert.match(html,/assets\/motion\.css/);
- assert.match(html,/assets\/hover-motion\.js/);
- assert.match(html,/href="\.\/catalogue\.html"/);
- assert.match(html,/href="\.\/recherche\.html"/);
- assert.match(html,/id="familyTitle"/);
- assert.match(html,/data-family="5"/);
- assert.match(css,/prefers-reduced-motion/);
- assert.doesNotMatch(motion,/fetch\(|sendBeacon|localStorage|sessionStorage/);
- assert.doesNotMatch(scene,/fetch\(|sendBeacon|localStorage|sessionStorage/);
+
+test('menu mobile et fallback 2D explicites',()=>{
+  assert.match(js,/mobileNav\.hidden=!opening/);
+  assert.match(js,/aria-expanded/);
+  assert.match(js,/reason:'three-local'/);
+  assert.match(js,/reason:'context'/);
+  assert.match(js,/webglcontextlost/);
+  assert.match(css,/prefers-reduced-motion/);
+  assert.match(html,/id="workshopFallback"/);
+  assert.doesNotMatch(js,/https?:\/\/cdn\.jsdelivr\.net/);
 });
