@@ -35,13 +35,17 @@ test('accessibilité et dégradation progressive',()=>{
  assert.match(script,/getContext\('2d'/);
  assert.match(script,/setAttribute\('aria-pressed'/);
 });
-test('liens valides et préservation recherche accueil',()=>{
- for(const target of ['catalogue.html','fiches.html','parcours.html','avancement.html','index.html']) assert.ok(existsSync(new URL('../'+target,import.meta.url)),target);
- assert.match(home,/href="\.\/cartographie\.html"/);
- assert.match(home,/id="finder"/);
- assert.match(home,/id="clear-search"/);
- assert.match(home,/const stops=new Set/);
+test('liens valides et catalogue actuel cohérent',()=>{
+ for(const target of ['catalogue.html','fiches.html','parcours.html','avancement.html','index.html'])
+   assert.ok(existsSync(new URL('../'+target,import.meta.url)),target);
+ const catalogue=readFileSync(new URL('../catalogue.html',import.meta.url),'utf8');
+ assert.match(catalogue,/id="toolQuery"/);
+ assert.match(catalogue,/id="resetQuery"/);
+ assert.match(catalogue,/id="toolsGrid"/);
+ assert.match(catalogue,/id="resultCount"/);
+ assert.match(home,/href="\.\/catalogue\.html"/);
 });
+
 test('confidentialité et absence de paiement',()=>{
  assert.doesNotMatch(script,/fetch\(|XMLHttpRequest|localStorage|sessionStorage|sendBeacon|https?:\/\//);
  assert.doesNotMatch(html,/stripe|paypal|checkout|api[_-]?key|carte bancaire/i);
