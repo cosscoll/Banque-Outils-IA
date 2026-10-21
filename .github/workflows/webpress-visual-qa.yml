@@ -1,0 +1,65 @@
+name: Web Press - real WebGL smoke test
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/webpress-visual-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  webgl:
+    if: github.repository == 'cosscoll/Banque-Outils-IA'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install free Chromium testing dependencies
+        working-directory: demo/web-press
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Test real GLB rendering in a browser
+        working-directory: demo/web-press
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/webpress-server.log 2>&1 &
+          mkdir -p evidence
+          node --input-type=module <<'JS'
+          import {chromium} from 'playwright';
+          import fs from 'node:fs';
+          const browser=await chromium.launch({headless:true,args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+          const page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1});
+          const errors=[];
+          page.on('pageerror',e=>errors.push(String(e)));
+          page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
+          page.on('requestfailed',req=>errors.push(req.url()+' '+req.failure()?.errorText));
+          await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded'});
+          try{await page.waitForFunction(()=>document.querySelector('#render-status')?.textContent.includes('ACTIF'),{timeout:26000})}catch(e){}
+          const result=await page.evaluate(()=>{
+            let support=false;
+            try{support=!!document.createElement('canvas').getContext('webgl')}catch(e){}
+            return {status:document.querySelector('#render-status')?.textContent,glContext:support,
+            heroCanvasInHero:document.querySelector('#hero-stage')?.contains(document.querySelector('#three-canvas')),
+            canvasVisible:(()=>{const c=document.querySelector('#three-canvas');return !!c&&getComputedStyle(c).opacity==='1'})(),
+            image:document.querySelector('#hero-stage')?.getBoundingClientRect().toJSON()};
+          });
+          await page.screenshot({path:'evidence/hero-webgl-smoke.png'});
+          await page.evaluate(()=>document.querySelector('#journey')?.scrollIntoView());
+          await page.waitForTimeout(600);
+          await page.screenshot({path:'evidence/story-webgl-smoke.png'});
+          fs.writeFileSync('evidence/report.json',JSON.stringify({...result,errors},null,2));
+          console.log('WEB_PRESS_G4_RESULT',JSON.stringify({...result,errors}));
+          await browser.close();
+          if(!result.status?.includes('ACTIF')||!result.canvasVisible||!result.heroCanvasInHero||errors.some(x=>x.includes('404')))process.exit(1);
+          JS
+      - name: Preserve screenshots and runtime diagnostics even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-press-browser-evidence
+          path: demo/web-press/evidence/
+          if-no-files-found: warn
+          retention-days: 7
