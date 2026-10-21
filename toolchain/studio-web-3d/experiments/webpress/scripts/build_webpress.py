@@ -183,7 +183,7 @@ def studio_object(obj):
  for coll in tuple(obj.users_collection):coll.objects.unlink(obj)
  WORLD.objects.link(obj)
 
-floor=cube('Stage floor',(0,0,-2.02),(200,200,.2),back,.0);studio_object(floor)
+floor=cube('Stage floor',(0,0,-1.82),(200,200,.2),back,.0);studio_object(floor)
 
 def area(name,location,color,energy,size,target):
  d=bpy.data.lights.new(name,'AREA');d.energy=energy;d.color=color;d.shape='DISK';d.size=size
