@@ -141,3 +141,57 @@ a{color:inherit;text-decoration:none}button,input{font:inherit}button{cursor:poi
  .library-page .method-card .method-spec:nth-of-type(3){grid-column:2!important;grid-row:3!important}
  .library-page .method-card>a{grid-column:2!important;grid-row:4!important;align-self:end!important;padding:18px 0 0!important;margin:18px 0 0!important}
 }
+
+
+/* Interactive material previews: each hover illustrates the actual family of work. */
+.use-link{position:relative;isolation:isolate;overflow:visible}
+.use-output{position:absolute;top:50%;right:clamp(53px,8vw,142px);z-index:5;min-height:94px;min-width:205px;width:clamp(205px,24vw,320px);background:#e7e4d9;color:#193944;border:1px solid #193944;box-shadow:8px 11px 0 #0c27317a;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:14px 19px;opacity:0;visibility:hidden;transform:translateY(-43%) rotate(-3deg) scale(.94);transition:opacity .3s ease,visibility .3s,transform .45s cubic-bezier(.22,1,.36,1);pointer-events:none;white-space:normal}
+.use-output strong{font:800 18px 'Syne',sans-serif;letter-spacing:-.055em;line-height:1}
+.use-output i{font:500 12px/1.35 Manrope,sans-serif;font-style:normal}
+.use-output small{font:600 9px 'DM Mono',monospace;letter-spacing:.04em}
+.use-output-letter{background:#fbfbf5;color:#264343}
+.use-output-letter strong{font:600 30px Georgia,serif;letter-spacing:-.05em}
+.use-output-poster{background:#ce4e39;color:white;transform:translateY(-43%) rotate(5deg) scale(.94)}
+.use-output-poster strong{font-size:30px;letter-spacing:-.09em}
+.use-output-code{background:#1a3540;color:#dbece9}
+.use-output-code code{color:#e3b29b;font:500 12px 'DM Mono',monospace}
+.use-output-audio{background:#e5ebe7}
+.use-output-audio i{font:700 22px 'DM Mono',monospace;color:#ce4e39}
+.use-output-flow{background:#d5e7dc}
+.use-output-flow strong,.use-output-flow i{font:700 14px 'Syne',sans-serif}
+.use-output-data{background:#f5eddf}
+.use-output-data strong{font:700 39px 'DM Mono',monospace;color:#ce4e39}
+@media(min-width:1040px) and (hover:hover) and (pointer:fine){
+ .use-link:hover .use-output{opacity:1;visibility:visible;transform:translateY(-50%) rotate(-2deg) scale(1)}
+ .use-link:hover .use-output-poster{transform:translateY(-50%) rotate(3deg) scale(1)}
+ .use-link:hover .use-desc{opacity:0}
+ .use-desc{transition:opacity .2s}
+}
+@media(min-width:1040px){
+ .use-link:focus-visible .use-output{opacity:1;visibility:visible;transform:translateY(-50%) rotate(0deg) scale(1)}
+ .use-link:focus-visible .use-desc{opacity:0}
+}
+@media(max-width:1039px){.use-output{display:none}}
+/* Restored visible 3D + hover reactions. */
+.home-workshop{background:#c7d9d5;min-height:660px;border-top:2px solid #193944;border-bottom:2px solid #193944}
+.home-workshop .workshop{height:min(570px,44vw);min-height:400px;background:radial-gradient(ellipse at 45% 46%,#f3f6f1 4%,#d5e4df 52%,#bfd1cc 93%);border:1px solid #789d99;overflow:hidden}
+.home-workshop .workshop canvas{touch-action:pan-y}
+.demo-modes button{transition:transform .22s cubic-bezier(.23,1,.32,1),background .2s,border-color .2s,box-shadow .2s}
+.demo-modes button:hover{transform:translateY(-5px);box-shadow:4px 5px 0 #9baead}
+.demo-modes button:focus-visible{outline:2px solid #ce4e39}
+.workshop .stage-top,.workshop .stage-bottom{z-index:6}
+.masthead-nav a,.masthead-mobile a{transition:color .22s,transform .25s}
+.masthead-nav a:hover{transform:translateY(-3px)}
+.masthead-cta{transition:background .2s,transform .25s cubic-bezier(.23,1,.32,1)}
+.masthead-cta:hover{transform:translateY(-3px)}
+.m-casebar button{transition:background .25s,color .25s,transform .28s cubic-bezier(.23,1,.32,1),box-shadow .25s}
+.m-casebar button:hover{transform:translateY(-4px);box-shadow:4px 5px 0 #19394420}
+@media(max-width:760px){.home-workshop .workshop{height:440px;min-height:360px}}
+@media(max-width:550px){.home-workshop .workshop{height:340px;min-height:300px}.stage-bottom span:last-child{display:none}}
+/* Scroll entrance transitions: only enabled when script is running. */
+@media(prefers-reduced-motion:no-preference){
+ .motion-ready .scroll-reveal{opacity:0;transform:translateY(34px);transition:opacity .75s cubic-bezier(.23,1,.32,1),transform .75s cubic-bezier(.23,1,.32,1)}
+ .motion-ready .scroll-reveal.is-visible{opacity:1;transform:translateY(0)}
+ .motion-ready .use-link.scroll-reveal{transform:translateY(15px)}
+ .motion-ready .use-link.scroll-reveal.is-visible{transform:translateY(0)}
+}
