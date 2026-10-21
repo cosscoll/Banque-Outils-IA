@@ -82,8 +82,8 @@ function keyboardCanvas(){const c=document.createElement('canvas');c.width=1024;
  x.fillStyle='#15231e';x.beginPath();x.roundRect(290,392,440,32,8);x.fill();return c;}
 async function init3D(){
  const holder=document.getElementById('workshop'),canvas=document.getElementById('atelier3d');if(!holder||!canvas)return;
- let THREE;
- try{THREE=await import('https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js')}catch(error){console.warn('Three.js inaccessible. Vue de remplacement utilisée.',error);window.__atelierDebug={webgl:false,reason:'three-import'};return}
+ const THREE=window.THREE;
+ if(!THREE){console.warn('Three.js local indisponible. Vue de remplacement utilisée.');window.__atelierDebug={webgl:false,reason:'three-local'};return}
  let renderer;
  try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.6));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.35}
  catch(error){console.warn('WebGL inaccessible. Vue de remplacement utilisée.',error);window.__atelierDebug={webgl:false,reason:'context'};return}
