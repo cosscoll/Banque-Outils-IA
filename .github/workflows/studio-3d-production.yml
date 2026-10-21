@@ -1,5 +1,7 @@
 name: Studio Web 3D — modéliser et tester sans paiement
 on:
+  push:
+    paths: ['.github/workflows/studio-3d-production.yml']
   workflow_dispatch:
     inputs:
       publish_assets:
@@ -41,10 +43,10 @@ jobs:
           npx playwright install --with-deps chromium
           npm run test:browser
       - name: Save generated original assets only when requested
-        if: ${{ inputs.publish_assets }}
+        if: ${{ inputs.publish_assets || github.event_name == 'push' }}
         run: |
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git config user.name 'github-actions[bot]'
           git add toolchain/studio-web-3d/web/public/assets/
-          git diff --cached --quiet || git commit -m 'Generate original 3D model and render preview [skip ci]'
+          git diff --cached --quiet || git commit -m 'Generate original 3D model and render preview'
           git push
