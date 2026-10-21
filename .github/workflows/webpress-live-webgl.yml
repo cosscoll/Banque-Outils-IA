@@ -1,0 +1,63 @@
+name: Web Press - verify actual GitHub Pages WebGL
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/webpress-live-webgl.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  live-webgl:
+    if: github.repository == 'cosscoll/Banque-Outils-IA'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright on standard free runner
+        working-directory: demo/web-press
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Test production URL with WebGL enabled
+        working-directory: demo/web-press
+        run: |
+          mkdir -p evidence/live
+          node --input-type=module <<'JS'
+          import {chromium} from 'playwright';
+          import fs from 'node:fs';
+          const url='https://cosscoll.github.io/Banque-Outils-IA/demo/web-press/';
+          const browser=await chromium.launch({headless:true,args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+          const page=await browser.newPage({viewport:{width:1440,height:900}});
+          const errors=[];
+          page.on('pageerror',e=>errors.push(String(e)));
+          page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
+          page.on('requestfailed',req=>errors.push(req.url()+': '+req.failure()?.errorText));
+          const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:45000});
+          try{await page.waitForFunction(()=>document.querySelector('#render-status')?.textContent.includes('MODÈLE BLENDER ACTIF'),{timeout:35000})}catch(e){}
+          const state=await page.evaluate(()=>({
+            status:document.querySelector('#render-status')?.textContent,
+            model:window.__webPressDebug?.modelBounds,
+            camera:window.__webPressDebug?.cameraPosition,
+            canvasInHero:document.querySelector('#hero-stage')?.contains(document.querySelector('#three-canvas')),
+            posterHidden:getComputedStyle(document.querySelector('.hero-photo')).opacity==='0',
+            canvasVisible:getComputedStyle(document.querySelector('#three-canvas')).opacity==='1'
+          }));
+          const out={url,httpStatus:response?.status(),...state,errors};
+          fs.writeFileSync('evidence/live/live-report.json',JSON.stringify(out,null,2));
+          console.log('WEB_PRESS_LIVE_RESULT',JSON.stringify(out));
+          await page.screenshot({path:'evidence/live/live-hero.png',timeout:20000,animations:'disabled'});
+          await browser.close();
+          if(out.httpStatus!==200||!state.status?.includes('ACTIF')||!state.model||!state.camera||state.camera[1]<=1||!state.canvasInHero||!state.posterHidden||!state.canvasVisible||errors.some(x=>/404|ERR_ABORTED|net::ERR/.test(x)))process.exit(1);
+          JS
+      - name: Save live web results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-press-LIVE-GPU-evidence
+          path: demo/web-press/evidence/live/
+          retention-days: 7
+          if-no-files-found: warn
