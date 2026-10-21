@@ -27,7 +27,22 @@
   moveTo((event.clientX-r.left)/r.width*100);
  }
  stage.addEventListener('pointerenter',follow);
- stage.addEventListener('pointermove',follow);
+ stage.addEventListener('pointermove',event=>{
+  if(event.pointerType==='touch'){
+   if(!stage.hasPointerCapture(event.pointerId))return;
+   const r=stage.getBoundingClientRect();
+   if(r.width)moveTo((event.clientX-r.left)/r.width*100);
+  }else follow(event);
+ });
+ stage.addEventListener('pointerdown',event=>{
+  if(event.pointerType!=='touch')return;
+  const r=stage.getBoundingClientRect();
+  if(r.width)moveTo((event.clientX-r.left)/r.width*100);
+  try{stage.setPointerCapture(event.pointerId)}catch(_){}
+ });
+ stage.addEventListener('pointerup',event=>{
+  if(event.pointerType==='touch'&&stage.hasPointerCapture(event.pointerId))stage.releasePointerCapture(event.pointerId);
+ });
  stage.addEventListener('pointerleave',()=>{if(mouseLike.matches&&document.activeElement!==slider)moveTo(50)});
  slider.addEventListener('input',()=>moveTo(slider.value));
  slider.addEventListener('change',()=>moveTo(slider.value));
