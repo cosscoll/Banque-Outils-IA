@@ -12,7 +12,6 @@ const js=read('assets/kinetic-hero.js');
 const obscure=read('assets/obscure-pop.css');
 const terrain=read('assets/obscure-terrain.svg');
 const theme=read('assets/transformation.css');
-const atelier=read('assets/atelier.js');
 const catalog=read('catalogue.html');
 const inside=['catalogue.html','fiches.html','parcours.html','avancement.html'];
 const count=(s,reg)=>[...s.matchAll(reg)].length;
@@ -27,7 +26,7 @@ const checks=[
   assert.match(html,/id="main-title"/);
   assert.match(html,/id="kineticStage"/);
   assert.match(html,/id="kineticToggle"/);
-  assert.ok(html.indexOf('id="experience"')<html.indexOf('id="atelier"'));
+  assert.ok(html.indexOf('id="experience"')<html.indexOf('id="usages"'));
   assert.match(html,/assets\/kinetic-hero\.css/);
   assert.match(html,/assets\/kinetic-hero\.js/);
  }],
@@ -38,7 +37,9 @@ const checks=[
   assert.match(html,/class="kinetic-constellation op-constellation"/);
   assert.match(obscure,/\.op-stage\[data-open=true\] \.op-card/);
   assert.match(obscure,/transform-style:preserve-3d/);
-  assert.match(terrain,/feTurbulence/);
+  assert.doesNotMatch(terrain,/feTurbulence|filter="url\(#noise\)"|M0 0h1400v720H0z/);
+  assert.match(terrain,/viewBox="0 382 1400 338"/);
+  assert.match(obscure,/\.op-volcanic-rocks\{[^}]*filter:none/);
   assert.doesNotMatch(html,/class="kinetic-sheet /);
  }],
  ['Obscure Pop is consistent across all pages and header stays sticky',()=>{
@@ -70,15 +71,12 @@ const checks=[
   assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
   assert.match(html,/aria-pressed="false"/);
  }],
- ['WebGL workspace and its four modes remain intact',()=>{
-  assert.match(html,/id="atelier3d"/);
-  assert.match(html,/id="workshopFallback"/);
-  assert.equal(count(html,/data-mode="[0-3]"/g),4);
-  assert.ok(html.indexOf('vendor/three.min.js')<html.indexOf('assets/atelier.js'));
-  assert.ok(fs.statSync(path.join(root,'assets/vendor/three.min.js')).size>300000);
-  assert.match(atelier,/new THREE\.WebGLRenderer/);
-  assert.match(atelier,/threeScroll\(progress\)/);
-  assert.match(theme,/\.scroll-reveal\.is-visible/);
+ ['Unwanted computer model and obsolete navigation are fully gone',()=>{
+   assert.doesNotMatch(html,/id="atelier3d"|id="workshopFallback"|id="workshop"|id="atelier"/);
+   assert.doesNotMatch(html,/href="#atelier"|Atelier 3D/);
+   assert.doesNotMatch(html,/assets\/atelier\.js|assets\/vendor\/three\.min\.js/);
+   assert.doesNotMatch(html,/data-mode="[0-3]"/);
+   assert.match(html,/href="#usages"/);
  }],
  ['Six tool categories remain only lower in the homepage',()=>{
   assert.match(html,/id="usages"/);
@@ -97,6 +95,7 @@ const checks=[
   assert.equal(ids.length,new Set(ids).size);
   assert.equal(count(css,/\{/g),count(css,/\}/g));
   assert.equal(count(obscure,/\{/g),count(obscure,/\}/g));
+  assert.match(obscure,/overflow-x:clip/);
  }]
 ];
 let failed=0;
