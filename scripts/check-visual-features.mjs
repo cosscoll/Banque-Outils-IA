@@ -53,7 +53,10 @@ const checks=[
   }
   assert.match(obscure,/\.obscure-pop \.masthead\{position:sticky!important;top:0!important/);
   assert.match(obscure,/\.library-page\.obscure-pop \.header\{position:sticky!important;top:0!important/);
-  assert.match(obscure,/--op-lime:#d9ff3a/);
+  assert.match(obscure,/--op-lime:#B9CEA2/);
+  assert.doesNotMatch(obscure,/#d9ff3a/i);
+  assert.match(obscure,/\.op-card--auto\s*\{[^}]*background:var\(--op-sage\)/);
+  assert.match(obscure,/\.obscure-pop \.kinetic-left h1 em\s*\{[^}]*color:var\(--op-lavender\)/);
  }],
  ['Mouse hover unfolds and orients the site without clicks',()=>{
   assert.match(js,/stage\.addEventListener\('pointerenter'/);
@@ -92,7 +95,7 @@ const checks=[
   assert.match(obscure,/\.obscure-pop \.kinetic-right\s*\{[^}]*z-index:\s*6/);
   assert.match(obscure,/\.obscure-pop \.kinetic-stage\.op-stage\s*\{[^}]*z-index:\s*7/);
   assert.match(obscure,/\.obscure-pop \.op-card\s*\{[^}]*pointer-events:\s*auto/);
-  assert.match(html,/obscure-pop\.css\?v=20261022-hover-hitfix/);
+  assert.match(html,/obscure-pop\.css\?v=20261022-softpop/);
  }],
  ['Touch, keyboard and mobile menu still work',()=>{
   assert.match(js,/toggleButton\.addEventListener\('click'/);
