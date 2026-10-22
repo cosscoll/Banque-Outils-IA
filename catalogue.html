@@ -1,6 +1,20 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0B0B0D"><meta name="description" content="Trouvez un outil IA adapté à votre projet : écriture, design, web, vidéo, automatisation ou recherche. Exemples pratiques et filtres par besoin."><link rel="canonical" href="https://cosscoll.github.io/Banque-Outils-IA/catalogue.html"><link rel="stylesheet" href="./assets/atelier.css"><link rel="stylesheet" href="./assets/atelier-inner.css"><title>Catalogue de 18 outils IA par usage — Banque Outils IA</title><link rel="stylesheet" href="./assets/transformation.css"><link rel="stylesheet" href="./assets/obscure-pop.css?v=20261022-softpop"><link rel="stylesheet" href="./assets/conversion.css?v=20261022-ux01"></head>
-<body class="library-page obscure-pop"><a class="skip-link" href="#contenu">Aller au contenu</a><header class="header"><a class="identity" href="./index.html"><span class="identity-symbol" aria-hidden="true"><span></span><span></span><span></span></span><span>BANQUE<span class="identity-divider">/</span>OUTILS<span class="identity-accent">IA</span></span></a><nav class="desktop-nav" aria-label="Navigation principale"><a href="./index.html">Accueil</a><a href="./catalogue.html" aria-current="page">Catalogue</a><a href="./fiches.html">Méthodes</a></nav><a class="header-action" href="./index.html#usages">Explorer les usages ↗</a><button class="menu-button" aria-expanded="false" aria-controls="mobileNav" aria-label="Ouvrir le menu"><span></span><span></span></button></header><nav id="mobileNav" class="mobile-nav" hidden aria-label="Navigation mobile"><a href="./index.html">Accueil</a><a href="./catalogue.html">Catalogue</a><a href="./fiches.html">Méthodes</a><a href="./index.html#usages">Explorer les usages</a></nav>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0B0B0D"><meta name="description" content="Trouvez un outil IA adapté à votre projet : écriture, design, web, vidéo, automatisation ou recherche. Exemples pratiques et filtres par besoin."><link rel="canonical" href="https://cosscoll.github.io/Banque-Outils-IA/catalogue.html"><link rel="stylesheet" href="./assets/atelier.css"><link rel="stylesheet" href="./assets/atelier-inner.css"><title>Catalogue de 18 outils IA par usage — Banque Outils IA</title><link rel="stylesheet" href="./assets/transformation.css"><link rel="stylesheet" href="./assets/obscure-pop.css?v=20261022-softpop"><link rel="stylesheet" href="./assets/conversion.css?v=20261022-ux01"><link rel="stylesheet" href="./assets/journey-nav.css?v=20261022-simple-nav"></head>
+<body class="library-page obscure-pop"><a class="skip-link" href="#contenu">Aller au contenu</a><header class="global-header" role="banner">
+  <a class="global-logo" href="./index.html" aria-label="Banque Outils IA — accueil">banque<span>/</span>outils<span>ia</span></a>
+  <nav class="global-nav" aria-label="Navigation principale">
+    <a href="./catalogue.html" aria-current="page">Les outils</a>
+    <a href="./fiches.html">Les méthodes</a>
+  </nav>
+  <a class="global-start" href="./parcours.html">Me guider <span aria-hidden="true">↗</span></a>
+  <button type="button" class="global-menu-toggle" aria-expanded="false" aria-controls="global-mobile-nav" aria-label="Ouvrir le menu">MENU <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <nav id="global-mobile-nav" class="global-mobile-nav" aria-label="Navigation mobile" hidden>
+    <a href="./index.html">Accueil <span aria-hidden="true">↗</span></a>
+    <a href="./catalogue.html" aria-current="page">Les outils <span aria-hidden="true">↗</span></a>
+    <a href="./fiches.html">Les méthodes <span aria-hidden="true">↗</span></a>
+    <a href="./parcours.html">Me guider <span aria-hidden="true">↗</span></a>
+  </nav>
+</header><nav id="mobileNav" class="mobile-nav" hidden aria-label="Navigation mobile"><a href="./index.html">Accueil</a><a href="./catalogue.html">Catalogue</a><a href="./fiches.html">Méthodes</a><a href="./index.html#usages">Explorer les usages</a></nav>
 <main id="contenu"><section class="library-hero" aria-labelledby="library-title"><p class="section-overline">LA BANQUE / RÉPERTOIRE PUBLIC</p><h1 id="library-title">Un besoin précis.<br>Les <em>bons outils.</em></h1><p class="library-hero-description">Vous avez une tâche en tête ? Comparez des pistes concrètes, voyez ce que chaque service peut vous aider à réaliser, puis ouvrez celui qui vous convient. Sans jargon ni inscription sur ce site.</p><div class="library-hero-meta"><span>18 SERVICES À DÉCOUVRIR · 6 UNIVERS</span><span>RÉPERTOIRE INDICATIF / 2026</span></div></section>
 <section class="library-content" aria-labelledby="result-title"><div class="library-intro"><h2 id="result-title">Trouvez votre point de départ.</h2><p>Tapez votre objectif (« créer un site », « préparer un e-mail », « automatiser ») ou choisissez une catégorie : les résultats s’ajustent immédiatement.</p></div>
 <div class="library-finder" id="recherche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.9"></circle><path d="m16 16 5 5"></path></svg><input id="toolQuery" type="search" aria-label="Rechercher un outil ou un usage" placeholder="Que voulez-vous faire ? Ex. vidéo, texte, automatiser…" autocomplete="off"><button id="resetQuery" class="library-reset" type="button">Effacer</button></div>
@@ -90,14 +104,14 @@ reset.addEventListener('click',()=>{
 const toggle=document.querySelector('.menu-button');
 const nav=document.getElementById('mobileNav');
 if(toggle&&nav){
- toggle.addEventListener('click',()=>{
+ toggle?.addEventListener('click',()=>{
  const opening=toggle.getAttribute('aria-expanded')!=='true';
  toggle.setAttribute('aria-expanded',String(opening));nav.hidden=!opening;
  });
- nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
+ nav?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
  nav.hidden=true;toggle.setAttribute('aria-expanded','false');
  }));
 }
 render();
 })();</script>
-</body></html>
+<script defer src="./assets/journey-nav.js?v=20261022-simple-nav"></script></body></html>
