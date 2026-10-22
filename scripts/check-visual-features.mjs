@@ -1,79 +1,95 @@
 #!/usr/bin/env node
-// Regression guard — no packages required, no external network calls.
-// Run locally: node scripts/check-visual-features.mjs
+// Banque Outils IA — non-regression, statique, sans dépendances externes.
+// node scripts/check-visual-features.mjs
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-
-const root=path.resolve(import.meta.dirname,'..');
-const file=p=>fs.readFileSync(path.join(root,p),'utf8');
-const html=file('index.html'),css=file('assets/transformation.css'),atelier=file('assets/atelier.js'),comparison=file('assets/transformation.js');
-const matchCount=(content,pattern)=>[...content.matchAll(pattern)].length;
-
-const checks=[
- ['Three.js vendor remains loaded before atelier.js',()=>{
-    assert.match(html,/<script defer src="\.\/assets\/vendor\/three\.min\.js"><\/script>/);
-    assert.match(html,/<script defer src="\.\/assets\/atelier\.js"><\/script>/);
-    assert.ok(html.indexOf('vendor/three.min.js')<html.indexOf('assets/atelier.js'));
-    assert.ok(fs.statSync(path.join(root,'assets/vendor/three.min.js')).size>300000);
+import {fileURLToPath} from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const read=name=>fs.readFileSync(path.join(root,name),'utf8');
+const home=read('index.html');
+const theme=read('assets/transformation.css');
+const demoCSS=read('assets/experience-demo.css');
+const demoJS=read('assets/experience-demo.js');
+const atelier=read('assets/atelier.js');
+const catalogue=read('catalogue.html');
+const count=(s,reg)=>[...s.matchAll(reg)].length;
+const tests=[
+ ['The selected design and functional demo remain at the top',()=>{
+  assert.match(home,/id="experience"/);
+  assert.match(home,/id="expDemo"/);
+  assert.match(home,/id="expBrowserContent"/);
+  assert.ok(home.indexOf('id="experience"')<home.indexOf('id="atelier"'));
+  assert.ok(home.indexOf('id="experience"')<home.indexOf('id="usages"'));
+  assert.match(home,/assets\/experience-demo\.css/);
+  assert.match(home,/assets\/experience-demo\.js/);
  }],
- ['Visible interactive 3D section and fallback remain available',()=>{
-    assert.match(html,/id="workshop"/);
-    assert.match(html,/id="atelier3d"/);
-    assert.match(html,/id="workshopFallback"/);
-    assert.ok(html.indexOf('class="home-workshop')<html.indexOf('class="transformations"'));
-    assert.match(atelier,/window\.THREE/);
-    assert.match(atelier,/new THREE\.WebGLRenderer/);
+ ['The rejected horizontal before/after slider and duplicate category tabs are absent',()=>{
+  assert.doesNotMatch(home,/id="compareStage"|id="rangeBeforeAfter"/);
+  assert.doesNotMatch(home,/data-bank=|class="bank-selector"/);
+  assert.doesNotMatch(home,/assets\/banks-hover\.js|assets\/transformation\.js/);
  }],
- ['3D has hover control and four working mode selectors',()=>{
-    assert.equal(matchCount(html,/data-mode="[0-3]"/g),4);
-    assert.match(atelier,/addEventListener\('mouseenter'/);
-    assert.match(atelier,/canvas\.addEventListener\('pointermove'/);
-    assert.match(atelier,/threeSelect=\(i\)=>/);
+ ['Live demonstration has real hover, touch, focus and click behaviors',()=>{
+  assert.equal(count(home,/data-demo-trigger="(?:copy|object|workflow)"/g),3);
+  assert.match(demoJS,/addEventListener\('pointerenter'/);
+  assert.match(demoJS,/addEventListener\('pointerleave'/);
+  assert.match(demoJS,/addEventListener\('focus'/);
+  assert.match(demoJS,/addEventListener\('click'/);
+  assert.match(demoJS,/setAttribute\('aria-hidden'/);
+  assert.match(demoJS,/scroller\.addEventListener\('scroll'/);
  }],
- ['Scroll-directed camera and scroll reveal exist',()=>{
-    assert.match(atelier,/rect=holder\.getBoundingClientRect/);
-    assert.match(atelier,/threeScroll\(progress\)/);
-    assert.match(atelier,/scroll-reveal/);
-    assert.match(css,/\.scroll-reveal\.is-visible/);
+ ['Demonstration shows site, crafted object and honest workflow',()=>{
+  for(const id of ['expLiveHeadline','expLiveDescription','expFinishLabel','expWorkflow','expActionStatus'])
+   assert.match(home,new RegExp('id="'+id+'"'));
+  assert.match(home,/id="expLiveHeadline"/);
+  assert.match(home,/AUCUNE DEMANDE ENVOYÉE/);
+  assert.match(home,/fictif|fictive/i);
+  assert.match(demoCSS,/\.exp-demo\[data-demo-state="object"\]/);
+  assert.match(demoCSS,/\.exp-demo\[data-demo-state="workflow"\]/);
  }],
- ['Six categories have meaningful animated hover previews',()=>{
-    assert.equal(matchCount(html,/class="use-output use-output-/g),6);
-    assert.match(css,/\.use-link:hover \.use-output/);
-    assert.match(css,/\.use-link:focus-visible \.use-output/);
+ ['Mobile and accessible reduced-motion paths remain present',()=>{
+  assert.match(demoCSS,/@media\(max-width:480px\)/);
+  assert.match(demoCSS,/@media\(prefers-reduced-motion:reduce\)/);
+  assert.match(home,/tabindex="0"/);
+  assert.match(home,/data-demo-trigger="object"/);
+  assert.match(demoJS,/event\.key==='Escape'/);
  }],
- ['Six-bank hover stage and unique catalogue categories remain available',()=>{
-    const bankJS=file('assets/banks-hover.js'),bankCSS=file('assets/banks-hover.css');
-    const names=['redaction','creation','dev','medias','auto','recherche'];
-    for(const name of names){
-      assert.match(html,new RegExp('data-bank="'+name+'"'));
-      assert.match(bankJS,new RegExp('categorie='+name));
-    }
-    assert.equal(matchCount(html,/class="bank-choice(?: is-active)?"/g),6);
-    assert.match(html,/id="compareStage"/);
-    assert.match(html,/id="bankOutputArt"/);
-    assert.match(html,/assets\/banks-hover\.js/);
-    assert.match(html,/assets\/banks-hover\.css/);
-    assert.match(bankJS,/addEventListener\('pointerenter'/);
-    assert.match(bankJS,/addEventListener\('click'/);
-    assert.match(bankCSS,/\.bank-stage\.is-changing/);
+ ['Existing WebGL atelier and animations remain loaded',()=>{
+  assert.match(home,/<script defer src="\.\/assets\/vendor\/three\.min\.js"><\/script>/);
+  assert.match(home,/<script defer src="\.\/assets\/atelier\.js"><\/script>/);
+  assert.ok(home.indexOf('vendor/three.min.js')<home.indexOf('assets/atelier.js'));
+  assert.ok(fs.statSync(path.join(root,'assets/vendor/three.min.js')).size>300000);
+  assert.match(home,/id="workshop"/);
+  assert.match(home,/id="atelier3d"/);
+  assert.equal(count(home,/data-mode="[0-3]"/g),4);
+  assert.match(atelier,/new THREE\.WebGLRenderer/);
+  assert.match(atelier,/canvas\.addEventListener\('pointermove'/);
+  assert.match(atelier,/threeScroll\(progress\)/);
+  assert.match(theme,/\.scroll-reveal\.is-visible/);
  }],
- ['Before and after comparison supports hover, mobile and keyboard',()=>{
-    assert.match(html,/id="rangeBeforeAfter"/);
-    assert.match(comparison,/stage\.addEventListener\('pointermove'/);
-    assert.match(comparison,/stage\.addEventListener\('pointerdown'/);
-    assert.match(comparison,/slider\.addEventListener\('input'/);
-    assert.match(css,/\.m-range:focus-visible/);
+ ['The six tool families stay in the existing bottom section',()=>{
+  assert.match(home,/id="usages"/);
+  const categories=['redaction','creation','dev','medias','auto','recherche'];
+  for(const category of categories)
+   assert.match(home,new RegExp('\\?categorie='+category+'#recherche'));
+  assert.match(catalogue,/data-filter="tout"/);
  }],
- ['Motion remains accessible and no automated spending is introduced',()=>{
-    assert.match(css,/prefers-reduced-motion:reduce/);
-    assert.doesNotMatch(html,/stripe\.com|checkout\.stripe|buy\.stripe/i);
+ ['Commercial calls to action lead to real existing pages',()=>{
+  assert.match(home,/href="\.\/fiches\.html"/);
+  assert.match(home,/href="\.\/catalogue\.html"/);
+  assert.doesNotMatch(home,/stripe\.com|checkout\.stripe\.com/i);
+ }],
+ ['Unique HTML IDs and balanced style rules',()=>{
+  const ids=[...home.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
+  assert.equal(ids.length,new Set(ids).size);
+  for(const style of [theme,demoCSS])
+   assert.equal(count(style,/\{/g),count(style,/\}/g));
  }]
 ];
-let failed=0;
-for(const [name,check] of checks){
- try{check();console.log('PASS',name)}
- catch(err){failed++;console.error('FAIL',name,'—',err.message)}
+let failures=0;
+for(const [name,verify] of tests){
+ try{verify();console.log('PASS',name)}
+ catch(error){failures++;console.error('FAIL',name,'—',error.message)}
 }
-if(failed){console.error(failed+' regression check(s) failed');process.exitCode=1}
-else console.log(checks.length+' checks passed. Real-device GPU/visual QA remains separate.');
+if(failures){console.error(failures+' checks failed');process.exitCode=1}
+else console.log(tests.length+' regression checks passed. Visual/GPU tests are separate.');
