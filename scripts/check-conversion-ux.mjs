@@ -121,35 +121,36 @@ check('Six distinct showrooms connect to the product hub and remain honest about
  assert.equal((hub.match(/class="collection-tile"/g)||[]).length,6);
  assert.match(hub,/aucun achat, paiement ou téléchargement payant/i);
  for(const name of names){
-  assert.match(hub,new RegExp('href="\\./'+name+'"'));
+  assert.ok(hub.includes('href="./'+name+'"'),name+' link missing from hub');
   const page=html.get(name);
+  assert.ok(page,name+' page missing');
   assert.match(page,/class="showroom-scene is-open"/);
   assert.match(page,/id="demo-action"/);
   assert.match(page,/id="demo-result"/);
-  assert.equal((page.match(/class="showroom-object"/g)||[]).length,3,name+' 3D supports');
-  assert.equal((page.match(/class="showroom-feature"/g)||[]).length,3,name+' content panels');
-  assert.match(page,/tarifs?[^<]*à (?:définir|valider)|Prix non fixé|prix et conditions sont encore à valider/i);
+  assert.equal((page.match(/class="showroom-object"/g)||[]).length,3,name+' supports');
+  assert.equal((page.match(/class="showroom-feature"/g)||[]).length,3,name+' panels');
+  assert.match(page,/Prix non fixé|prix et conditions sont encore à valider|conditions et prix sont encore à valider/i);
   assert.match(page,/Aucun achat possible actuellement/i);
-  assert.match(page,/assets\\/product-showroom\\.css/);
-  assert.match(page,/assets\\/product-showroom\\.js/);
+  assert.ok(page.includes('assets/product-showroom.css'),name+' CSS missing');
+  assert.ok(page.includes('assets/product-showroom.js'),name+' script missing');
   assert.match(page,/noindex,follow/);
  }
  const css=read('assets/product-showroom.css');
- assert.match(css,/transform-style:preserve-3d/);
+ assert.ok(css.includes('transform-style:preserve-3d'));
  const js=read('assets/product-showroom.js');
- assert.match(js,/scene\\.addEventListener\\('pointermove'/);
- assert.match(js,/demo\\.addEventListener\\('click'/);
+ assert.ok(js.includes("scene.addEventListener('pointermove'"));
+ assert.ok(js.includes("demo.addEventListener('click'"));
 });
 check('Contact preserves a functioning and honest public GitHub draft',()=>{
  const contact=html.get('contact.html');
  assert.match(contact,/canal public provisoire/i);
  assert.match(contact,/id="publicContactForm"/);
- assert.match(contact,/github\\.com\\/cosscoll\\/Banque-Outils-IA\\/issues\\/new/);
+ assert.ok(contact.includes('github.com/cosscoll/Banque-Outils-IA/issues/new'));
  assert.match(contact,/aucun message n'est envoyé depuis cette page/i);
  const form=read('assets/contact-public.js');
- assert.match(form,/form\\.addEventListener\\('submit'/);
- assert.match(form,/dest\\.searchParams\\.set\\('title'/);
- assert.match(form,/dest\\.searchParams\\.set\\('body'/);
+ assert.ok(form.includes("form.addEventListener('submit'"));
+ assert.ok(form.includes("dest.searchParams.set('title'"));
+ assert.ok(form.includes("dest.searchParams.set('body'"));
 });
 check('Progressive disclosure prevents information overload without removing content',()=>{
  const catalog=html.get('catalogue.html');
