@@ -119,3 +119,15 @@ Le contenu a été recentré sur les bénéfices clients et les premiers résult
 **Tests automatisés sans dépendances ni dépense :** `node scripts/check-visual-features.mjs`, `node scripts/check-conversion-ux.mjs` et `node scripts/test-card-hover.mjs`.
 
 Le site reste une version de découverte, sans commande, abonnement ou collecte de prospects active. Une validation du rendu réel, les mentions légales et la conception de l'offre sont nécessaires avant toute commercialisation.
+
+## Simplification du parcours et de la navigation — 22 octobre 2026
+
+Pour éviter la surcharge d'informations, les cinq pages utilisent désormais **un seul header sticky** : logo (retour accueil), « Les outils », « Les méthodes » et un CTA « Me guider ». Sur mobile, un menu compact reprend les quatre destinations et gère Escape, le clic extérieur et la fermeture après sélection.
+
+Le catalogue montre d'abord **six outils (un par catégorie)**, puis laisse afficher les dix-huit sur demande. Une recherche, un filtre ou un lien de catégorie directe affiche toutes les correspondances. Les recherches suggérées restent accessibles dans un panneau facultatif.
+
+La page Méthodes montre d'abord trois fiches puis permet d'afficher les six. Les liens `fiches.html#flux` / `#brief` / `#temps` déplient automatiquement le contenu ciblé, sans impasse de navigation. Le haut de l'accueil et du catalogue a perdu les lignes de texte et les liens redondants.
+
+**Validation sur sources :** 10/10 contrôles UX structurels, 12/12 contrôles des interactions Obscure Pop, et 14/14 simulations de la navigation mobile, de l'expansion des outils et des méthodes. **Rendu GitHub Pages et comportement sur navigateurs réels encore à vérifier.** Aucun paiement ou automatisation activé.
+
+Fichiers : `assets/journey-nav.css`, `assets/journey-nav.js`, les cinq pages HTML et `scripts/check-conversion-ux.mjs`.
