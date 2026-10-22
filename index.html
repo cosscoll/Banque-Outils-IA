@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#ecf0ef">
-<meta name="description" content="Explorez six banques d’outils IA interactives : écriture, création, développement, médias, automatisation et recherche. Des exemples concrets qui évoluent au survol.">
-<meta property="og:title" content="Banque Outils IA — Moins de discours. Montrez-moi.">
+<meta name="description" content="Découvrez une démonstration interactive : une page web qui se transforme au survol, une création visuelle personnalisable et un parcours automatisé simulé. Explorez ensuite les outils IA.">
+<meta property="og:title" content="Banque Outils IA — Découvrez ce que vous pouvez créer.">
 <meta property="og:description" content="Des idées, des résultats concrets, des outils pour y parvenir.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cosscoll.github.io/Banque-Outils-IA/">
 <link rel="canonical" href="https://cosscoll.github.io/Banque-Outils-IA/">
 <link rel="stylesheet" href="./assets/transformation.css">
-<link rel="stylesheet" href="./assets/banks-hover.css">
+<link rel="stylesheet" href="./assets/experience-demo.css">
 <script defer src="./assets/vendor/three.min.js"></script>
-<script defer src="./assets/transformation.js"></script>
-<script defer src="./assets/banks-hover.js"></script>
+<script defer src="./assets/experience-demo.js"></script>
 <script defer src="./assets/atelier.js"></script>
 <title>Banque Outils IA — Moins de discours. Montrez-moi.</title>
 </head>
@@ -23,66 +22,110 @@
 <header class="masthead">
   <a class="m-logo" href="./index.html" aria-label="Banque Outils IA, accueil">banque<span>/</span>outils<span>ia</span></a>
   <nav class="masthead-nav" aria-label="Navigation principale">
-    <a href="#comparer">Comparer</a><a href="#atelier">Atelier 3D</a><a href="#usages">Les usages</a><a href="./catalogue.html">Catalogue</a><a href="./fiches.html">Méthodes</a>
+    <a href="#experience">Démonstration</a><a href="#atelier">Atelier 3D</a><a href="#usages">Les usages</a><a href="./catalogue.html">Catalogue</a><a href="./fiches.html">Méthodes</a>
   </nav>
   <a class="masthead-cta" href="./catalogue.html#recherche">Trouver un outil <span aria-hidden="true">↗</span></a>
   <button class="mobile-menu-toggle" type="button" aria-label="Ouvrir le menu" aria-controls="mobile-menu" aria-expanded="false">MENU ☰</button>
   <nav id="mobile-menu" class="masthead-mobile" aria-label="Navigation mobile" hidden>
-    <a href="#comparer">Comparer</a><a href="#atelier">Atelier 3D interactif</a><a href="#usages">Les usages</a><a href="./catalogue.html">Catalogue</a><a href="./fiches.html">Méthodes</a><a href="./parcours.html">Parcours interactif</a>
+    <a href="#experience">Démonstration</a><a href="#atelier">Atelier 3D interactif</a><a href="#usages">Les usages</a><a href="./catalogue.html">Catalogue</a><a href="./fiches.html">Méthodes</a><a href="./parcours.html">Parcours interactif</a>
   </nav>
 </header>
 <main id="contenu">
-<section class="metamorphose m-hero-entry hero" id="comparer" aria-labelledby="main-title">
- <div class="metamorphose-main">
-  <div class="m-upper">
-   <div><p class="m-overline">BANQUE OUTILS IA / DÉCOUVRIR PAR LE RÉSULTAT</p><h1 id="main-title">Moins de discours.<br><em>Montrez-moi.</em></h1></div>
-   <p class="m-explain">Six banques, six façons d'avancer. Survolez un univers, observez ce que vous pouvez créer, puis découvrez les outils pour essayer.</p>
-  </div>
-  <div class="bank-headline" id="bank-label"><span>LES 6 BANQUES D'OUTILS</span><span>Survolez un univers pour voir ce qu'il permet de réaliser ↓</span></div>
-  <div class="bank-selector" role="group" aria-labelledby="bank-label">
-   <button class="bank-choice" type="button" data-bank="redaction" aria-pressed="false"><span class="bank-index">01 /</span><span class="bank-name">Écrire</span><span class="bank-note">Trouver les bons mots</span><span class="bank-choice-arrow" aria-hidden="true">↗</span></button>
-   <button class="bank-choice is-active" type="button" data-bank="creation" aria-pressed="true"><span class="bank-index">02 /</span><span class="bank-name">Créer</span><span class="bank-note">Donner forme aux idées</span><span class="bank-choice-arrow" aria-hidden="true">↗</span></button>
-   <button class="bank-choice" type="button" data-bank="dev" aria-pressed="false"><span class="bank-index">03 /</span><span class="bank-name">Développer</span><span class="bank-note">Du concept au site</span><span class="bank-choice-arrow" aria-hidden="true">↗</span></button>
-   <button class="bank-choice" type="button" data-bank="medias" aria-pressed="false"><span class="bank-index">04 /</span><span class="bank-name">Vidéo & son</span><span class="bank-note">Monter, raconter, sonoriser</span><span class="bank-choice-arrow" aria-hidden="true">↗</span></button>
-   <button class="bank-choice" type="button" data-bank="auto" aria-pressed="false"><span class="bank-index">05 /</span><span class="bank-name">Automatiser</span><span class="bank-note">Relier les étapes</span><span class="bank-choice-arrow" aria-hidden="true">↗</span></button>
-   <button class="bank-choice" type="button" data-bank="recherche" aria-pressed="false"><span class="bank-index">06 /</span><span class="bank-name">Analyser</span><span class="bank-note">Des données plus claires</span><span class="bank-choice-arrow" aria-hidden="true">↗</span></button>
-  </div>
-  <div class="m-stage bank-stage" id="compareStage" data-bank-active="creation" style="--split:51%;--bank-x:50%;--bank-y:50%" aria-label="Comparateur interactif : survolez l'une des six banques pour découvrir un exemple avant et après. Bougez la souris pour comparer.">
-   <div class="m-before bank-before">
-    <div class="bank-before-sheet">
-     <div class="bank-sheet-head"><span>01 / LE POINT DE DÉPART</span><span>BRIEF NON STRUCTURÉ</span></div>
-     <span class="bank-handwriting" aria-hidden="true">un début d'idée...</span>
-     <h2 id="beforeTitle">atelier samedi<br>créatif ?</h2>
-     <p id="beforeText">une affiche pour donner envie de venir, avec la date et les infos importantes…</p>
-     <div class="bank-rough-stroke" aria-hidden="true"></div>
-     <span class="bank-sheet-foot" id="bankBeforeFoot">IDÉE BRUTE / À STRUCTURER</span>
+<section class="exp-hero" id="experience" aria-labelledby="main-title">
+  <div class="exp-intro">
+    <div class="exp-intro-main">
+      <p class="exp-eyebrow"><span class="exp-eyebrow-line" aria-hidden="true"></span> LE NUMÉRIQUE EN ACTION / DÉMONSTRATION 001</p>
+      <h1 id="main-title">Ne regardez pas<br>ce que l’IA promet.<br><em>Essayez ce qu’elle permet.</em></h1>
+      <p class="exp-intro-copy">Un site interactif, un univers graphique qui évolue, une demande qui se transforme en tâche : voilà le type de réalisation que nos méthodes et les outils sélectionnés permettent d'explorer.</p>
+      <div class="exp-hero-actions">
+        <a class="exp-primary-cta" href="./fiches.html">Découvrir comment faire <span aria-hidden="true">↗</span></a>
+        <a class="exp-quiet-cta" href="./catalogue.html">Voir les outils associés <span aria-hidden="true">↗</span></a>
+      </div>
     </div>
-   </div>
-   <div class="m-after bank-after">
-    <div class="bank-output-sheet">
-     <div class="bank-output-head"><span>BO/IA — APERÇU</span><span id="bankPreviewCategory">02 / CRÉATION</span></div>
-     <div class="bank-output-art" id="bankOutputArt" aria-label="Exemple de résultat dans la banque création">
-       <div class="bo-art bo-art-poster"><span class="bo-poster-kicker">ATELIER OUVERT • SAMEDI</span><strong>LES IDÉES<br>PRENNENT<br>FORME.</strong><span class="bo-poster-date">14H — INITIATION CRÉATIVE ↗</span></div>
-     </div>
-     <div class="bank-output-foot"><span id="bankResultType">UNE AFFICHE À PERSONNALISER</span><span>EXEMPLE ILLUSTRATIF</span></div>
+    <aside class="exp-aside" aria-label="Présentation de la démonstration">
+      <span>À TESTER VOUS-MÊME</span>
+      <p>Ce n'est pas une image de site. C'est une petite expérience réelle : survolez les éléments, modifiez l'objet et déclenchez un parcours.</p>
+      <span class="exp-aside-bottom">UNE CRÉATION FICTIVE, DES INTERACTIONS RÉELLES ↓</span>
+    </aside>
+  </div>
+
+  <div class="exp-demo" id="expDemo" data-demo-state="idle" aria-label="Démonstration interactive de création d'un site web, effets de survol et simulation de workflow">
+    <div class="exp-demo-chrome">
+      <div class="exp-demo-chrome-left"><span class="exp-record-dot" aria-hidden="true"></span> EN DIRECT DANS VOTRE NAVIGATEUR</div>
+      <div class="exp-demo-chrome-right"><span id="expActionStatus" aria-live="polite">EXPLOREZ LA DÉMONSTRATION</span><span class="exp-frame-label">01 / CRÉER</span></div>
     </div>
-   </div>
-   <div class="m-splitline" aria-hidden="true"></div>
-   <input class="m-range" id="rangeBeforeAfter" type="range" min="0" max="100" value="51" aria-label="Comparer le brouillon et le résultat à l'aide des flèches, ou glisser au doigt sur écran tactile">
-   <div class="bank-overlay-flag bank-flag-before" aria-hidden="true">AVANT</div><div class="bank-overlay-flag bank-flag-after" aria-hidden="true">APRÈS</div>
+    <div class="exp-browser">
+      <div class="exp-browser-top">
+        <span class="exp-browser-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="exp-browser-address">atelier-mono.fr — SITE FICTIF</span>
+        <span class="exp-browser-indicator">● INTERACTIF</span>
+      </div>
+      <div class="exp-browser-content" id="expBrowserContent" tabindex="0" aria-label="Site de démonstration : faites défiler à l'intérieur pour voir la collection">
+        <div class="exp-mini-nav"><div class="exp-mini-brand">MONO<span>.</span></div><div class="exp-mini-navlinks"><span>LA MAISON</span><span>LES PIÈCES</span><span>NOTRE HISTOIRE</span></div><span class="exp-mini-num">ED. 2026 — 001</span></div>
+        <div class="exp-mini-main">
+          <div class="exp-mini-editorial">
+            <span class="exp-mini-kicker">ATELIER DE CÉRAMIQUE / COLLECTION 01</span>
+            <button class="exp-headline-action" type="button" data-demo-trigger="copy" aria-label="Survoler pour voir l'accroche se réécrire">
+              <span id="expLiveHeadline">La beauté<br>des choses<br><i>simples.</i></span>
+              <span class="exp-mini-hover-cue" aria-hidden="true">SURVOLEZ LES MOTS ↗</span>
+            </button>
+            <p id="expLiveDescription">Des objets fabriqués lentement, pour les gestes de tous les jours.</p>
+            <button class="exp-mini-button" type="button" data-demo-trigger="workflow">Demander une pièce <span aria-hidden="true">↗</span></button>
+            <span class="exp-mini-button-note">SURVOLEZ POUR VOIR LE PARCOURS AUTOMATISÉ</span>
+          </div>
+          <button class="exp-object-button" type="button" data-demo-trigger="object" aria-label="Survolez l'objet pour transformer sa matière et sa couleur">
+            <span class="exp-object-backdrop" aria-hidden="true"></span>
+            <span class="exp-object-caption-top">OBJET N°01 / GRÈS TOURNÉ</span>
+            <span class="exp-object-display" aria-hidden="true">
+              <svg class="exp-vase" viewBox="0 0 440 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="expClay" x1="130" y1="110" x2="350" y2="365" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stop-color="var(--exp-clay-light)"/>
+                    <stop offset=".40" stop-color="var(--exp-clay-main)"/>
+                    <stop offset=".76" stop-color="var(--exp-clay-dark)"/>
+                    <stop offset="1" stop-color="var(--exp-clay-deep)"/>
+                  </linearGradient>
+                  <linearGradient id="expGlaze" x1="137" y1="150" x2="339" y2="315" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#fff" stop-opacity=".42"/><stop offset=".33" stop-color="#fff" stop-opacity=".05"/><stop offset="1" stop-color="#101c18" stop-opacity=".18"/>
+                  </linearGradient>
+                  <filter id="expSoftShadow" x="-40%" y="-160%" width="180%" height="400%"><feGaussianBlur stdDeviation="12"/></filter>
+                </defs>
+                <ellipse cx="228" cy="439" rx="132" ry="17" fill="#384a3f" opacity=".21" filter="url(#expSoftShadow)"/>
+                <path d="M318 186 C394 168 404 290 342 305" stroke="var(--exp-clay-dark)" stroke-width="35" stroke-linecap="round"/>
+                <path d="M319 186 C370 179 378 270 342 287" stroke="var(--exp-clay-light)" stroke-opacity=".70" stroke-width="8" stroke-linecap="round"/>
+                <path d="M166 135 C169 179 143 219 143 295 C143 387 174 425 239 427 C314 429 348 382 345 289 C343 219 314 174 319 135 Z" fill="url(#expClay)"/>
+                <path d="M167 135 C170 179 143 219 143 295 C143 387 174 425 239 427 C314 429 348 382 345 289 C343 219 314 174 319 135 Z" fill="url(#expGlaze)" opacity=".52"/>
+                <ellipse cx="242" cy="135" rx="76" ry="21" fill="var(--exp-clay-dark)"/>
+                <ellipse cx="242" cy="132" rx="65" ry="12" fill="var(--exp-clay-deep)"/>
+                <path d="M164 135 C191 119 289 118 320 135" stroke="var(--exp-clay-light)" stroke-width="9" stroke-linecap="round"/>
+                <path d="M177 239 C166 296 172 345 189 377" stroke="#fff8eb" stroke-opacity=".35" stroke-width="12" stroke-linecap="round"/>
+                <path d="M207 416 Q254 426 295 414" stroke="#59493f" stroke-opacity=".24" stroke-width="5" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="exp-object-caption-bottom"><span id="expFinishLabel">FINITION / SABLE</span><span class="exp-material-hint">SURVOLEZ POUR CHANGER L’ÉMAIL ↗</span></span>
+          </button>
+        </div>
+        <div class="exp-mini-collection">
+          <div class="exp-collection-intro"><span>DEUXIÈME MOUVEMENT / AU SCROLL</span><h3>Une page qui<br><em>se découvre.</em></h3><p>L’animation accompagne l’histoire du produit : l’objet se présente, puis les détails apparaissent au défilement.</p></div>
+          <div class="exp-collection-item" aria-hidden="true"><span>COLLECTION 001</span><svg viewBox="0 0 240 240"><path d="M67 78 C81 102 73 125 80 167 C87 196 105 204 133 204 C173 204 186 179 187 146 C187 107 169 97 177 78" fill="#b76e52"/><ellipse cx="122" cy="80" rx="54" ry="14" fill="#7b4f42"/><path d="M73 78 Q123 62 175 79" fill="none" stroke="#e7b39b" stroke-width="7"/></svg><strong>La matière.</strong></div>
+          <div class="exp-collection-item" aria-hidden="true"><span>COLLECTION 002</span><svg viewBox="0 0 240 240"><path d="M74 63 C83 95 74 109 74 147 C74 189 94 204 124 204 C160 204 185 185 183 146 C180 112 165 93 176 63" fill="#749f8f"/><ellipse cx="125" cy="65" rx="51" ry="13" fill="#476a61"/><path d="M80 64 Q126 54 174 63" fill="none" stroke="#bbd2c7" stroke-width="6"/></svg><strong>La couleur.</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="exp-workflow" id="expWorkflow" aria-hidden="true">
+      <div class="exp-workflow-top"><span>PARCOURS DE DÉMONSTRATION</span><span>AUCUNE DEMANDE ENVOYÉE</span></div>
+      <div class="exp-workflow-title">D’une demande<br>à une action.</div>
+      <div class="exp-workflow-step"><span>01</span><strong>Demande reçue</strong><i>✓</i></div>
+      <div class="exp-workflow-step"><span>02</span><strong>Fiche préparée</strong><i>✓</i></div>
+      <div class="exp-workflow-step"><span>03</span><strong>Validation humaine</strong><i>↗</i></div>
+      <p>Une simulation locale du type de processus qu'un outil d'automatisation peut aider à construire.</p>
+    </div>
+    <div class="exp-demo-foot">
+      <span>UNE PAGE À MANIPULER — PAS UNE VIDÉO</span>
+      <span id="expPointerHint">SURVOLEZ L’ACCROCHE, L’OBJET OU LE BOUTON · DÉFILEZ DANS LA PAGE ↕</span>
+    </div>
   </div>
-  <div class="bank-under-stage">
-   <span class="bank-comparison-hint bank-desktop-hint">← BOUGEZ LA SOURIS POUR RÉVÉLER LE RÉSULTAT →</span>
-   <span class="bank-comparison-hint bank-touch-hint">← GLISSEZ SUR L'IMAGE POUR COMPARER →</span>
-   <span id="bankProgress" class="bank-progress">02 / 06</span>
-  </div>
-  <div class="bank-detail" aria-live="off">
-    <div class="bank-detail-primary"><span class="bank-detail-kicker">UNIVERS SÉLECTIONNÉ</span><h2 id="bankActiveTitle">Création visuelle</h2><p id="bankActiveDescription">À partir d'une idée vague, préparer une première direction graphique que vous pourrez retravailler.</p></div>
-    <div class="bank-detail-side"><span id="bankExampleTools">CANVA · ADOBE FIREFLY · FIGMA</span><a id="bankActiveLink" href="./catalogue.html?categorie=creation#recherche"><span data-bank-link-label>Explorer les outils de création</span><span aria-hidden="true">↗</span></a></div>
-  </div>
-  <div class="bank-flow-note"><span>01 / UNE IDÉE</span><span aria-hidden="true">→</span><span>02 / DES MÉTHODES</span><span aria-hidden="true">→</span><span>03 / DES OUTILS CONCRETS</span></div>
-  <div class="m-subsection"><h2>Le résultat d'abord.<br>L'outil ensuite.</h2><p>Une tâche à simplifier, un contenu à préparer, une idée à concrétiser ? Commencez par choisir ce que vous voulez faire. Nous vous indiquons les méthodes et les pistes à explorer, sans jargon inutile ni promesse magique.</p></div>
- </div>
+  <div class="exp-outro"><p>Les résultats ci-dessus sont illustratifs : pas de génération IA réelle ni de formulaire envoyé. Mais les interactions, le site et les transitions fonctionnent dans votre navigateur.</p><div><a href="./fiches.html">Comprendre la méthode <span aria-hidden="true">↗</span></a><a href="./catalogue.html">Choisir les bons outils <span aria-hidden="true">↗</span></a></div></div>
 </section>
 <section class="home-workshop" id="atelier" aria-labelledby="workshop-title">
  <div class="home-workshop-copy"><p class="editorial-mark">ATELIER 3D INTERACTIF / SURVOLEZ, TOURNEZ, EXPLOREZ</p><h2 id="workshop-title">Changer d'outil.<br>Pas de façon<br>de penser.</h2><p>Survolez l'ordinateur pour l'orienter. Survolez un usage pour transformer son écran, puis faites défiler pour changer l'angle de vue. Une démonstration en 3D, pas un outil IA connecté.</p>
