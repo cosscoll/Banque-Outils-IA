@@ -78,6 +78,15 @@ const checks=[
   assert.match(obscure,/340px\) rotateZ\(0deg\) scale\(1\.08\)/);
   assert.match(obscure,/\.op-stage\.has-featured \.op-card:not\(\.is-featured\)/);
  }],
+ ['Two left cards remain pointer-accessible through editorial layers',()=>{
+  assert.match(obscure,/Hero hit-test repair/);
+  assert.match(obscure,/\.obscure-pop \.kinetic-left\s*\{[^}]*pointer-events:\s*none/);
+  assert.match(obscure,/\.obscure-pop \.kinetic-left \.kinetic-actions a\s*\{[^}]*pointer-events:\s*auto/);
+  assert.match(obscure,/\.obscure-pop \.kinetic-right\s*\{[^}]*z-index:\s*6/);
+  assert.match(obscure,/\.obscure-pop \.kinetic-stage\.op-stage\s*\{[^}]*z-index:\s*7/);
+  assert.match(obscure,/\.obscure-pop \.op-card\s*\{[^}]*pointer-events:\s*auto/);
+  assert.match(html,/obscure-pop\.css\?v=20261022-hover-hitfix/);
+ }],
  ['Touch, keyboard and mobile menu still work',()=>{
   assert.match(js,/toggleButton\.addEventListener\('click'/);
   assert.match(js,/event\.key==='Escape'/);
