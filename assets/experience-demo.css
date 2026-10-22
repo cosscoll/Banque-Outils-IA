@@ -138,3 +138,11 @@
 @media(prefers-reduced-motion:reduce){
  .exp-hero *, .exp-hero *::before, .exp-hero *::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
+
+/* Keep ceramic glazes reliable in SVG engines: CSS styles override presentation attributes. */
+#expClay stop:nth-child(1){stop-color:var(--exp-clay-light)}
+#expClay stop:nth-child(2){stop-color:var(--exp-clay-main)}
+#expClay stop:nth-child(3){stop-color:var(--exp-clay-dark)}
+#expClay stop:nth-child(4){stop-color:var(--exp-clay-deep)}
+.exp-vase path:nth-of-type(1){stroke:var(--exp-clay-dark)}
+.exp-vase path:nth-of-type(2){stroke:var(--exp-clay-light)}
