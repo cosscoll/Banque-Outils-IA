@@ -35,7 +35,7 @@ const checks=[
   const cats=['medias','creation','auto','redaction','recherche'];
   for(const cat of cats)assert.match(html,new RegExp('href="\\./catalogue\\.html\\?categorie='+cat+'#recherche"'));
   assert.equal(count(html,/class="op-card op-card--/g),5);
-  assert.match(html,/class="op-constellation"/);
+  assert.match(html,/class="kinetic-constellation op-constellation"/);
   assert.match(obscure,/\.op-stage\[data-open=true\] \.op-card/);
   assert.match(obscure,/transform-style:preserve-3d/);
   assert.match(terrain,/feTurbulence/);
