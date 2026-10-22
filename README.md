@@ -6,22 +6,21 @@ Création d'une bibliothèque d'outils IA.
 
 ## Expérience actuelle — 22 octobre 2026
 
-**La zone de comparaison horizontal avant/après du haut d'accueil a été supprimée à la demande du propriétaire.** Les anciennes descriptions dans ce README documentent l'historique, pas l'interface actuelle.
+Le mini-site de céramique encadré dans un navigateur et son double défilement ont été **retirés** du haut de page à la demande du propriétaire. De même, l'ancien comparateur avant/après et les six onglets de banque en haut ne sont plus rendus.
 
-Le haut du site présente maintenant une **démonstration commerciale interactive unique** : un mini-site fictif d'atelier de céramique qui réagit aux actions de l'utilisateur.
+L'accueil comporte maintenant une **accroche plein écran** (« Vos idées méritent d'exister ») et une composition interactive de trois pages appartenant à un même projet éditorial fictif « FORME. ». Ce n'est pas un second catalogue.
 
-- Survolez / concentrez l'**accroche** : elle se réécrit en direct.
-- Survolez / sélectionnez l'**objet** : sa finition (émail / couleur) change, avec mouvement.
-- Survolez / activez le **bouton de demande** : un exemple de workflow apparaît, avec étapes successives et validation humaine ; aucune demande n'est réellement envoyée.
-- Faites défiler dans le mini-site : une seconde partie révèle les pièces de la collection au scroll.
-- Les interactions restent accessibles au clic, au clavier et au toucher. Les médias qui préfèrent réduire les mouvements reçoivent des effets minimaux.
-- Des CTA conduisent vers les méthodes réellement disponibles (`fiches.html`) et le répertoire d'outils (`catalogue.html`). **Ce ne sont pas des formations vendues ni des services IA qui tournent réellement dans le navigateur.** L'offre est en pré-lancement.
-- Les six familles d'outils restent uniquement dans leur section existante plus bas, afin d'éviter une duplication.
-- La scène 3D Three.js conservée dans `#atelier` et tous ses quatre modes restent chargés.
+- Au survol, les trois pages du site se déploient en perspective ; le déplacement de la souris oriente le volume.
+- Sur mobile, un bouton accessible ouvre et referme la composition ; la touche Échap referme également le projet épinglé.
+- Une animation d'entrée crée l'effet de profondeur sans faire dépendre l'accès au site d'un GPU WebGL.
+- La charte « Transformation » est conservée. Les liens renvoient aux outils disponibles dans `catalogue.html` et aux premières méthodes de `fiches.html`.
+- Les six familles d'outils ne sont présentées qu'en bas de page, dans la section déjà existante.
+- L'atelier 3D WebGL situé sous l'accroche est conservé avec ses quatre modes et son repli sans WebGL.
+- Cette composition est une démonstration graphique et ne constitue ni un véritable site client, ni une formation déjà commercialisée, ni une génération IA.
 
-Fichiers : `index.html`, `assets/experience-demo.css`, `assets/experience-demo.js`. Anciennes expériences `assets/banks-hover.*` et `assets/transformation.js` non chargées par l'accueil. Exécuter `node scripts/check-visual-features.mjs` avant publication pour détecter une régression.
+Fichiers actifs : `index.html`, `assets/kinetic-hero.css`, `assets/kinetic-hero.js`, `assets/atelier.js` et `assets/vendor/three.min.js`. Les anciens modules `assets/experience-demo.*` et `assets/banks-hover.*` ne sont plus chargés par l'accueil.
 
-**Validation effectuée :** contrôle de syntaxe JavaScript, intégrité des liens et éléments essentiels, simulations des interactions au survol, au clic et au toucher sur le modèle DOM. **Non prouvé :** rendu WebGL réel, contrôle visuel de la mise en page sur appareils et accessibilité publique du déploiement GitHub Pages. Un commit sur `main` ne signifie pas que ces validations sont réussies.
+Contrôles : `node scripts/check-visual-features.mjs` pour protéger le hero, le catalogue, la 3D et les accès aux méthodes ; tests simulés d'interactions en complément. **La vérification du rendu visuel et du déploiement public GitHub Pages est distincte des confirmations de commits GitHub.** Aucun paiement ni automatisation n'est activé.
 
 ## Site et suivi
 
