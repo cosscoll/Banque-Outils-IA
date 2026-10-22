@@ -332,7 +332,6 @@ html:has(body.obscure-pop),body.obscure-pop{max-width:100%;overflow-x:clip}
     z-index: 2;
     pointer-events: none;
   }
-  .obscure-pop .kinetic-left .kinetic-actions,
   .obscure-pop .kinetic-left .kinetic-actions a {
     pointer-events: auto;
   }
