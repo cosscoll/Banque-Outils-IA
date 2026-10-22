@@ -42,6 +42,22 @@ const checks=[
     assert.match(css,/\.use-link:hover \.use-output/);
     assert.match(css,/\.use-link:focus-visible \.use-output/);
  }],
+ ['Six-bank hover stage and unique catalogue categories remain available',()=>{
+    const bankJS=file('assets/banks-hover.js'),bankCSS=file('assets/banks-hover.css');
+    const names=['redaction','creation','dev','medias','auto','recherche'];
+    for(const name of names){
+      assert.match(html,new RegExp('data-bank="'+name+'"'));
+      assert.match(bankJS,new RegExp('categorie='+name));
+    }
+    assert.equal(matchCount(html,/class="bank-choice(?: is-active)?"/g),6);
+    assert.match(html,/id="compareStage"/);
+    assert.match(html,/id="bankOutputArt"/);
+    assert.match(html,/assets\/banks-hover\.js/);
+    assert.match(html,/assets\/banks-hover\.css/);
+    assert.match(bankJS,/addEventListener\('pointerenter'/);
+    assert.match(bankJS,/addEventListener\('click'/);
+    assert.match(bankCSS,/\.bank-stage\.is-changing/);
+ }],
  ['Before and after comparison supports hover, mobile and keyboard',()=>{
     assert.match(html,/id="rangeBeforeAfter"/);
     assert.match(comparison,/stage\.addEventListener\('pointermove'/);
