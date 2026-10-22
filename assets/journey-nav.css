@@ -88,3 +88,21 @@ html{scroll-padding-top:90px}
 .library-page.obscure-pop .resource[hidden],
 .library-page.obscure-pop .method-card[hidden]{display:none!important}
 .library-page.obscure-pop .library-result-line span:last-child{font-size:10px}
+
+/* Optional search examples are available, never in the way of primary controls. */
+.library-page.obscure-pop .discovery-help{
+  margin:8px 0 20px;
+  border:0;color:#CEC6D8;
+}
+.library-page.obscure-pop .discovery-help summary{
+  width:fit-content;cursor:pointer;
+  font:700 12px/1.5 'Instrument Sans',Arial,sans-serif;
+  padding:9px 5px;color:#CBBBE0;
+}
+.library-page.obscure-pop .discovery-help summary:hover{color:#F5F1E6}
+.library-page.obscure-pop .discovery-help .discovery-quick{margin:12px 0 4px}
+.library-page.obscure-pop .discovery-help summary:focus-visible{outline:2px solid #CAB7F0;outline-offset:3px}
+@media(max-width:820px){
+  .library-page.obscure-pop .catalogue-more,
+  .library-page.obscure-pop .methods-more{width:100%;font-size:12px}
+}
