@@ -4,13 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#ecf0ef">
-<meta name="description" content="Banque Outils IA : découvrez ce que les outils d'intelligence artificielle vous permettent d'accomplir. Comparez un avant/après, explorez les usages et trouvez votre outil.">
+<meta name="description" content="Explorez six banques d’outils IA interactives : écriture, création, développement, médias, automatisation et recherche. Des exemples concrets qui évoluent au survol.">
 <meta property="og:title" content="Banque Outils IA — Moins de discours. Montrez-moi.">
 <meta property="og:description" content="Des idées, des résultats concrets, des outils pour y parvenir.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cosscoll.github.io/Banque-Outils-IA/">
 <link rel="canonical" href="https://cosscoll.github.io/Banque-Outils-IA/">
 <link rel="stylesheet" href="./assets/transformation.css">
+<link rel="stylesheet" href="./assets/banks-hover.css">
 <script defer src="./assets/vendor/three.min.js"></script>
 <script defer src="./assets/transformation.js"></script>
 <script defer src="./assets/atelier.js"></script>
@@ -34,25 +35,51 @@
  <div class="metamorphose-main">
   <div class="m-upper">
    <div><p class="m-overline">BANQUE OUTILS IA / DÉCOUVRIR PAR LE RÉSULTAT</p><h1 id="main-title">Moins de discours.<br><em>Montrez-moi.</em></h1></div>
-   <p class="m-explain">Pas besoin de comprendre l'IA en théorie. Déplacez simplement votre souris pour explorer comment une idée peut devenir un résultat.</p>
+   <p class="m-explain">Six banques, six façons d'avancer. Survolez un univers, observez ce que vous pouvez créer, puis découvrez les outils pour essayer.</p>
   </div>
-  <div class="m-casebar" role="group" aria-label="Choisir un exemple de transformation">
-   <button type="button" data-case="0" aria-pressed="true">Imaginer une affiche</button>
-   <button type="button" data-case="1" aria-pressed="false">Écrire un message</button>
-   <button type="button" data-case="2" aria-pressed="false">Organiser un projet</button>
+  <div class="bank-headline" id="bank-label"><span>LES 6 BANQUES D'OUTILS</span><span>Survolez un univers pour voir ce qu'il permet de réaliser ↓</span></div>
+  <div class="bank-selector" role="group" aria-labelledby="bank-label">
+   <button class="bank-choice" type="button" data-bank="redaction" aria-pressed="false"><span class="bank-index">01 /</span><span class="bank-name">Écrire</span><span class="bank-note">Trouver les bons mots</span><span class="bank-choice-arrow" aria-hidden="true">↗</span></button>
+   <button class="bank-choice is-active" type="button" data-bank="creation" aria-pressed="true"><span class="bank-index">02 /</span><span class="bank-name">Créer</span><span class="bank-note">Donner forme aux idées</span><span class="bank-choice-arrow" aria-hidden="true">↗</span></button>
+   <button class="bank-choice" type="button" data-bank="dev" aria-pressed="false"><span class="bank-index">03 /</span><span class="bank-name">Développer</span><span class="bank-note">Du concept au site</span><span class="bank-choice-arrow" aria-hidden="true">↗</span></button>
+   <button class="bank-choice" type="button" data-bank="medias" aria-pressed="false"><span class="bank-index">04 /</span><span class="bank-name">Vidéo & son</span><span class="bank-note">Monter, raconter, sonoriser</span><span class="bank-choice-arrow" aria-hidden="true">↗</span></button>
+   <button class="bank-choice" type="button" data-bank="auto" aria-pressed="false"><span class="bank-index">05 /</span><span class="bank-name">Automatiser</span><span class="bank-note">Relier les étapes</span><span class="bank-choice-arrow" aria-hidden="true">↗</span></button>
+   <button class="bank-choice" type="button" data-bank="recherche" aria-pressed="false"><span class="bank-index">06 /</span><span class="bank-name">Analyser</span><span class="bank-note">Des données plus claires</span><span class="bank-choice-arrow" aria-hidden="true">↗</span></button>
   </div>
-  <div class="m-stage" id="compareStage" style="--split:50%" aria-label="Comparateur interactif montrant le point de départ et une première proposition de résultat">
-   <div class="m-before">
-    <div class="m-before-inner"><span>01 / LE DÉPART — UNE NOTE IMPARFAITE</span><h2 id="beforeTitle">atelier samedi<br>créatif ?</h2><p id="beforeText">un truc pour annoncer l'atelier, donner envie aux gens de venir, avec la date et le lieu…</p></div>
+  <div class="m-stage bank-stage" id="compareStage" data-bank-active="creation" style="--split:51%;--bank-x:50%;--bank-y:50%" aria-label="Comparateur interactif : survolez l'une des six banques pour découvrir un exemple avant et après. Bougez la souris pour comparer.">
+   <div class="m-before bank-before">
+    <div class="bank-before-sheet">
+     <div class="bank-sheet-head"><span>01 / LE POINT DE DÉPART</span><span>BRIEF NON STRUCTURÉ</span></div>
+     <span class="bank-handwriting" aria-hidden="true">un début d'idée...</span>
+     <h2 id="beforeTitle">atelier samedi<br>créatif ?</h2>
+     <p id="beforeText">une affiche pour donner envie de venir, avec la date et les infos importantes…</p>
+     <div class="bank-rough-stroke" aria-hidden="true"></div>
+     <span class="bank-sheet-foot" id="bankBeforeFoot">IDÉE BRUTE / À STRUCTURER</span>
+    </div>
    </div>
-   <div class="m-after">
-    <div class="m-after-content"><div class="m-type">RÉSULTAT / EXEMPLE FICTIF</div><strong id="afterTitle">FAIS<br>PLACE<br>AUX IDÉES.</strong><div class="m-signoff" id="afterText">SAMEDI 14H — ATELIER DE CRÉATION</div></div>
+   <div class="m-after bank-after">
+    <div class="bank-output-sheet">
+     <div class="bank-output-head"><span>BO/IA — APERÇU</span><span id="bankPreviewCategory">02 / CRÉATION</span></div>
+     <div class="bank-output-art" id="bankOutputArt" aria-label="Exemple de résultat dans la banque création">
+       <div class="bo-art bo-art-poster"><span class="bo-poster-kicker">ATELIER OUVERT • SAMEDI</span><strong>LES IDÉES<br>PRENNENT<br>FORME.</strong><span class="bo-poster-date">14H — INITIATION CRÉATIVE ↗</span></div>
+     </div>
+     <div class="bank-output-foot"><span id="bankResultType">UNE AFFICHE À PERSONNALISER</span><span>EXEMPLE ILLUSTRATIF</span></div>
+    </div>
    </div>
    <div class="m-splitline" aria-hidden="true"></div>
-   <input class="m-range" id="rangeBeforeAfter" type="range" min="0" max="100" value="50" aria-label="Comparer le brouillon et la proposition de résultat, avec les flèches ou par glissement tactile">
+   <input class="m-range" id="rangeBeforeAfter" type="range" min="0" max="100" value="51" aria-label="Comparer le brouillon et le résultat à l'aide des flèches, ou glisser au doigt sur écran tactile">
+   <div class="bank-overlay-flag bank-flag-before" aria-hidden="true">AVANT</div><div class="bank-overlay-flag bank-flag-after" aria-hidden="true">APRÈS</div>
   </div>
-  <div class="m-guide"><span>← AVANT : IDÉE BRUTE</span><span class="m-help-desktop">SURVOLEZ POUR COMPARER</span><span class="m-help-touch">GLISSEZ SUR L’IMAGE POUR COMPARER</span><span>APRÈS : PREMIÈRE PROPOSITION →</span></div>
-  <div class="m-result-steps" aria-label="Étapes communes"><span>1 / UN BESOIN</span><span>2 / UNE MÉTHODE</span><span>3 / UN OUTIL</span><span>4 / UNE VÉRIFICATION</span></div>
+  <div class="bank-under-stage">
+   <span class="bank-comparison-hint bank-desktop-hint">← BOUGEZ LA SOURIS POUR RÉVÉLER LE RÉSULTAT →</span>
+   <span class="bank-comparison-hint bank-touch-hint">← GLISSEZ SUR L'IMAGE POUR COMPARER →</span>
+   <span id="bankProgress" class="bank-progress">02 / 06</span>
+  </div>
+  <div class="bank-detail" aria-live="off">
+    <div class="bank-detail-primary"><span class="bank-detail-kicker">UNIVERS SÉLECTIONNÉ</span><h2 id="bankActiveTitle">Création visuelle</h2><p id="bankActiveDescription">À partir d'une idée vague, préparer une première direction graphique que vous pourrez retravailler.</p></div>
+    <div class="bank-detail-side"><span id="bankExampleTools">CANVA · ADOBE FIREFLY · FIGMA</span><a id="bankActiveLink" href="./catalogue.html?categorie=creation#recherche">Explorer les outils de création <span aria-hidden="true">↗</span></a></div>
+  </div>
+  <div class="bank-flow-note"><span>01 / UNE IDÉE</span><span aria-hidden="true">→</span><span>02 / DES MÉTHODES</span><span aria-hidden="true">→</span><span>03 / DES OUTILS CONCRETS</span></div>
   <div class="m-subsection"><h2>Le résultat d'abord.<br>L'outil ensuite.</h2><p>Une tâche à simplifier, un contenu à préparer, une idée à concrétiser ? Commencez par choisir ce que vous voulez faire. Nous vous indiquons les méthodes et les pistes à explorer, sans jargon inutile ni promesse magique.</p></div>
  </div>
 </section>
