@@ -4,18 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#ecf0ef">
-<meta name="description" content="Découvrez une démonstration interactive : une page web qui se transforme au survol, une création visuelle personnalisable et un parcours automatisé simulé. Explorez ensuite les outils IA.">
+<meta name="description" content="Découvrez la Banque Outils IA : des outils, des méthodes et un site en 3D animé que vous pouvez déployer au survol. Des idées à des réalisations concrètes.">
 <meta property="og:title" content="Banque Outils IA — Découvrez ce que vous pouvez créer.">
-<meta property="og:description" content="Des idées, des résultats concrets, des outils pour y parvenir.">
+<meta property="og:description" content="Des idées qui prennent vie avec des outils et des méthodes accessibles.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cosscoll.github.io/Banque-Outils-IA/">
 <link rel="canonical" href="https://cosscoll.github.io/Banque-Outils-IA/">
 <link rel="stylesheet" href="./assets/transformation.css">
-<link rel="stylesheet" href="./assets/experience-demo.css">
+<link rel="stylesheet" href="./assets/kinetic-hero.css">
 <script defer src="./assets/vendor/three.min.js"></script>
-<script defer src="./assets/experience-demo.js"></script>
+<script defer src="./assets/kinetic-hero.js"></script>
 <script defer src="./assets/atelier.js"></script>
-<title>Banque Outils IA — Moins de discours. Montrez-moi.</title>
+<title>Banque Outils IA — Vos idées méritent d’exister.</title>
 </head>
 <body>
 <a class="skip-link" href="#contenu">Aller au contenu</a>
@@ -31,101 +31,61 @@
   </nav>
 </header>
 <main id="contenu">
-<section class="exp-hero" id="experience" aria-labelledby="main-title">
-  <div class="exp-intro">
-    <div class="exp-intro-main">
-      <p class="exp-eyebrow"><span class="exp-eyebrow-line" aria-hidden="true"></span> LE NUMÉRIQUE EN ACTION / DÉMONSTRATION 001</p>
-      <h1 id="main-title">Un site qui vit.<br><em>À vous de jouer.</em></h1>
-      <p class="exp-intro-copy">Survolez les mots, changez la matière d’un objet, déclenchez une action. Un aperçu concret des expériences que vous pouvez apprendre à concevoir avec les bonnes méthodes et les bons outils.</p>
-      <div class="exp-hero-actions">
-        <a class="exp-primary-cta" href="./fiches.html">Découvrir comment faire <span aria-hidden="true">↗</span></a>
-        <a class="exp-quiet-cta" href="./catalogue.html">Voir les outils associés <span aria-hidden="true">↗</span></a>
-      </div>
+<section class="kinetic-hero" id="experience" aria-labelledby="main-title">
+  <div class="kinetic-left">
+    <p class="kinetic-kicker"><span class="kinetic-dot" aria-hidden="true"></span> BANQUE OUTILS IA / LE CHAMP DES POSSIBLES</p>
+    <h1 id="main-title">Vos idées<br>méritent<br><em>d'exister.</em></h1>
+    <p class="kinetic-subtitle">Un site qui réagit à chaque mouvement. Un univers visuel qu'on n'oublie pas. Des tâches qui s'organisent. Découvrez les outils et les méthodes pour passer de l'idée à la réalisation.</p>
+    <div class="kinetic-actions">
+      <a class="kinetic-button" href="./catalogue.html">Explorer la banque d'outils <span aria-hidden="true">↗</span></a>
+      <a class="kinetic-secondary" href="./fiches.html">Découvrir les méthodes <span aria-hidden="true">→</span></a>
     </div>
-    <aside class="exp-aside" aria-label="Présentation de la démonstration">
-      <span>À TESTER VOUS-MÊME</span>
-      <p>Ce n'est pas une image de site. C'est une petite expérience réelle : survolez les éléments, modifiez l'objet et déclenchez un parcours.</p>
-      <span class="exp-aside-bottom">UNE CRÉATION FICTIVE, DES INTERACTIONS RÉELLES ↓</span>
-    </aside>
+    <div class="kinetic-foot">
+      <span class="kinetic-foot-number">01 / 03</span>
+      <span>UNE EXPÉRIENCE WEB QUE VOUS POUVEZ OUVRIR</span>
+      <span class="kinetic-foot-arrow" aria-hidden="true">↗</span>
+    </div>
   </div>
-
-  <div class="exp-demo" id="expDemo" data-demo-state="idle" aria-label="Démonstration interactive de création d'un site web, effets de survol et simulation de workflow">
-    <div class="exp-demo-chrome">
-      <div class="exp-demo-chrome-left"><span class="exp-record-dot" aria-hidden="true"></span> EN DIRECT DANS VOTRE NAVIGATEUR</div>
-      <div class="exp-demo-chrome-right"><span id="expActionStatus" aria-live="polite">EXPLOREZ LA DÉMONSTRATION</span><span class="exp-frame-label">01 / CRÉER</span></div>
-    </div>
-    <div class="exp-browser">
-      <div class="exp-browser-top">
-        <span class="exp-browser-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="exp-browser-address">atelier-mono.fr — SITE FICTIF</span>
-        <span class="exp-browser-indicator">● INTERACTIF</span>
-      </div>
-      <div class="exp-browser-content" id="expBrowserContent" tabindex="0" aria-label="Site de démonstration : faites défiler à l'intérieur pour voir la collection">
-        <div class="exp-mini-nav"><div class="exp-mini-brand">MONO<span>.</span></div><div class="exp-mini-navlinks"><span>LA MAISON</span><span>LES PIÈCES</span><span>NOTRE HISTOIRE</span></div><span class="exp-mini-num">ED. 2026 — 001</span></div>
-        <div class="exp-mini-main">
-          <div class="exp-mini-editorial">
-            <span class="exp-mini-kicker">ATELIER DE CÉRAMIQUE / COLLECTION 01</span>
-            <button class="exp-headline-action" type="button" data-demo-trigger="copy" aria-label="Survoler pour voir l'accroche se réécrire">
-              <span id="expLiveHeadline">La beauté<br>des choses<br><i>simples.</i></span>
-              <span class="exp-mini-hover-cue" aria-hidden="true">SURVOLEZ LES MOTS ↗</span>
-            </button>
-            <p id="expLiveDescription">Des objets fabriqués lentement, pour les gestes de tous les jours.</p>
-            <button class="exp-mini-button" type="button" data-demo-trigger="workflow">Demander une pièce <span aria-hidden="true">↗</span></button>
-            <span class="exp-mini-button-note">SURVOLEZ POUR VOIR LE PARCOURS AUTOMATISÉ</span>
+  <div class="kinetic-right">
+    <div class="kinetic-aura" aria-hidden="true"></div>
+    <div class="kinetic-stage" id="kineticStage" aria-label="Un projet de site animé en profondeur. Survolez ou activez pour déployer ses pages." data-open="false" tabindex="-1">
+      <div class="kinetic-constellation" aria-hidden="true">
+        <div class="kinetic-sheet kinetic-sheet-back">
+          <div class="kinetic-back-top">ATELIER FORME <span>INDEX / 2026</span></div>
+          <div class="kinetic-back-head">PROJETS<br>CHOISIS<span class="kinetic-back-seal">03</span></div>
+          <div class="kinetic-back-list"><span>01 — IDENTITÉ</span><span>02 — DIGITAL</span><span>03 — MOUVEMENT</span></div>
+          <div class="kinetic-back-bottom">CRÉER / EXPÉRIMENTER / PARTAGER</div>
+        </div>
+        <div class="kinetic-sheet kinetic-sheet-middle">
+          <div class="kinetic-middle-top">ÉTUDE DE CAS / 01</div>
+          <div class="kinetic-middle-title">DES<br>FORMES<br><i>LIBRES.</i></div>
+          <div class="kinetic-middle-rule"></div>
+          <div class="kinetic-middle-bottom">IDENTITÉ EN MOUVEMENT <span>↗</span></div>
+        </div>
+        <div class="kinetic-sheet kinetic-sheet-front">
+          <div class="kinetic-front-bar"><strong>FORME.</strong><span>STUDIO INDÉPENDANT / 2026</span><span class="kinetic-front-plus">+</span></div>
+          <div class="kinetic-front-main">
+            <p>DES IDÉES QU'ON PEUT TOUCHER.</p>
+            <div class="kinetic-poster">
+              <span class="kinetic-poster-line">LE DIGITAL</span>
+              <span class="kinetic-poster-big">PREND<br><i>FORME.</i></span>
+              <span class="kinetic-poster-stamp">VOTRE PROCHAIN<br>PROJET COMMENCE ICI.</span>
+              <div class="kinetic-ink" aria-hidden="true"></div>
+            </div>
           </div>
-          <button class="exp-object-button" type="button" data-demo-trigger="object" aria-label="Survolez l'objet pour transformer sa matière et sa couleur">
-            <span class="exp-object-backdrop" aria-hidden="true"></span>
-            <span class="exp-object-caption-top">OBJET N°01 / GRÈS TOURNÉ</span>
-            <span class="exp-object-display" aria-hidden="true">
-              <svg class="exp-vase" viewBox="0 0 440 480" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient id="expClay" x1="130" y1="110" x2="350" y2="365" gradientUnits="userSpaceOnUse">
-                    <stop offset="0" stop-color="var(--exp-clay-light)"/>
-                    <stop offset=".40" stop-color="var(--exp-clay-main)"/>
-                    <stop offset=".76" stop-color="var(--exp-clay-dark)"/>
-                    <stop offset="1" stop-color="var(--exp-clay-deep)"/>
-                  </linearGradient>
-                  <linearGradient id="expGlaze" x1="137" y1="150" x2="339" y2="315" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#fff" stop-opacity=".42"/><stop offset=".33" stop-color="#fff" stop-opacity=".05"/><stop offset="1" stop-color="#101c18" stop-opacity=".18"/>
-                  </linearGradient>
-                  <filter id="expSoftShadow" x="-40%" y="-160%" width="180%" height="400%"><feGaussianBlur stdDeviation="12"/></filter>
-                </defs>
-                <ellipse cx="228" cy="439" rx="132" ry="17" fill="#384a3f" opacity=".21" filter="url(#expSoftShadow)"/>
-                <path d="M318 186 C394 168 404 290 342 305" stroke="var(--exp-clay-dark)" stroke-width="35" stroke-linecap="round"/>
-                <path d="M319 186 C370 179 378 270 342 287" stroke="var(--exp-clay-light)" stroke-opacity=".70" stroke-width="8" stroke-linecap="round"/>
-                <path d="M166 135 C169 179 143 219 143 295 C143 387 174 425 239 427 C314 429 348 382 345 289 C343 219 314 174 319 135 Z" fill="url(#expClay)"/>
-                <path d="M167 135 C170 179 143 219 143 295 C143 387 174 425 239 427 C314 429 348 382 345 289 C343 219 314 174 319 135 Z" fill="url(#expGlaze)" opacity=".52"/>
-                <ellipse cx="242" cy="135" rx="76" ry="21" fill="var(--exp-clay-dark)"/>
-                <ellipse cx="242" cy="132" rx="65" ry="12" fill="var(--exp-clay-deep)"/>
-                <path d="M164 135 C191 119 289 118 320 135" stroke="var(--exp-clay-light)" stroke-width="9" stroke-linecap="round"/>
-                <path d="M177 239 C166 296 172 345 189 377" stroke="#fff8eb" stroke-opacity=".35" stroke-width="12" stroke-linecap="round"/>
-                <path d="M207 416 Q254 426 295 414" stroke="#59493f" stroke-opacity=".24" stroke-width="5" stroke-linecap="round"/>
-              </svg>
-            </span>
-            <span class="exp-object-caption-bottom"><span id="expFinishLabel">FINITION / SABLE</span><span class="exp-material-hint">SURVOLEZ POUR CHANGER L’ÉMAIL ↗</span></span>
-          </button>
-        </div>
-        <div class="exp-mini-collection">
-          <div class="exp-collection-intro"><span>DEUXIÈME MOUVEMENT / AU SCROLL</span><h3>Une page qui<br><em>se découvre.</em></h3><p>L’animation accompagne l’histoire du produit : l’objet se présente, puis les détails apparaissent au défilement.</p></div>
-          <div class="exp-collection-item" aria-hidden="true"><span>COLLECTION 001</span><svg viewBox="0 0 240 240"><path d="M67 78 C81 102 73 125 80 167 C87 196 105 204 133 204 C173 204 186 179 187 146 C187 107 169 97 177 78" fill="#b76e52"/><ellipse cx="122" cy="80" rx="54" ry="14" fill="#7b4f42"/><path d="M73 78 Q123 62 175 79" fill="none" stroke="#e7b39b" stroke-width="7"/></svg><strong>La matière.</strong></div>
-          <div class="exp-collection-item" aria-hidden="true"><span>COLLECTION 002</span><svg viewBox="0 0 240 240"><path d="M74 63 C83 95 74 109 74 147 C74 189 94 204 124 204 C160 204 185 185 183 146 C180 112 165 93 176 63" fill="#749f8f"/><ellipse cx="125" cy="65" rx="51" ry="13" fill="#476a61"/><path d="M80 64 Q126 54 174 63" fill="none" stroke="#bbd2c7" stroke-width="6"/></svg><strong>La couleur.</strong></div>
+          <div class="kinetic-front-footer"><span>UN SITE FICTIF, UN EFFET RÉEL</span><span>DÉPLACEZ LA SOURIS ↗</span></div>
         </div>
       </div>
+      <span class="kinetic-float-tag" aria-hidden="true">UN SITE SE DÉPLOIE<br>SOUS VOS YEUX</span>
     </div>
-    <div class="exp-workflow" id="expWorkflow" aria-hidden="true">
-      <div class="exp-workflow-top"><span>PARCOURS DE DÉMONSTRATION</span><span>AUCUNE DEMANDE ENVOYÉE</span></div>
-      <div class="exp-workflow-title">D’une demande<br>à une action.</div>
-      <div class="exp-workflow-step"><span>01</span><strong>Demande reçue</strong><i>✓</i></div>
-      <div class="exp-workflow-step"><span>02</span><strong>Fiche préparée</strong><i>✓</i></div>
-      <div class="exp-workflow-step"><span>03</span><strong>Validation humaine</strong><i>↗</i></div>
-      <p>Une simulation locale du type de processus qu'un outil d'automatisation peut aider à construire.</p>
-    </div>
-    <div class="exp-demo-foot">
-      <span>UNE PAGE À MANIPULER — PAS UNE VIDÉO</span>
-      <span id="expPointerHint">SURVOLEZ L’ACCROCHE, L’OBJET OU LE BOUTON · DÉFILEZ DANS LA PAGE ↕</span>
-    </div>
+    <button type="button" class="kinetic-interact" id="kineticToggle" aria-pressed="false" aria-controls="kineticStage">
+      <span class="kinetic-interact-icon" aria-hidden="true">✳</span>
+      <span id="kineticToggleText">Survolez pour ouvrir le projet</span>
+      <span aria-hidden="true">↗</span>
+    </button>
+    <p class="kinetic-disclaimer">Composition interactive originale, conçue pour illustrer un site 3D. Aucun contenu généré ni service payant exécuté ici.</p>
   </div>
-  <div class="exp-outro"><p>Les résultats ci-dessus sont illustratifs : pas de génération IA réelle ni de formulaire envoyé. Mais les interactions, le site et les transitions fonctionnent dans votre navigateur.</p><div><a href="./fiches.html">Comprendre la méthode <span aria-hidden="true">↗</span></a><a href="./catalogue.html">Choisir les bons outils <span aria-hidden="true">↗</span></a></div></div>
+  <a class="kinetic-next" href="#atelier">FAITES DÉFILER POUR DÉCOUVRIR LA SUITE <span aria-hidden="true">↓</span></a>
 </section>
 <section class="home-workshop" id="atelier" aria-labelledby="workshop-title">
  <div class="home-workshop-copy"><p class="editorial-mark">ATELIER 3D INTERACTIF / SURVOLEZ, TOURNEZ, EXPLOREZ</p><h2 id="workshop-title">Changer d'outil.<br>Pas de façon<br>de penser.</h2><p>Survolez l'ordinateur pour l'orienter. Survolez un usage pour transformer son écran, puis faites défiler pour changer l'angle de vue. Une démonstration en 3D, pas un outil IA connecté.</p>
