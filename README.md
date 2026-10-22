@@ -4,6 +4,25 @@ Création d'une bibliothèque d'outils IA.
 
 **Statut : pré-lancement, aucune vente ni paiement actif.**
 
+## Expérience actuelle — 22 octobre 2026
+
+**La zone de comparaison horizontal avant/après du haut d'accueil a été supprimée à la demande du propriétaire.** Les anciennes descriptions dans ce README documentent l'historique, pas l'interface actuelle.
+
+Le haut du site présente maintenant une **démonstration commerciale interactive unique** : un mini-site fictif d'atelier de céramique qui réagit aux actions de l'utilisateur.
+
+- Survolez / concentrez l'**accroche** : elle se réécrit en direct.
+- Survolez / sélectionnez l'**objet** : sa finition (émail / couleur) change, avec mouvement.
+- Survolez / activez le **bouton de demande** : un exemple de workflow apparaît, avec étapes successives et validation humaine ; aucune demande n'est réellement envoyée.
+- Faites défiler dans le mini-site : une seconde partie révèle les pièces de la collection au scroll.
+- Les interactions restent accessibles au clic, au clavier et au toucher. Les médias qui préfèrent réduire les mouvements reçoivent des effets minimaux.
+- Des CTA conduisent vers les méthodes réellement disponibles (`fiches.html`) et le répertoire d'outils (`catalogue.html`). **Ce ne sont pas des formations vendues ni des services IA qui tournent réellement dans le navigateur.** L'offre est en pré-lancement.
+- Les six familles d'outils restent uniquement dans leur section existante plus bas, afin d'éviter une duplication.
+- La scène 3D Three.js conservée dans `#atelier` et tous ses quatre modes restent chargés.
+
+Fichiers : `index.html`, `assets/experience-demo.css`, `assets/experience-demo.js`. Anciennes expériences `assets/banks-hover.*` et `assets/transformation.js` non chargées par l'accueil. Exécuter `node scripts/check-visual-features.mjs` avant publication pour détecter une régression.
+
+**Validation effectuée :** contrôle de syntaxe JavaScript, intégrité des liens et éléments essentiels, simulations des interactions au survol, au clic et au toucher sur le modèle DOM. **Non prouvé :** rendu WebGL réel, contrôle visuel de la mise en page sur appareils et accessibilité publique du déploiement GitHub Pages. Un commit sur `main` ne signifie pas que ces validations sont réussies.
+
 ## Site et suivi
 
 - [Page d'accueil](./index.html)
