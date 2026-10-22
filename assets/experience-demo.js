@@ -10,6 +10,8 @@ const finish=document.getElementById('expFinishLabel');
 const workflow=document.getElementById('expWorkflow');
 const scroller=document.getElementById('expBrowserContent');
 const triggers=[...demo.querySelectorAll('[data-demo-trigger]')];
+const pointerHint=document.getElementById('expPointerHint');
+if(pointerHint&&window.matchMedia('(hover: none), (pointer: coarse)').matches)pointerHint.textContent='TOUCHEZ LE TITRE, L’OBJET OU LE BOUTON · GLISSEZ DANS LA PAGE ↕';
 const original={heading:heading.innerHTML,description:description.textContent};
 const labels={
  idle:'EXPLOREZ LA DÉMONSTRATION',
