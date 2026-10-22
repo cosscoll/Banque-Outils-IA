@@ -4,6 +4,16 @@ Création d'une bibliothèque d'outils IA.
 
 **Statut : pré-lancement, aucune vente ni paiement actif.**
 
+## Correction du site — 22 octobre 2026 : textures + suppression de l'ordinateur 3D
+
+À la demande du propriétaire, la section entière `#atelier` présentant un ordinateur 3D a été supprimée de l'accueil, avec ses boutons, le canvas, les scripts Three.js et les liens « Atelier 3D » du menu. Les fichiers de l'ancien modèle restent archivés dans le dépôt mais **ne sont plus chargés** par le site.
+
+Défaut de textures corrigé dans `assets/obscure-terrain.svg` : suppression du filtre SVG procédural `feTurbulence` (bruit gris de type pixellisé) et du fond rectangulaire opaque qui produisait une bande horizontale dans la scène. Le décor est maintenant transparent et purement vectoriel, avec des facettes nettes et les contours orange conservés. Position et mise à l'échelle corrigées dans `assets/obscure-pop.css`.
+
+Le site conserve la vitrine Obscure Pop et les cinq cartes en perspective qui s'ouvrent au survol, ainsi que les sections outils, méthodes, catalogue et parcours. Les liens `#atelier` ont été remplacés par `#usages` et les débordements horizontaux limités.
+
+Le script `scripts/check-visual-features.mjs` protège cette nouvelle configuration. Contrôles structurels du dépôt réussis, **vérification visuelle dans le navigateur public toujours nécessaire**. Aucun achat ni automatisation.
+
 ## Direction artistique validée — Obscure Pop (22 octobre 2026)
 
 La charte **Obscure Pop** est choisie par le propriétaire et appliquée directement sur `main` aux cinq pages du site : `index.html`, `catalogue.html`, `fiches.html`, `parcours.html` et `avancement.html`.
@@ -14,7 +24,7 @@ La charte **Obscure Pop** est choisie par le propriétaire et appliquée directe
 - Ambiance : texture rocheuse en SVG local, tracés lumineux et cartes Web/CSS déployées en perspective. Aucun achat d'illustrations ou de licences.
 - L'ouverture automatique au survol et les changements d'angle à la souris sont conservés. Bouton tactile et interaction clavier restent disponibles, de même que le menu mobile.
 - Le header principal et les headers des pages intérieures conservent un positionnement collant en haut de fenêtre.
-- La scène **WebGL Three.js existante** est conservée avec ses quatre modes, ses animations au scroll et ses interfaces de démonstration. Les six univers du catalogue restent dans leur section d'origine, sans duplication du contenu commercial en haut de page.
+- Les six univers du catalogue restent dans leur section d'origine, sans duplication du contenu commercial en haut de page.
 - Les méthodes sont des aperçus accessibles et le catalogue référence des services externes. **Aucun paiement ni service IA externe n'est actif et aucune métrique commerciale inventée n'est affichée**.
 
 Principaux fichiers : `assets/obscure-pop.css`, `assets/obscure-terrain.svg`, `assets/kinetic-hero.js`, `assets/atelier.js`, les cinq HTML. Les anciens fichiers de refontes sont conservés à titre d'historique mais ne sont pas rechargés sur l'accueil.
