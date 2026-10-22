@@ -4,23 +4,22 @@ Création d'une bibliothèque d'outils IA.
 
 **Statut : pré-lancement, aucune vente ni paiement actif.**
 
-## Expérience actuelle — 22 octobre 2026
+## Direction artistique validée — Obscure Pop (22 octobre 2026)
 
-Le mini-site de céramique encadré dans un navigateur et son double défilement ont été **retirés** du haut de page à la demande du propriétaire. De même, l'ancien comparateur avant/après et les six onglets de banque en haut ne sont plus rendus.
+La charte **Obscure Pop** est choisie par le propriétaire et appliquée directement sur `main` aux cinq pages du site : `index.html`, `catalogue.html`, `fiches.html`, `parcours.html` et `avancement.html`.
 
-L'accueil comporte maintenant une **accroche plein écran** (« Vos idées méritent d'exister ») et une composition interactive de trois pages appartenant à un même projet éditorial fictif « FORME. ». Ce n'est pas un second catalogue.
+- Palette : noir charbon `#0B0B0D`, ivoire `#F5F1E6`, lime `#D9FF3A`, orange `#FF5C39`, violet `#8B5CF6`.
+- Police d'affichage et d'interface : Instrument Sans, avec graisse forte, typographie large, contrastes nets.
+- Accueil : « Osez créer autrement. » avec cinq cartes interactives présentant de vrais types de réalisations (vidéo, création visuelle, automatisation, texte et recherche/analyse). Chaque carte pointe vers la bonne catégorie du catalogue. Ces exemples sont illustratifs et ne sont pas des traitements IA réellement exécutés.
+- Ambiance : texture rocheuse en SVG local, tracés lumineux et cartes Web/CSS déployées en perspective. Aucun achat d'illustrations ou de licences.
+- L'ouverture automatique au survol et les changements d'angle à la souris sont conservés. Bouton tactile et interaction clavier restent disponibles, de même que le menu mobile.
+- Le header principal et les headers des pages intérieures conservent un positionnement collant en haut de fenêtre.
+- La scène **WebGL Three.js existante** est conservée avec ses quatre modes, ses animations au scroll et ses interfaces de démonstration. Les six univers du catalogue restent dans leur section d'origine, sans duplication du contenu commercial en haut de page.
+- Les méthodes sont des aperçus accessibles et le catalogue référence des services externes. **Aucun paiement ni service IA externe n'est actif et aucune métrique commerciale inventée n'est affichée**.
 
-- Au survol, les trois pages du site se déploient en perspective ; le déplacement de la souris oriente le volume.
-- Sur mobile, un bouton accessible ouvre et referme la composition ; la touche Échap referme également le projet épinglé.
-- Une animation d'entrée crée l'effet de profondeur sans faire dépendre l'accès au site d'un GPU WebGL.
-- La charte « Transformation » est conservée. Les liens renvoient aux outils disponibles dans `catalogue.html` et aux premières méthodes de `fiches.html`.
-- Les six familles d'outils ne sont présentées qu'en bas de page, dans la section déjà existante.
-- L'atelier 3D WebGL situé sous l'accroche est conservé avec ses quatre modes et son repli sans WebGL.
-- Cette composition est une démonstration graphique et ne constitue ni un véritable site client, ni une formation déjà commercialisée, ni une génération IA.
+Principaux fichiers : `assets/obscure-pop.css`, `assets/obscure-terrain.svg`, `assets/kinetic-hero.js`, `assets/atelier.js`, les cinq HTML. Les anciens fichiers de refontes sont conservés à titre d'historique mais ne sont pas rechargés sur l'accueil.
 
-Fichiers actifs : `index.html`, `assets/kinetic-hero.css`, `assets/kinetic-hero.js`, `assets/atelier.js` et `assets/vendor/three.min.js`. Les anciens modules `assets/experience-demo.*` et `assets/banks-hover.*` ne sont plus chargés par l'accueil.
-
-Contrôles : `node scripts/check-visual-features.mjs` pour protéger le hero, le catalogue, la 3D et les accès aux méthodes ; tests simulés d'interactions en complément. **La vérification du rendu visuel et du déploiement public GitHub Pages est distincte des confirmations de commits GitHub.** Aucun paiement ni automatisation n'est activé.
+**Contrôles :** exécuter `node scripts/check-visual-features.mjs`, vérifier les liens internes, les interactions mobile/desktop, le rendu et les performances WebGL en navigateur réel. Un commit GitHub réussi ne prouve pas à lui seul que GitHub Pages a publié ni que le rendu visuel a été vérifié.
 
 ## Site et suivi
 
