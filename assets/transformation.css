@@ -198,3 +198,9 @@ a{color:inherit;text-decoration:none}button,input{font:inherit}button{cursor:poi
 
 /* Keep opened hover examples above adjacent rows. */
 .use-link:hover,.use-link:focus-visible{z-index:10}
+
+/* Header always visible while scrolling the entire site. */
+.masthead{position:sticky;top:0;z-index:1200;background:rgba(236,240,239,.97);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.masthead-mobile{z-index:1201;max-height:calc(100dvh - 70px);overflow-y:auto;overscroll-behavior:contain}
+html{scroll-padding-top:95px}
+@media(max-width:760px){html{scroll-padding-top:82px}}
