@@ -320,3 +320,39 @@ html:has(body.obscure-pop),body.obscure-pop{max-width:100%;overflow-x:clip}
  .obscure-pop .masthead-nav{gap:clamp(10px,1.65vw,24px)}
 }
 @media(max-width:990px){.obscure-pop .kinetic-right{overflow:hidden}}
+
+/* 2026-10-22 — Hero hit-test repair.
+   The editorial column was above the card stack (z-index 4 vs 2).
+   It captured pointer events over the two left cards even where visually transparent.
+   Put the showcase on top, and let pointer events pass through non-interactive copy.
+   Primary actions remain clickable, including descendants of the SVG arrows. */
+@media (min-width: 991px) and (hover: hover) and (pointer: fine) {
+  .obscure-pop .kinetic-left {
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .obscure-pop .kinetic-left .kinetic-actions,
+  .obscure-pop .kinetic-left .kinetic-actions a {
+    pointer-events: auto;
+  }
+  .obscure-pop .kinetic-right {
+    position: relative;
+    z-index: 6;
+  }
+  .obscure-pop .kinetic-stage.op-stage {
+    position: relative;
+    z-index: 7;
+  }
+  .obscure-pop .op-constellation {
+    z-index: 8;
+  }
+}
+.obscure-pop .op-atmosphere,
+.obscure-pop .kinetic-aura,
+.obscure-pop .kinetic-float-tag {
+  pointer-events: none;
+}
+.obscure-pop .op-card {
+  pointer-events: auto;
+}
