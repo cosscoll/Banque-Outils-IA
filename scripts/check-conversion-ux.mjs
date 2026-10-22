@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const pages=['index.html','catalogue.html','fiches.html','parcours.html','avancement.html'];
+const pages=['index.html','produit.html','contact.html','catalogue.html','fiches.html','parcours.html','avancement.html'];
 const html=new Map(pages.map(name=>[name,fs.readFileSync(path.join(root,name),'utf8')]));
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const normalize=s=>s.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
@@ -86,23 +86,50 @@ check('Obscure Pop design and kinetic hover script are preserved',()=>{
  assert.match(visual,/\.op-stage \.op-card\.is-featured/);
  assert.match(script,/closestLeftCard\(/);
  assert.equal((css.match(/\{/g)||[]).length,(css.match(/\}/g)||[]).length);
- for(const [name,body] of html)if(name!=='avancement.html')assert.match(body,/assets\/conversion\.css/);
+ for(const [name,body] of html)if(['index.html','catalogue.html','fiches.html','parcours.html'].includes(name))assert.match(body,/assets\/conversion\.css/);
 });
-check('One consistent compact sticky navigation on all five pages',()=>{
+check('Accueil, Produit, Contact are the only three global menu destinations',()=>{
+ const correctLinks=['./index.html','./produit.html','./contact.html'];
  for(const [name,body] of html){
   assert.equal((body.match(/class="global-header"/g)||[]).length,1,name+' header');
   assert.equal((body.match(/class="global-nav"/g)||[]).length,1,name+' desktop navigation');
   assert.match(body,/aria-controls="global-mobile-nav"/);
-  assert.match(body,/href="\.\/parcours\.html"[^>]*>Me guider/);
   assert.match(body,/assets\/journey-nav\.js/);
   assert.match(body,/assets\/journey-nav\.css/);
-  assert.doesNotMatch(body,/class="masthead"|class="menu-button"|class="mobile-menu-toggle"/);
+  assert.doesNotMatch(body,/id="mobileNav"|class="masthead"|class="menu-button"|class="mobile-menu-toggle"/);
+  const header=body.match(/<header class="global-header"[\s\S]*?<\/header>/)?.[0];
+  assert.ok(header,'header missing '+name);
+  const desktopNav=header.match(/<nav class="global-nav"[\s\S]*?<\/nav>/)?.[0];
+  const mobileNav=header.match(/<nav id="global-mobile-nav"[\s\S]*?<\/nav>/)?.[0];
+  assert.ok(desktopNav&&mobileNav,'nav missing '+name);
+  const desktop=[...desktopNav.matchAll(/href="([^"]+)"/g)].map(x=>x[1]);
+  const mobile=[...mobileNav.matchAll(/href="([^"]+)"/g)].map(x=>x[1]);
+  assert.equal(desktop.length,2,'desktop plain links '+name);
+  assert.equal(JSON.stringify(desktop),JSON.stringify(['./index.html','./produit.html']),'desktop routes '+name);
+  assert.equal(JSON.stringify(mobile),JSON.stringify(correctLinks),'mobile routes '+name);
+  assert.match(header,/<a class="global-start" href="\.\/contact\.html"/);
  }
  const styles=read('assets/journey-nav.css');
  assert.match(styles,/position:sticky;top:0;z-index:6000/);
  const menu=read('assets/journey-nav.js');
  assert.match(menu,/event\.key==='Escape'/);
  assert.match(menu,/menu\.querySelectorAll\('a'\)/);
+});
+check('Product presents actual availability and contact is honest about public channel',()=>{
+ const product=html.get('produit.html'),contact=html.get('contact.html');
+ assert.match(product,/18 outils référencés/);
+ assert.match(product,/6 premières méthodes/);
+ assert.match(product,/aucun tarif, abonnement ni paiement/);
+ assert.match(product,/href="\.\/catalogue\.html"/);
+ assert.match(product,/href="\.\/fiches\.html"/);
+ assert.match(contact,/canal public provisoire/i);
+ assert.match(contact,/id="publicContactForm"/);
+ assert.match(contact,/github\.com\/cosscoll\/Banque-Outils-IA\/issues\/new/);
+ assert.match(contact,/aucun message n'est envoyé depuis cette page/i);
+ const form=read('assets/contact-public.js');
+ assert.match(form,/form\.addEventListener\('submit'/);
+ assert.match(form,/dest\.searchParams\.set\('title'/);
+ assert.match(form,/dest\.searchParams\.set\('body'/);
 });
 check('Progressive disclosure prevents information overload without removing content',()=>{
  const catalog=html.get('catalogue.html');
