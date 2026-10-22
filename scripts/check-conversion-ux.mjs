@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const pages=['index.html','produit.html','contact.html','catalogue.html','fiches.html','parcours.html','avancement.html'];
+const pages=['index.html','produit.html','contact.html','catalogue.html','fiches.html','parcours.html','avancement.html','pack-redaction.html','pack-visuel.html','pack-sites-web.html','pack-video-audio.html','pack-automatisation.html','pack-recherche-analyse.html'];
 const html=new Map(pages.map(name=>[name,fs.readFileSync(path.join(root,name),'utf8')]));
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const normalize=s=>s.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
@@ -115,21 +115,41 @@ check('Accueil, Produit, Contact are the only three global menu destinations',()
  assert.match(menu,/event\.key==='Escape'/);
  assert.match(menu,/menu\.querySelectorAll\('a'\)/);
 });
-check('Product presents actual availability and contact is honest about public channel',()=>{
- const product=html.get('produit.html'),contact=html.get('contact.html');
- assert.match(product,/18 outils référencés/);
- assert.match(product,/6 premières méthodes/);
- assert.match(product,/aucun tarif, abonnement ni paiement/);
- assert.match(product,/href="\.\/catalogue\.html"/);
- assert.match(product,/href="\.\/fiches\.html"/);
+check('Six distinct showrooms connect to the product hub and remain honest about status',()=>{
+ const hub=html.get('produit.html');
+ const names=['pack-redaction.html','pack-visuel.html','pack-sites-web.html','pack-video-audio.html','pack-automatisation.html','pack-recherche-analyse.html'];
+ assert.equal((hub.match(/class="collection-tile"/g)||[]).length,6);
+ assert.match(hub,/aucun achat, paiement ou téléchargement payant/i);
+ for(const name of names){
+  assert.match(hub,new RegExp('href="\\./'+name+'"'));
+  const page=html.get(name);
+  assert.match(page,/class="showroom-scene is-open"/);
+  assert.match(page,/id="demo-action"/);
+  assert.match(page,/id="demo-result"/);
+  assert.equal((page.match(/class="showroom-object"/g)||[]).length,3,name+' 3D supports');
+  assert.equal((page.match(/class="showroom-feature"/g)||[]).length,3,name+' content panels');
+  assert.match(page,/tarifs?[^<]*à (?:définir|valider)|Prix non fixé|prix et conditions sont encore à valider/i);
+  assert.match(page,/Aucun achat possible actuellement/i);
+  assert.match(page,/assets\\/product-showroom\\.css/);
+  assert.match(page,/assets\\/product-showroom\\.js/);
+  assert.match(page,/noindex,follow/);
+ }
+ const css=read('assets/product-showroom.css');
+ assert.match(css,/transform-style:preserve-3d/);
+ const js=read('assets/product-showroom.js');
+ assert.match(js,/scene\\.addEventListener\\('pointermove'/);
+ assert.match(js,/demo\\.addEventListener\\('click'/);
+});
+check('Contact preserves a functioning and honest public GitHub draft',()=>{
+ const contact=html.get('contact.html');
  assert.match(contact,/canal public provisoire/i);
  assert.match(contact,/id="publicContactForm"/);
- assert.match(contact,/github\.com\/cosscoll\/Banque-Outils-IA\/issues\/new/);
+ assert.match(contact,/github\\.com\\/cosscoll\\/Banque-Outils-IA\\/issues\\/new/);
  assert.match(contact,/aucun message n'est envoyé depuis cette page/i);
  const form=read('assets/contact-public.js');
- assert.match(form,/form\.addEventListener\('submit'/);
- assert.match(form,/dest\.searchParams\.set\('title'/);
- assert.match(form,/dest\.searchParams\.set\('body'/);
+ assert.match(form,/form\\.addEventListener\\('submit'/);
+ assert.match(form,/dest\\.searchParams\\.set\\('title'/);
+ assert.match(form,/dest\\.searchParams\\.set\\('body'/);
 });
 check('Progressive disclosure prevents information overload without removing content',()=>{
  const catalog=html.get('catalogue.html');
