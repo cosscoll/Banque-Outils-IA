@@ -131,3 +131,14 @@ La page Méthodes montre d'abord trois fiches puis permet d'afficher les six. Le
 **Validation sur sources :** 10/10 contrôles UX structurels, 12/12 contrôles des interactions Obscure Pop, et 14/14 simulations de la navigation mobile, de l'expansion des outils et des méthodes. **Rendu GitHub Pages et comportement sur navigateurs réels encore à vérifier.** Aucun paiement ou automatisation activé.
 
 Fichiers : `assets/journey-nav.css`, `assets/journey-nav.js`, les cinq pages HTML et `scripts/check-conversion-ux.mjs`.
+
+## Navigation commerciale — 22 octobre 2026
+
+**Header validé : Accueil · Produit · Contact.** Identique sur ordinateur et sur mobile dans les sept pages du projet. Le bouton « Contact » reste visible et le menu reste fixé en haut. Les sections Catalogue, Méthodes et Guide ne sont pas supprimées : elles sont accessibles depuis les liens de la page Produit, les CTA de l'accueil et les pieds de page.
+
+- `produit.html` : présentation commerciale claire de la bibliothèque réellement disponible (18 outils classés par besoin, six méthodes et guide interactif), sans prix ni ventes fictives. L'offre payante reste en préparation.
+- `contact.html` : une page Contact fonctionnelle en mode provisoire, qui **prépare un brouillon de demande GitHub publique** ; l'utilisateur le relit et le publie sur GitHub lui-même (compte GitHub nécessaire). Aucun message ni donnée sensible n'est recueilli par le site. Une adresse e-mail professionnelle ou un formulaire privé restent à configurer avant un vrai lancement commercial.
+- `assets/commercial-pages.css` et `assets/contact-public.js` : habillage Obscure Pop, adaptation responsive et composition locale d'une URL de demande GitHub.
+- Navigation des cinq pages antérieures harmonisée ; anciens menus mobiles et leurs contrôleurs obsolètes supprimés.
+
+**Vérifications :** 11/11 contrôles UX/structure et 12/12 contrôles historiques de la vitrine 3D réussis. Syntaxes CSS/JavaScript vérifiées. L'accès public GitHub Pages n'a pas pu être testé par un navigateur de l'environnement actuel. Aucun service payant activé.
