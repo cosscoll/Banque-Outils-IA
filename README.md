@@ -110,3 +110,12 @@ La zone `#comparer` présente maintenant **les six banques déjà représentées
 - Les résultats montrés sont des **illustrations, pas des résultats réellement générés par une API d’IA**. La 3D WebGL plus bas dans la page, son chargement Three.js et ses quatre modes n'ont pas été supprimés.
 
 Implémentation : `assets/banks-hover.css`, `assets/banks-hover.js`, `index.html` ; règle de régression ajoutée dans `scripts/check-visual-features.mjs`. Contrôles réalisés : validation de la syntaxe et des liens, simulation des six interactions au survol sur desktop et des six sélections par clic sur mobile. Le rendu visuel et le déploiement GitHub Pages ne sont pas validés par un navigateur public depuis l'environnement de travail.
+
+## Amélioration du contenu commercial et audit UX — 22 octobre 2026
+
+Le contenu a été recentré sur les bénéfices clients et les premiers résultats concrets sans changer la charte Obscure Pop ni ses cinq cartes interactives. Recherche du catalogue réparée, 18 exemples d'usages ajoutés, 4 recherches rapides disponibles, 6 exercices de démarrage ajoutés aux méthodes, liens de navigation ciblés et parcours interactif relié aux catégories d'outils.
+
+**Rapport source et limites des contrôles :** [AUDIT-UX-CONVERSION-2026-10-22.md](AUDIT-UX-CONVERSION-2026-10-22.md).  
+**Tests automatisés sans dépendances ni dépense :** `node scripts/check-visual-features.mjs`, `node scripts/check-conversion-ux.mjs` et `node scripts/test-card-hover.mjs`.
+
+Le site reste une version de découverte, sans commande, abonnement ou collecte de prospects active. Une validation du rendu réel, les mentions légales et la conception de l'offre sont nécessaires avant toute commercialisation.
