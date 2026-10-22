@@ -39,7 +39,7 @@ body.obscure-pop{background:#0b0b0d!important;color:#f5f1e6!important;font-famil
 .op-atmosphere{pointer-events:none;position:absolute;inset:0;overflow:hidden;z-index:0}
 .op-atmosphere::before{content:"";position:absolute;inset:12% 0 0;background:radial-gradient(ellipse at 65% 62%,#fb4a263d 0,transparent 40%),radial-gradient(ellipse at 27% 39%,#8842b540,transparent 50%);filter:blur(6px)}
 .op-aura-violet{position:absolute;right:7%;top:15%;width:46%;height:34%;background:#994bff38;filter:blur(80px);transform:rotate(-24deg)}
-.op-volcanic-rocks{position:absolute;left:-8%;right:-8%;bottom:-2%;height:48%;background:url('./obscure-terrain.svg?v=20261022-clean') center bottom / 100% 100% no-repeat;opacity:1;filter:none;pointer-events:none}
+
 .op-orbit{position:absolute;border-radius:50%;width:87%;height:38%;left:11%;top:38%;transform:rotate(-32deg);border:2px solid #d9ff3aa6;box-shadow:0 0 9px #d9ff3a68,inset 0 0 7px #d9ff3a22;filter:drop-shadow(0 0 7px #ddff5457);opacity:.82}
 .op-orbit-two{left:15%;top:18%;width:83%;height:65%;transform:rotate(29deg);border:1px solid #ff613c9a;box-shadow:0 0 11px #ff613c65;opacity:.7}
 .op-card{--open-x:0px;--open-y:0px;--rot:0deg;--z:0px;position:absolute;display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:#f5f1e6!important;border-radius:22px;min-height:90px;box-shadow:10px 30px 38px #0008,0 0 0 1px #ffffff60 inset;transform:translate3d(0px,0px,var(--z)) rotateZ(var(--rot)) scale(.88);transition:transform .85s cubic-bezier(.18,.86,.24,1),box-shadow .48s,filter .42s;backface-visibility:hidden;transform-style:preserve-3d;will-change:transform;isolation:isolate}
@@ -288,13 +288,13 @@ body.obscure-pop .footer{background:#0b0b0d!important;color:#edeaf0!important}
  .op-card,.op-card *, .op-stage .kinetic-constellation{transition:none!important;animation:none!important}
 }
 
-/* Texture and horizontal-overflow repairs (22 October 2026). The terrain SVG is transparent and has no procedural noise; keep it crisp. */
+/* Layout containment without mountain graphic. */
 html:has(body.obscure-pop),body.obscure-pop{max-width:100%;overflow-x:clip}
 .obscure-pop .kinetic-left{min-width:0}
 .obscure-pop .kinetic-hero{width:100%;max-width:100%;overflow:hidden}
 .obscure-pop .kinetic-right{min-width:0;isolation:isolate}
 .obscure-pop .op-atmosphere{overflow:hidden}
-.obscure-pop .op-volcanic-rocks{image-rendering:auto;will-change:auto}
+.obscure-pop 
 .obscure-pop .masthead{max-width:100%;left:0;right:0}
 .obscure-pop .masthead-nav{min-width:0}
 @media(max-width:1350px) and (min-width:761px){
