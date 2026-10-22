@@ -126,6 +126,9 @@
   },{passive:true});
   stage.addEventListener('pointerleave',event=>{
     if(event.pointerType==='touch')return;
+    // CSS 3D hit testing can emit pointerleave even while the pointer visually
+    // remains over a card. Only close when actually outside the stage rectangle.
+    if(within(stage.getBoundingClientRect(),event.clientX,event.clientY))return;
     hovered=false;resetTilt();if(!cards.some(card=>card.contains(document.activeElement)))feature(null);render();
   });
   toggleButton.addEventListener('click',()=>{
