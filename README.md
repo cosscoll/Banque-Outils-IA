@@ -14,11 +14,15 @@ Le site conserve la vitrine Obscure Pop et les cinq cartes en perspective qui s'
 
 Le script `scripts/check-visual-features.mjs` protège cette nouvelle configuration. Contrôles structurels du dépôt réussis, **vérification visuelle dans le navigateur public toujours nécessaire**. Aucun achat ni automatisation.
 
+## Ajustement chromatique — 22 octobre 2026
+
+Le propriétaire a demandé de réduire l'omniprésence du jaune fluo. L'identité Obscure Pop et la structure restent validées, mais les surfaces colorées ont été rééquilibrées : titre d'accueil lavande, boutons principaux ivoire, carte Automatisation sauge, lignes lumineuses et petits repères pistache moins saturée. Les survols du répertoire passent en violet sombre. Aucune section, interaction ou destination de lien n'est modifiée. Feuille de style `assets/obscure-pop.css`, version de cache `20261022-softpop` sur les cinq pages.
+
 ## Direction artistique validée — Obscure Pop (22 octobre 2026)
 
 La charte **Obscure Pop** est choisie par le propriétaire et appliquée directement sur `main` aux cinq pages du site : `index.html`, `catalogue.html`, `fiches.html`, `parcours.html` et `avancement.html`.
 
-- Palette : noir charbon `#0B0B0D`, ivoire `#F5F1E6`, lime `#D9FF3A`, orange `#FF6A00`, violet `#8B5CF6`.
+- Palette actualisée : noir charbon `#0B0B0D`, ivoire `#F5F1E6`, orange `#FF6A00`, violet `#8B5CF6`, lavande douce `#CAB7F0`, sauge `#A9C8B8` et pistache atténuée `#B9CEA2`. Le jaune fluo `#D9FF3A` est abandonné.
 - Police d'affichage et d'interface : Instrument Sans, avec graisse forte, typographie large, contrastes nets.
 - Accueil : « Osez créer autrement. » avec cinq cartes interactives présentant de vrais types de réalisations (vidéo, création visuelle, automatisation, texte et recherche/analyse). Chaque carte pointe vers la bonne catégorie du catalogue. Ces exemples sont illustratifs et ne sont pas des traitements IA réellement exécutés.
 - Ambiance : texture rocheuse en SVG local, tracés lumineux et cartes Web/CSS déployées en perspective. Aucun achat d'illustrations ou de licences.
