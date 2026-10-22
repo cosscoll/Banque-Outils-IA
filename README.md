@@ -8,7 +8,7 @@ Création d'une bibliothèque d'outils IA.
 
 La charte **Obscure Pop** est choisie par le propriétaire et appliquée directement sur `main` aux cinq pages du site : `index.html`, `catalogue.html`, `fiches.html`, `parcours.html` et `avancement.html`.
 
-- Palette : noir charbon `#0B0B0D`, ivoire `#F5F1E6`, lime `#D9FF3A`, orange `#FF5C39`, violet `#8B5CF6`.
+- Palette : noir charbon `#0B0B0D`, ivoire `#F5F1E6`, lime `#D9FF3A`, orange `#FF6A00`, violet `#8B5CF6`.
 - Police d'affichage et d'interface : Instrument Sans, avec graisse forte, typographie large, contrastes nets.
 - Accueil : « Osez créer autrement. » avec cinq cartes interactives présentant de vrais types de réalisations (vidéo, création visuelle, automatisation, texte et recherche/analyse). Chaque carte pointe vers la bonne catégorie du catalogue. Ces exemples sont illustratifs et ne sont pas des traitements IA réellement exécutés.
 - Ambiance : texture rocheuse en SVG local, tracés lumineux et cartes Web/CSS déployées en perspective. Aucun achat d'illustrations ou de licences.
