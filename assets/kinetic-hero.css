@@ -25,7 +25,6 @@
 .kinetic-foot-arrow{font-size:21px}
 .kinetic-right{position:relative;min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden;background:#d3e0d9;isolation:isolate}
 .kinetic-aura{position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,#cadbd2 0%,#d7e3db 42%,#b5cbc4 100%);pointer-events:none}
-.kinetic-aura::before{content:"";position:absolute;right:-40%;top:-30%;width:90%;aspect-ratio:1;border:1px solid #19394423;border-radius:50%;box-shadow:0 0 0 90px #19394407,0 0 0 170px #19394404}
 .kinetic-stage{--rx:6deg;--ry:-19deg;position:relative;flex:none;width:min(100%,800px);height:min(650px,76svh);min-height:540px;perspective:1700px;transform-style:preserve-3d;cursor:grab;touch-action:pan-y;outline-offset:-12px}
 .kinetic-stage:active{cursor:grabbing}
 .kinetic-constellation{position:absolute;left:50%;top:49%;width:min(80%,545px);height:min(83%,555px);transform-style:preserve-3d;transform:translate(-50%,-50%) rotateY(var(--ry)) rotateX(var(--rx));transition:transform .55s cubic-bezier(.22,1,.36,1)}
