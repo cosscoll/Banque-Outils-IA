@@ -16,8 +16,8 @@
     open=hovered||pinned;
     stage.dataset.open=String(open);
     toggleButton.setAttribute('aria-pressed',String(pinned));
-    toggleButton.setAttribute('aria-label',pinned?'Refermer les pages du projet':'Déployer les pages du projet');
-    toggleLabel.textContent=pinned?'Refermer le projet':finePointer.matches?'Survolez pour ouvrir le projet':'Touchez pour ouvrir le projet';
+    toggleButton.setAttribute('aria-label',pinned?'Refermer les cartes de découverte':'Déployer les cartes de découverte');
+    toggleLabel.textContent=pinned?'Réduire les cartes':finePointer.matches?'Survolez pour explorer les outils':'Touchez pour découvrir les outils';
   }
   stage.addEventListener('pointerenter',event=>{
     if(!finePointer.matches||event.pointerType==='touch')return;
@@ -60,5 +60,5 @@
     });
   }
   render();
-  window.__kineticHero={version:1,isOpen:()=>open};
+  window.__kineticHero={version:2,theme:'obscure-pop',isOpen:()=>open};
 })();
