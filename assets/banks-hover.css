@@ -189,3 +189,18 @@
  .bank-choice,.bank-name,.bank-note,.bank-choice-arrow,.bank-output-sheet,.bank-stage .m-splitline{transition:none!important}
  .bank-stage.is-changing .bank-before-sheet,.bank-stage.is-changing .bank-output-art>*,.bank-stage.is-changing .bank-output-sheet,.bo-media-playhead,.bo-data-column i{animation:none!important}
 }
+
+/* Contextual hover details inside each example: the object, not random decoration, reacts. */
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ .bo-art-poster strong{transition:transform .45s cubic-bezier(.22,1,.36,1),letter-spacing .45s}
+ .bank-stage:hover .bo-art-poster strong{transform:translateY(-6px);letter-spacing:-.108em}
+ .bo-art-letter mark{transition:background .35s}
+ .bank-stage:hover .bo-art-letter mark{background:#edcfb8}
+ .bo-site-content small{transition:transform .35s,background .35s,color .35s;width:max-content}
+ .bank-stage:hover .bo-site-content small{transform:translateX(8px);background:#193944;color:white}
+ .bo-flow-node.is-current{transition:transform .4s,box-shadow .4s}
+ .bank-stage:hover .bo-flow-node.is-current{transform:translateX(9px);box-shadow:-9px 0 0 #9fc7a8}
+ .bo-data-column:nth-child(5) i{transition:background .3s}
+ .bank-stage:hover .bo-data-column:nth-child(5) i{background:#d9553c}
+}
+.bank-flow-note + .m-subsection{margin-top:45px}
