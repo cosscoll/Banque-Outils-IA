@@ -30,7 +30,7 @@
 .bank-stage[data-bank-active=recherche]{--bank-color:#c07c48;--bank-bg:#e5dac2}
 .bank-stage .bank-before,.bank-stage .bank-after{inset:0;display:flex;align-items:center}
 .bank-stage .bank-before{justify-content:flex-start;padding:clamp(25px,4vw,55px) clamp(22px,5vw,85px);background:repeating-linear-gradient(0deg,#f1eadf 0,#f1eadf 30px,#d6cbbe 31px);color:#493d30;overflow:hidden}
-.bank-before-sheet{width:min(43%,520px);min-width:355px;transform:translate3d(calc((var(--bank-x) - 50%) * -.035),1.8%,0) rotate(-3.5deg);position:relative;padding:15px 0;z-index:2}
+.bank-before-sheet{width:min(43%,520px);min-width:355px;transform:translate3d(var(--bank-parallax-left,0px),1.8%,0) rotate(-3.5deg);position:relative;padding:15px 0;z-index:2}
 .bank-sheet-head{display:flex;gap:24px;justify-content:space-between;border-bottom:1px solid #8f83735c;padding-bottom:15px;font:600 10px 'DM Mono',monospace;letter-spacing:.035em;color:#695a49}
 .bank-handwriting{display:block;font:italic 19px Georgia,serif;letter-spacing:-.025em;color:#9d8068;margin:34px 0 7px;transform:rotate(-3deg)}
 .bank-before-sheet h2{font:italic 400 clamp(39px,4.3vw,75px)/1.09 Georgia,serif;letter-spacing:-.07em;margin:10px 0 27px;max-width:470px;color:#463a2e;overflow-wrap:break-word}
@@ -38,7 +38,7 @@
 .bank-rough-stroke{width:180px;height:17px;border-bottom:4px solid #b35d45;transform:rotate(-6deg);margin:14px 0 25px;border-radius:55%}
 .bank-sheet-foot{font:600 10px 'DM Mono',monospace;color:#987d65}
 .bank-stage .bank-after{justify-content:flex-end;padding:clamp(28px,4vw,58px) clamp(25px,5vw,80px);background:var(--bank-bg);color:#193944;transition:background .38s ease;clip-path:inset(0 0 0 var(--split))}
-.bank-output-sheet{height:100%;width:min(45%,575px);min-width:365px;background:#f7f9f4;box-shadow:11px 14px 0 #19394424,19px 24px 32px #19394424;display:flex;flex-direction:column;overflow:hidden;transform:translate3d(calc((var(--bank-x) - 50%) * .018),0,0) rotate(1deg);position:relative;transition:box-shadow .3s}
+.bank-output-sheet{height:100%;width:min(45%,575px);min-width:365px;background:#f7f9f4;box-shadow:11px 14px 0 #19394424,19px 24px 32px #19394424;display:flex;flex-direction:column;overflow:hidden;transform:translate3d(var(--bank-parallax-right,0px),0,0) rotate(1deg);position:relative;transition:box-shadow .3s}
 .bank-output-head,.bank-output-foot{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:14px 20px;font:600 10px 'DM Mono',monospace;white-space:nowrap}
 .bank-output-head{color:#193944;border-bottom:1px solid #bccac6}
 .bank-output-foot{background:#f0f3ec;color:#52696b;border-top:1px solid #bccac6;white-space:normal;font-size:9px;min-height:43px}
