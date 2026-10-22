@@ -9,9 +9,12 @@ const read=name=>fs.readFileSync(path.join(root,name),'utf8');
 const html=read('index.html');
 const css=read('assets/kinetic-hero.css');
 const js=read('assets/kinetic-hero.js');
+const obscure=read('assets/obscure-pop.css');
+const terrain=read('assets/obscure-terrain.svg');
 const theme=read('assets/transformation.css');
 const atelier=read('assets/atelier.js');
 const catalog=read('catalogue.html');
+const inside=['catalogue.html','fiches.html','parcours.html','avancement.html'];
 const count=(s,reg)=>[...s.matchAll(reg)].length;
 const checks=[
  ['The rejected inset miniature and top slider are gone',()=>{
@@ -28,14 +31,27 @@ const checks=[
   assert.match(html,/assets\/kinetic-hero\.css/);
   assert.match(html,/assets\/kinetic-hero\.js/);
  }],
- ['Spatial pages form a coherent example site, not random blocks',()=>{
-  assert.match(html,/class="kinetic-sheet kinetic-sheet-front"/);
-  assert.match(html,/class="kinetic-sheet kinetic-sheet-middle"/);
-  assert.match(html,/class="kinetic-sheet kinetic-sheet-back"/);
-  assert.match(html,/SITE FICTIF|SITE FICTIF|UN SITE FICTIF/i);
-  assert.match(css,/perspective:1700px/);
-  assert.match(css,/transform-style:preserve-3d/);
-  assert.match(css,/\.kinetic-stage\[data-open="true"\]/);
+ ['Five interactive tool showcases replace the old fictional site',()=>{
+  const cats=['medias','creation','auto','redaction','recherche'];
+  for(const cat of cats)assert.match(html,new RegExp('href="\\./catalogue\\.html\\?categorie='+cat+'#recherche"'));
+  assert.equal(count(html,/class="op-card op-card--/g),5);
+  assert.match(html,/class="op-constellation"/);
+  assert.match(obscure,/\.op-stage\[data-open=true\] \.op-card/);
+  assert.match(obscure,/transform-style:preserve-3d/);
+  assert.match(terrain,/feTurbulence/);
+  assert.doesNotMatch(html,/class="kinetic-sheet /);
+ }],
+ ['Obscure Pop is consistent across all pages and header stays sticky',()=>{
+  assert.match(html,/assets\/obscure-pop\.css/);
+  assert.match(html,/class="obscure-pop"/);
+  for(const name of inside){
+    const content=read(name);
+    assert.match(content,/assets\/obscure-pop\.css/);
+    assert.match(content,/obscure-pop/);
+  }
+  assert.match(obscure,/\.obscure-pop \.masthead\{position:sticky!important;top:0!important/);
+  assert.match(obscure,/\.library-page\.obscure-pop \.header\{position:sticky!important;top:0!important/);
+  assert.match(obscure,/--op-lime:#d9ff3a/);
  }],
  ['Mouse hover unfolds and orients the site without clicks',()=>{
   assert.match(js,/stage\.addEventListener\('pointerenter'/);
@@ -80,6 +96,7 @@ const checks=[
   const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
   assert.equal(ids.length,new Set(ids).size);
   assert.equal(count(css,/\{/g),count(css,/\}/g));
+  assert.equal(count(obscure,/\{/g),count(obscure,/\}/g));
  }]
 ];
 let failed=0;
