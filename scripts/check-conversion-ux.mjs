@@ -15,6 +15,19 @@ function check(name,run){
  try{run();passed++;console.log('PASS',name)}
  catch(error){failed++;console.error('FAIL',name,error.message)}
 }
+check('All locally referenced stylesheets and scripts exist and JavaScript parses',()=>{
+ for(const [origin,body] of html){
+  for(const attr of body.matchAll(/(?:src|href)=["'](\.\/assets\/[^"'?#]+)(?:[?#][^"']*)?["']/g)){
+    const target=attr[1].replace(/^\.\//,'');
+    const full=path.join(root,target);
+    assert.ok(fs.existsSync(full),origin+' refers to missing '+target);
+    if(target.endsWith('.js'))assert.doesNotThrow(()=>new Function(read(target)),target+' has JavaScript syntax errors');
+  }
+  for(const match of body.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)){
+    if(match[1].trim())assert.doesNotThrow(()=>new Function(match[1]),origin+' inline script fails syntax check');
+  }
+ }
+});
 check('All local HTML links and hash anchors resolve',()=>{
  for(const [origin,body] of html){
   for(const hit of body.matchAll(/href=["']([^"']+)["']/g)){
