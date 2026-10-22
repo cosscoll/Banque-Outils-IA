@@ -71,6 +71,13 @@ const checks=[
   assert.match(js,/card\.addEventListener\('pointerenter'/);
   assert.match(js,/card\.addEventListener\('pointerleave'/);
   assert.match(js,/card\.addEventListener\('focusin'/);
+  // The actual previous bug: pointer events can land on an overlay instead of
+  // the two left links. Do not regress to relying only on card pointerenter.
+  assert.match(js,/document\.addEventListener\('pointermove'/);
+  assert.match(js,/snapshotLeftRects\(\)/);
+  assert.match(js,/closestLeftCard\(/);
+  assert.match(js,/window\.location\.assign\(card\.href\)/);
+  assert.match(html,/kinetic-hero\.js\?v=20261022-hitboxes/);
   assert.match(js,/stage\.classList\.toggle\('has-featured'/);
   assert.match(js,/item\.classList\.toggle\('is-featured'/);
   assert.match(obscure,/\.op-stage \.op-card\.is-featured/);
