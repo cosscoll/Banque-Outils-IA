@@ -67,3 +67,15 @@ Ces défauts sont corrigés dans `main` :
 **Règle de maintenance :** aucune future refonte graphique ne doit supprimer, masquer ni déplacer hors de portée la 3D et les interactions déjà validées sans demande explicite. Faire passer `node scripts/check-visual-features.mjs` avant de publier des changements, et conserver une vérification visuelle avec vrai GPU indépendante de ces contrôles statiques. Ce script ne déclenche ni action GitHub ni service payant.
 
 **Validation disponible :** liens GitHub confirmés, 16 vérifications de structure/interactions réussies, syntaxe JavaScript vérifiée. **Non vérifié :** capture WebGL sur navigateur réel et accessibilité publique de GitHub Pages depuis cet environnement. Un commit ne vaut pas preuve de rendu.
+
+## Atelier des six banques au survol — 22 octobre 2026
+
+La zone `#comparer` présente maintenant **les six banques déjà représentées dans le catalogue** : écriture, création visuelle, développement, vidéo/audio, automatisation et recherche/analyse. Elle conserve la charte « Transformation ».
+
+- Sur ordinateur, le survol des sélecteurs remplace immédiatement le brouillon et l'objet final illustré (courrier, affiche, mini-site, montage, workflow ou graphique).
+- Le mouvement horizontal du pointeur dans le comparateur continue de déplacer le partage avant/après **sans clic** ; un léger parallaxe anime les documents.
+- Sur mobile, les six sélecteurs sont accessibles en défilement horizontal et activables au toucher ; le comparateur conserve sa glissière tactile. Les contrôles sont également accessibles au clavier.
+- Sous le comparateur, le lien se met à jour vers la catégorie précise du catalogue : `?categorie=...#recherche`. Les noms des trois services présentés par famille sont ceux du répertoire public.
+- Les résultats montrés sont des **illustrations, pas des résultats réellement générés par une API d’IA**. La 3D WebGL plus bas dans la page, son chargement Three.js et ses quatre modes n'ont pas été supprimés.
+
+Implémentation : `assets/banks-hover.css`, `assets/banks-hover.js`, `index.html` ; règle de régression ajoutée dans `scripts/check-visual-features.mjs`. Contrôles réalisés : validation de la syntaxe et des liens, simulation des six interactions au survol sur desktop et des six sélections par clic sur mobile. Le rendu visuel et le déploiement GitHub Pages ne sont pas validés par un navigateur public depuis l'environnement de travail.
