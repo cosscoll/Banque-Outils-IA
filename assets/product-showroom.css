@@ -102,3 +102,24 @@
 @media(max-width:1090px){.showroom-hero-layout{grid-template-columns:1fr;padding:45px 0 80px}.showroom-hero{min-height:0}.showroom-scene{width:min(100%,760px);margin:auto;height:600px}.showroom-features{grid-template-columns:1fr 1fr}}
 @media(max-width:750px){.showroom-container{width:calc(100% - 40px)}.showroom-hero h1{font-size:clamp(49px,11vw,78px)}.showroom-hero-layout{padding:32px 0 63px}.showroom-scene{min-height:360px;height:410px}.showroom-object{width:52%;height:75%;padding:13px 12px 10px;border-radius:15px}.showroom-object-heading{font-size:clamp(19px,5.5vw,33px);margin:16px 0}.showroom-object-head,.showroom-object-foot{font-size:7px}.showroom-object:nth-child(1){left:3%}.showroom-object:nth-child(2){right:1%}.showroom-object:nth-child(3){left:23%}.showroom-scene-controls{flex-wrap:wrap;gap:5px}.showroom-scene-controls button{font-size:9px;padding:9px}.showroom-features,.showroom-try,.showroom-points,.showroom-buy{grid-template-columns:1fr}.showroom-feature{min-height:0}.showroom-buy{padding:29px}.showroom-section{padding:65px 0}}
 @media(prefers-reduced-motion:reduce){.showroom-object,.showroom-deck,.showroom-action{transition:none!important}}
+
+/* Commercial hub: one clear choice per future thematic collection. */
+.collections-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:33px}
+.collection-tile{--tile:#CAB7F0;display:flex;flex-direction:column;background:#17141C;border:1px solid #57475F;border-radius:20px;overflow:hidden;min-height:440px;text-decoration:none;color:#F5F1E6;transition:border-color .3s,transform .3s,box-shadow .3s}
+.collection-tile:hover,.collection-tile:focus-visible{border-color:var(--tile);transform:translateY(-9px);box-shadow:0 30px 45px #0009}
+.collection-art{height:205px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 68% 35%,color-mix(in srgb,var(--tile),transparent 55%),transparent 64%),#251B2D}
+.collection-art:before,.collection-art:after{content:"";position:absolute;border:1px solid #ffffff75;border-radius:13px;box-shadow:10px 16px 24px #0007}
+.collection-art:before{width:45%;height:75%;left:19%;top:18%;background:#2F2538;transform:rotate(-17deg)}
+.collection-art:after{width:43%;height:77%;right:18%;top:20%;background:var(--tile);transform:rotate(12deg)}
+.collection-art span{position:absolute;top:60px;right:21%;width:26%;z-index:2;color:#28202C;transform:rotate(12deg);font:900 27px/1 'Instrument Sans',sans-serif;letter-spacing:-.06em}
+.collection-tile-body{padding:27px;display:flex;flex-direction:column;flex:1}
+.collection-tile .number{color:var(--tile);font:800 10px ui-monospace,monospace;letter-spacing:.07em}
+.collection-tile h3{font-size:clamp(25px,2.4vw,33px);letter-spacing:-.055em;line-height:1.08;margin:21px 0 13px}
+.collection-tile p{font-size:13px;color:#C7BFCB;line-height:1.6;margin:0 0 18px}
+.collection-tile .go{display:flex;justify-content:space-between;border-top:1px solid #ffffff2a;padding-top:16px;margin-top:auto;font-weight:800;font-size:12px}
+.collection-tile .go span{font-size:18px;color:var(--tile)}
+.product-status{margin-top:30px;color:#C6BBCB;border-left:3px solid #CAB7F0;background:#25202B;padding:20px 25px;line-height:1.7;font-size:13px}
+.product-hub-hero{padding-bottom:60px}
+.product-hub-hero .commercial-hero::before{display:none}
+@media(max-width:1000px){.collections-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.collections-grid{grid-template-columns:1fr}.collection-tile{min-height:0}.collection-art{height:180px}}
