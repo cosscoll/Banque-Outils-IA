@@ -63,6 +63,21 @@ const checks=[
   assert.match(js,/style\.setProperty\('--ry'/);
   assert.match(js,/style\.setProperty\('--rx'/);
  }],
+ ['Every tool card rises above its siblings on hover and focus',()=>{
+  const names=['video','visuel','auto','texte','analyse'];
+  for(const name of names)assert.match(html,new RegExp('class="op-card op-card--'+name+'"'));
+  assert.equal(count(html,/class="op-card op-card--/g),names.length);
+  assert.match(js,/stage\.querySelectorAll\('\.op-card'\)/);
+  assert.match(js,/card\.addEventListener\('pointerenter'/);
+  assert.match(js,/card\.addEventListener\('pointerleave'/);
+  assert.match(js,/card\.addEventListener\('focusin'/);
+  assert.match(js,/stage\.classList\.toggle\('has-featured'/);
+  assert.match(js,/item\.classList\.toggle\('is-featured'/);
+  assert.match(obscure,/\.op-stage \.op-card\.is-featured/);
+  assert.match(obscure,/z-index:9999!important/);
+  assert.match(obscure,/340px\) rotateZ\(0deg\) scale\(1\.08\)/);
+  assert.match(obscure,/\.op-stage\.has-featured \.op-card:not\(\.is-featured\)/);
+ }],
  ['Touch, keyboard and mobile menu still work',()=>{
   assert.match(js,/toggleButton\.addEventListener\('click'/);
   assert.match(js,/event\.key==='Escape'/);
