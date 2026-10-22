@@ -88,5 +88,34 @@ check('Obscure Pop design and kinetic hover script are preserved',()=>{
  assert.equal((css.match(/\{/g)||[]).length,(css.match(/\}/g)||[]).length);
  for(const [name,body] of html)if(name!=='avancement.html')assert.match(body,/assets\/conversion\.css/);
 });
+check('One consistent compact sticky navigation on all five pages',()=>{
+ for(const [name,body] of html){
+  assert.equal((body.match(/class="global-header"/g)||[]).length,1,name+' header');
+  assert.equal((body.match(/class="global-nav"/g)||[]).length,1,name+' desktop navigation');
+  assert.match(body,/aria-controls="global-mobile-nav"/);
+  assert.match(body,/href="\.\/parcours\.html"[^>]*>Me guider/);
+  assert.match(body,/assets\/journey-nav\.js/);
+  assert.match(body,/assets\/journey-nav\.css/);
+  assert.doesNotMatch(body,/class="masthead"|class="menu-button"|class="mobile-menu-toggle"/);
+ }
+ const styles=read('assets/journey-nav.css');
+ assert.match(styles,/position:sticky;top:0;z-index:6000/);
+ const menu=read('assets/journey-nav.js');
+ assert.match(menu,/event\.key==='Escape'/);
+ assert.match(menu,/menu\.querySelectorAll\('a'\)/);
+});
+check('Progressive disclosure prevents information overload without removing content',()=>{
+ const catalog=html.get('catalogue.html');
+ const guides=html.get('fiches.html');
+ assert.equal((catalog.match(/class="resource"/g)||[]).length,18);
+ assert.match(catalog,/id="showAllTools"/);
+ assert.match(catalog,/introCards=new Set/);
+ assert.match(catalog,/showingIntro/);
+ assert.match(catalog,/class="discovery-help"/);
+ assert.equal((guides.match(/class="method-card"/g)||[]).length,6);
+ assert.match(guides,/id="moreMethods"/);
+ assert.match(guides,/function openDeepLink\(/);
+ assert.match(guides,/requestAnimationFrame\(\(\)=>target\.scrollIntoView/);
+});
 console.log(passed+' passed, '+failed+' failed.');
 if(failed)process.exitCode=1;
