@@ -13,8 +13,8 @@
   let featuredCard=null;
   let clearFeatureTimer=null;
   function feature(card){
-    if(featuredCard===card)return;
     window.clearTimeout(clearFeatureTimer);
+    if(featuredCard===card)return;
     featuredCard=card;
     stage.classList.toggle('has-featured',Boolean(card));
     for(const item of cards)item.classList.toggle('is-featured',item===card);
