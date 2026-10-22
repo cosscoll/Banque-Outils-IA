@@ -22,7 +22,7 @@ buttons.forEach(button=>button.addEventListener('click',()=>{
 }));
 cards.forEach((card,index)=>{
  card.addEventListener('pointerenter',event=>{
-  if(!fine.matches||event.pointerType==='touch')return;
+  if(!fine.matches||event.pointerType==='touch'||locked>=0)return;
   activate(index);
  });
  card.addEventListener('pointerleave',event=>{
