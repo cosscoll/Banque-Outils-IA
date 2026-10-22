@@ -39,7 +39,8 @@ const checks=[
   assert.match(obscure,/transform-style:preserve-3d/);
   assert.doesNotMatch(terrain,/feTurbulence|filter="url\(#noise\)"|M0 0h1400v720H0z/);
   assert.match(terrain,/viewBox="0 382 1400 338"/);
-  assert.match(obscure,/\.op-volcanic-rocks\{[^}]*filter:none/);
+  assert.doesNotMatch(html,/op-volcanic-rocks/);
+  assert.doesNotMatch(obscure,/op-volcanic-rocks|obscure-terrain\.svg/);
   assert.doesNotMatch(html,/class="kinetic-sheet /);
  }],
  ['Obscure Pop is consistent across all pages and header stays sticky',()=>{
