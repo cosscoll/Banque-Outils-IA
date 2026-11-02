@@ -2,12 +2,12 @@
 (()=>{
   'use strict';
   const PRODUCTS=[
-    {id:'redaction',title:'Rédaction & communication',url:'./pack-redaction.html',outcome:'Préparer des e-mails, publications et textes de présentation.',reason:'Votre besoin concerne les mots et les messages à adresser à votre public.',patterns:[[/\bredig\w*|\bredaction\b|\becri\w*|\btexte\w*|\barticle\w*|\be[\s-]?mails?\b|\bmessages?\b|\bnewsletter\w*|\bposts?\b|\bpublication\w*|\bprospect\w*|\baccroche\w*|\blegende\w*|\bcopywriting\b|\bcommunication\b/,6],[/\bfiches? produits?\b|\bdescription\w* produits?\b/,3]]},
-    {id:'visuel',title:'Design & visuels',url:'./pack-visuel.html',outcome:'Cadrer une affiche, une bannière ou un autre visuel.',reason:'Votre projet demande de définir une direction graphique.',patterns:[[/\baffich\w*|\bvisuel\w*|\bgraph\w*|\bimages?\b|\blogos?\b|\bflyers?\b|\bbannier\w*|\bdesign\b|\bidentite visuelle\b|\bcharte graphique\b|\bphotograph\w*/,7]]},
-    {id:'web',title:'Sites web & prototypes',url:'./pack-sites-web.html',outcome:'Structurer les pages d’un site et préparer un prototype.',reason:'Votre objectif concerne la structure ou la présentation d’un site.',patterns:[[/\bsites?\b|\bpage\w* web\b|\blanding page\b|\bwordpress\b|\bvitrine\b|\bboutique en ligne\b|\be[\s-]?commerce\b|\bapplication web\b|\bprototyp\w*|\bheberg\w*|\bnom de domaine\b/,8]]},
-    {id:'medias',title:'Vidéo & audio',url:'./pack-video-audio.html',outcome:'Préparer un script, un storyboard ou un projet audio.',reason:'Vous travaillez sur un contenu vidéo ou sonore.',patterns:[[/\bvideo\w*|\bmontage\b|\bpodcast\w*|\baudio\b|\bvoix off\b|\bsous[\s-]?titres?\b|\breels?\b|\byoutube\b|\btiktok\b|\bstoryboard\b|\bfilm\w*/,8]]},
-    {id:'auto',title:'Première automatisation',url:'./pack-automatisation.html',outcome:'Décrire et simuler un processus répétitif avec contrôle humain.',reason:'Vous cherchez à organiser ou éviter une tâche répétitive.',patterns:[[/\bautomati\w*|\bworkflows?\b|\bprocessus\b|\bprocess\b|\brelances? automatiques?\b|\bn8n\b|\bzapier\b|\bmake\b|\bconnecter des outils\b|\bressaisi\w*/,8],[/\btaches? repetiti\w*|\bactions? recurrent\w*|\btous les jours\b|\bchaque semaine\b/,5]]},
-    {id:'analyse',title:'Recherche & analyse',url:'./pack-recherche-analyse.html',outcome:'Comparer des options et organiser des sources fiables.',reason:'Votre besoin consiste à analyser ou comparer des informations avant de décider.',patterns:[[/\bcompar\w*|\banaly\w*|\brecherch\w*|\bbenchmark\b|\bveille\b|\betude de marche\b|\bdecisi\w*|\bsources?\b|\bdonnees?\b|\bstatistiqu\w*|\bconcurren\w*|\btableau\w*|\bdiagnostic\b/,7]]}
+    {id:'redaction',title:'Rédaction & communication',url:'./pack-redaction.html',outcome:'Préparer des e-mails, publications et textes de présentation.',reason:'Votre besoin concerne les mots et les messages à adresser à votre public.',patterns:[[/\bredig\w*|\bredaction\b|\becri\w*|\btexte\w*|\barticle\w*|\be[\s-]?mails?\b|\bmessages?\b|\bnewsletter\w*|\bsms\b|\blettres? de motivation\b|\bfiches? produits?\b|\bposts? instagram\b|\bposts?\b|\bpublication\w*|\bprospect\w*|\baccroche\w*|\blegende\w*|\bcopywriting\b|\bcommunication\b/,6],[/\bfiches? produits?\b|\bdescription\w* produits?\b/,3]]},
+    {id:'visuel',title:'Design & visuels',url:'./pack-visuel.html',outcome:'Cadrer une affiche, une bannière ou un autre visuel.',reason:'Votre projet demande de définir une direction graphique.',patterns:[[/\baffich\w*|\bvisuel\w*|\bgraph\w*|\bimages?\b|\blogos?\b|\bflyers?\b|\bbannier\w*|\bdesign\b|\bidentite visuelle\b|\bcharte graphique\b|\bphotograph\w*|\bpresentation\w* powerpoint\b|\bcarrousel\w* visuel\w*|\bminiature\w*/,7]]},
+    {id:'web',title:'Sites web & prototypes',url:'./pack-sites-web.html',outcome:'Structurer les pages d’un site et préparer un prototype.',reason:'Votre objectif concerne la structure ou la présentation d’un site.',patterns:[[/\bsites?\b|\bpage\w* web\b|\blanding page\b|\bwordpress\b|\bvitrine\b|\bboutique en ligne\b|\be[\s-]?commerce\b|\bapplication web\b|\bprototyp\w*|\bheberg\w*|\bnom de domaine\b|\bsite internet\b|\bformulaire\w* en ligne\b|\breservation\w* en ligne\b|\bprise de rendez vous\b/,8]]},
+    {id:'medias',title:'Vidéo & audio',url:'./pack-video-audio.html',outcome:'Préparer un script, un storyboard ou un projet audio.',reason:'Vous travaillez sur un contenu vidéo ou sonore.',patterns:[[/\bvideo\w*|\bmontage\b|\bpodcast\w*|\baudio\b|\bvoix off\b|\bsous[\s-]?titres?\b|\breels?\b|\byoutube\b|\btiktok\b|\bstoryboard\b|\bfilm\w*|\bvideaste\w*|\binterview\w*|\bnarration\w*/,8]]},
+    {id:'auto',title:'Première automatisation',url:'./pack-automatisation.html',outcome:'Décrire et simuler un processus répétitif avec contrôle humain.',reason:'Vous cherchez à organiser ou éviter une tâche répétitive.',patterns:[[/\bautomati\w*|\bworkflows?\b|\bprocessus\b|\bprocess\b|\brelances? automatiques?\b|\bn8n\b|\bzapier\b|\bmake\b|\bconnecter des outils\b|\bressaisi\w*|\bdevis automatique\b|\bfactur\w* automatique\w*|\brepet\w*\b/,8],[/\btaches? repetiti\w*|\bactions? recurrent\w*|\btous les jours\b|\bchaque semaine\b/,5]]},
+    {id:'analyse',title:'Recherche & analyse',url:'./pack-recherche-analyse.html',outcome:'Comparer des options et organiser des sources fiables.',reason:'Votre besoin consiste à analyser ou comparer des informations avant de décider.',patterns:[[/\bcompar\w*|\banaly\w*|\brecherch\w*|\bbenchmark\b|\bveille\b|\betude de marche\b|\bdecisi\w*|\bsources?\b|\bdonnees?\b|\bstatistiqu\w*|\bconcurren\w*|\btableau\w*|\bdiagnostic\b|\btableaux? de bord\b|\bcomparatif\w*/,7]]}
   ];
   const fold=input=>String(input??'').toLocaleLowerCase('fr').normalize('NFD')
     .replace(/[\u0300-\u036f]/g,'').replace(/[’']/g,' ').replace(/[^\p{L}\p{N}]+/gu,' ').replace(/\s+/g,' ').trim();
@@ -21,7 +21,52 @@
     return {kind:'match',ids:[ranked[0].id]};
   };
   const getProduct=id=>PRODUCTS.find(p=>p.id===id);
-  if(typeof module!=='undefined'&&module.exports)module.exports={choose,fold,PRODUCTS};
+  const newSession=()=>({lastIds:[],role:'',pending:''});
+  // Conversational state is stored in RAM only for the current tab; it is never sent or saved.
+  // This is guidance, NOT an LLM. Unclear requests require an explicit choice.
+  const interpret=(value,previous=newSession())=>{
+    const clean=fold(value).slice(0,250);
+    const state={lastIds:[...(previous.lastIds||[])],role:previous.role||'',pending:previous.pending||''};
+    if(!clean)return {kind:'clarify',reason:'Quelle tâche souhaitez-vous réaliser ?',options:'all',state};
+    const roleMatch=clean.match(/\b(artisan|commercant|coiffeur|restaurateur|restaurant|freelance|independant|consultant|association|entrepreneur|boutique|tpe)\b/);
+    if(roleMatch)state.role=roleMatch[1];
+    if(/\b(prix|tarif|combien cout|acheter|commande|paiement|payant|disponib|precomman)\w*/.test(clean)){
+      return {kind:'info',reason:'Les banques sont encore en préparation : aucun prix définitif, achat ou précommande n’est disponible. Vous pouvez consulter leur aperçu gratuitement.',ids:state.lastIds,options:'after',state};
+    }
+    if(/\b(es tu une ia|vraie ia|intelligence artificielle|chatgpt|qui es tu|fonctionn\w*|donnees personnelles|confidentialite|stock\w*|sauvegard\w*)\b/.test(clean)){
+      return {kind:'info',reason:'Je suis un guide de choix automatique, pas une IA générative. J’analyse votre demande localement, sans transmettre ni conserver vos messages. Je peux vous orienter vers les six banques.',ids:[],options:'all',state};
+    }
+    if(/\b(merci|au revoir|bye)\b/.test(clean)&&clean.length<28){
+      return {kind:'info',reason:'Avec plaisir. Vous pouvez décrire un autre objectif ou consulter les banques proposées.',ids:[],options:'after',state};
+    }
+    if(/\b(pourquoi cette banque|pourquoi ce produit|pourquoi ce choix|explique|en savoir plus|qu est ce que ca fait|qu est ce que c est)\b/.test(clean)&&state.lastIds.length){
+      return {kind:'explain',ids:state.lastIds,reason:'Voici pourquoi cette recommandation correspond à votre demande, ainsi que ce que le kit est censé aider à préparer.',options:'after',state};
+    }
+    const result=choose(value);
+    if(result.kind==='match'){
+      state.lastIds=result.ids.slice(0,2);
+      state.pending='';
+      return {...result,reason:result.ids.length>1?'Votre projet couvre deux tâches différentes. Ces deux banques peuvent se compléter :':'Voici la banque la plus proche de votre objectif :',options:'after',state};
+    }
+    if(/\b(visibilite|me faire connaitre|plus de clients|trouver des clients|attirer des clients|developper mon activite|faire de la pub|promouvoir|marketing|publicite)\b/.test(clean)){
+      state.pending='visibility';
+      return {kind:'clarify',reason:'Pour vous faire connaître, que souhaitez-vous faire en premier : créer un site, écrire des messages ou réaliser des visuels ?',options:'visibility',state};
+    }
+    if(/\b(reseaux sociaux|instagram|facebook|linkedin)\b/.test(clean)){
+      state.pending='social';
+      return {kind:'clarify',reason:'Sur les réseaux sociaux, souhaitez-vous surtout écrire des publications, créer des visuels ou préparer des vidéos ?',options:'social',state};
+    }
+    if(/\b(gagner du temps|plus rapide|simplifier mon quotidien|mieux m organiser|organiser mon activite)\b/.test(clean)){
+      state.pending='time';
+      return {kind:'clarify',reason:'Quelle tâche vous prend du temps : répéter les mêmes opérations, rédiger des messages ou organiser des informations ?',options:'time',state};
+    }
+    if(state.pending&&/\b(oui|non|peut etre|je sais pas|aucune idee)\b/.test(clean)){
+      const mode=state.pending;
+      return {kind:'clarify',reason:'Pas de problème. Choisissez le résultat qui vous intéresse le plus, ou décrivez une tâche concrète.',options:mode,state};
+    }
+    return {kind:'clarify',reason:state.role?'D’accord. Quelle action souhaitez-vous réaliser pour votre activité ? Choisissez un exemple ci-dessous ou décrivez le résultat attendu.':'Pour mieux vous conseiller, que souhaitez-vous obtenir concrètement ? Vous pouvez choisir une idée ci-dessous.',options:'all',state};
+  };
+  if(typeof module!=='undefined'&&module.exports)module.exports={choose,fold,PRODUCTS,interpret,newSession};
   if(typeof document==='undefined'||!document.body)return;
   const root=document.createElement('div');
   root.className='product-guide';root.id='productGuide';
@@ -60,12 +105,17 @@
     messages.appendChild(el);messages.scrollTop=messages.scrollHeight;
     return el;
   };
+  const choiceModes={
+    start:[['redaction','Écrire un message'],['web','Créer mon site'],['auto','Simplifier une tâche'],['all','Voir les 6 besoins']],
+    all:[['redaction','Rédiger'],['visuel','Créer un visuel'],['web','Créer un site'],['medias','Vidéo / audio'],['auto','Automatiser'],['analyse','Comparer']],
+    visibility:[['web','Créer un site'],['redaction','Écrire des messages'],['visuel','Créer des visuels']],
+    social:[['redaction','Écrire des posts'],['visuel','Créer des visuels'],['medias','Préparer des vidéos']],
+    time:[['auto','Automatiser une tâche'],['redaction','Rédiger plus facilement'],['analyse','Organiser des informations']],
+    after:[['all','Autre besoin'],['price','Le prix ?'],['restart','Recommencer']]
+  };
   const showChoices=mode=>{
     choices.replaceChildren();
-    const data=mode==='all'
-      ?PRODUCTS.map(p=>[p.id,({redaction:'Rédiger',visuel:'Créer un visuel',web:'Créer un site',medias:'Vidéo / audio',auto:'Automatiser',analyse:'Comparer'}[p.id])])
-      :[['redaction','Écrire un message'],['web','Créer mon site'],['auto','Simplifier une tâche'],['all','Voir les 6 besoins']];
-    for(const [id,label] of data){
+    for(const [id,label] of choiceModes[mode]||choiceModes.all){
       const b=make('button','product-guide-choice',label);
       b.type='button';b.dataset.guideChoice=id;choices.appendChild(b);
     }
@@ -81,22 +131,26 @@
     const link=make('a',null,'Découvrir cette banque →');
     link.href=p.url;item.appendChild(link);messages.appendChild(item);
   };
+  let session=newSession();
   const respond=(value,explicitId)=>{
     const message=String(value).trim().slice(0,250);
     if(!message&&!explicitId)return;
     bubble(message,'user');
-    const result=explicitId?{kind:'match',ids:[explicitId]}:choose(message);
-    if(result.kind==='clarify'){
-      bubble(result.reason,'bot');showChoices('all');
-    }else{
-      bubble(result.ids.length===2?'Votre projet touche deux besoins. Voici les banques qui semblent les plus utiles :':'Je vous recommande cette banque pour commencer :','bot');
+    const result=explicitId&&getProduct(explicitId)
+      ?{kind:'match',ids:[explicitId],reason:'Voici une banque correspondant à ce besoin :',options:'after',state:{...session,lastIds:[explicitId],pending:''}}
+      :interpret(message,session);
+    session=result.state;
+    bubble(result.reason,'bot');
+    if(result.kind==='match'||result.kind==='explain'){
       for(const id of result.ids)display(id);
-      showChoices('all');
     }
+    // Previous results stay visible for continuity; long chats are kept scrollable.
+    showChoices(result.options||'all');
     messages.scrollTop=messages.scrollHeight;
     input.value='';
   };
   const start=()=>{
+    session=newSession();
     messages.replaceChildren();
     bubble('Bonjour ! Que souhaitez-vous réaliser ? Décrivez votre projet en quelques mots, même si vous ne connaissez pas les outils IA.','bot');
     showChoices('start');
@@ -115,7 +169,9 @@
     const button=event.target.closest('[data-guide-choice]');
     if(!button||!choices.contains(button))return;
     const id=button.dataset.guideChoice;
-    if(id==='all'){bubble('Je veux voir les six besoins','user');bubble('Choisissez ce que vous souhaitez obtenir :','bot');showChoices('all');return;}
+    if(id==='all'){bubble(button.textContent,'user');bubble('Choisissez ce que vous souhaitez obtenir :','bot');showChoices('all');return;}
+    if(id==='restart'){start();input.focus();return;}
+    if(id==='price'){respond('Quels sont les prix ?');return;}
     respond(button.textContent,id);
   });
   form.addEventListener('submit',event=>{
