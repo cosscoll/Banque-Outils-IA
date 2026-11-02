@@ -1,7 +1,7 @@
 # Banque Outils IA — cahier des charges de référence
-**Version 1.2 — 02 novembre 2026** · Statut : **vitrine opérationnelle, produits en préparation, aucune vente ouverte**.
+**Version 1.3 — 02 novembre 2026** · Statut : **vitrine opérationnelle, produits en préparation, aucune vente ouverte**.
 
-> Ce document est la **source de vérité du périmètre et des décisions**. Les annexes A à E détaillent les exigences, les six banques, le commerce et l'ordre de production. Une ligne « spécifiée » ne signifie pas « développée » ; une CI verte ne signifie pas « produit prêt à vendre ».
+> Ce document est la **source de vérité du périmètre et des décisions**. Les annexes A à F détaillent les exigences, les six banques, le commerce et l'ordre de production. Une ligne « spécifiée » ne signifie pas « développée » ; une CI verte ne signifie pas « produit prêt à vendre ».
 
 ## 0. Lire le projet en 90 secondes
 **Mission** : aider un indépendant ou une petite entreprise à utiliser des outils concrets pour écrire, créer, préparer un site, planifier une vidéo, décrire une automatisation ou mener une recherche structurée, sans jargon ni abonnement imposé.
@@ -20,6 +20,7 @@
 | C | [Architecture et commercialisation](./ARCHITECTURE_ET_COMMERCIALISATION_V1_1.md) | Contraintes GitHub Pages, paiements et livraison futurs, RGPD, licences, prix |
 | D | [Backlog priorisé et release gates](./BACKLOG_PRIORISE_V1_1.md) | Tâches, état, dépendances, décisions et critères de passage |
 | E | [Recette approfondie de la banque Rédaction](./RECETTE_PACK_REDACTION_V1_2.md) | 24 critères détaillés, 17 tests, guide, trois tests débutants et packaging |
+| F | [Parcours d'achat — UX, disponibilité et checkout futur](./PARCOURS_ACHAT_UX_V1_3.md) | Parcours visiteurs actuel et spécifications d'une vente future non activée |
 | Historique | [Plan de fabrication initial](./PLAN_FABRICATION_SIX_BANQUES_2026-11-02.md) | Première version des engagements produit (complétée par B) |
 | Gouvernance | [Règles de publication de sprints](./SPRINT_DELIVERY_POLICY.md) | Preuves requises avant d'annoncer une livraison |
 
@@ -144,3 +145,4 @@ La validation juridique et fiscale reste à effectuer pour l'entité, les produi
 - **02/11/2026 v1.0** : premier cahier des charges, six plans de fabrication et outil gratuit Rédaction.
 - **02/11/2026 v1.1** : correction des statuts CI/production, séparation des cinq portes qualité, 24 exigences, recette, six spécifications produits, architecture commerciale et backlog.
 - **02/11/2026 v1.2** : annexe E de recette Rédaction, contrats de contenus premium et correction du générateur local avec brouillon éditable et jeux de tests supplémentaires. La banque reste non commercialisable.
+- **02/11/2026 v1.3** : annexe F et parcours de découverte amélioré de l'accueil aux six banques, démonstrations puis disponibilité ; ancien renvoi aux issues GitHub écarté des CTA produit, aucun checkout réel.

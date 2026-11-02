@@ -125,7 +125,7 @@
 @media(max-width:680px){.collections-grid{grid-template-columns:1fr}.collection-tile{min-height:0}.collection-art{height:180px}}
 
 /* Parcours préachat : accès au contenu, exemple et disponibilité, sans panier fictif. */
-.showroom-progress{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;padding:4px 0 22px;border-bottom:1px solid #ffffff20;margin-bottom:3px}
+.showroom-progress{width:min(1340px,calc(100% - 90px));margin:0 auto 3px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;padding:4px 0 22px;border-bottom:1px solid #ffffff20;margin-bottom:3px}
 .showroom-progress a{color:#E3D8E8;text-decoration:none;font-weight:750;font-size:12px;min-height:36px;display:inline-flex;align-items:center;gap:9px}
 .showroom-progress a span{color:var(--tone);font:800 11px ui-monospace,monospace}
 .showroom-progress a:hover{color:var(--tone)}
@@ -137,4 +137,4 @@
 .showroom-buy-options .shop-back-link{background:transparent;color:#4C3055;justify-content:center;margin-top:10px;border:1px solid #CDBED3;padding:14px 18px}
 .showroom-buy-options .shop-back-link:hover{background:#F1E8F2}
 .showroom-buy .shop-next-note{font-size:13px;color:#6D5B69;border-left:3px solid #9664A0;padding-left:16px;margin-top:26px}
-@media(max-width:750px){.showroom-progress{gap:6px 17px}.showroom-progress a{font-size:11px}.showroom-buy-options{padding:24px}}
+@media(max-width:750px){.showroom-progress{width:calc(100% - 40px);gap:6px 17px}.showroom-progress a{font-size:11px}.showroom-buy-options{padding:24px}}
