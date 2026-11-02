@@ -1,4 +1,6 @@
 # Annexe H — Chatbot d'orientation des six banques
+
+> **État historique V1.5** : le moteur a été enrichi ensuite d'un contexte de conversation et de questions de clarification, voir [annexe I V1.6](./CHATBOT_FONCTIONNEL_V1_6.md).
 Banque Outils IA · Spécification et recette · 02 novembre 2026 · V1.5
 
 ## Mission
