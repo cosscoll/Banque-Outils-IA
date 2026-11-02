@@ -19,8 +19,8 @@ test('accueil : cinq cartes en perspective, ancien WebGL volontairement retiré'
   assert.ok(html.includes('id="usages"'));
   assert.equal((html.match(/class="op-card op-card--/g)||[]).length,5);
   assert.ok(kineticCss.includes('transform-style:preserve-3d')||obscureCss.includes('transform-style:preserve-3d'));
-  for(const key of ['medias','creation','auto','redaction','recherche'])
-    assert.ok(html.includes('catalogue.html?categorie='+key+'#recherche'),key);
+  for(const slug of ['video-audio','visuel','automatisation','redaction','recherche-analyse'])
+    assert.ok(html.includes('href="./pack-'+slug+'.html"'),slug);
   for(const obsolete of ['id="atelier3d"','id="workshop"','assets/atelier.js','assets/vendor/three.min.js'])
     assert.ok(!html.includes(obsolete),'obsolete computer 3D: '+obsolete);
 });

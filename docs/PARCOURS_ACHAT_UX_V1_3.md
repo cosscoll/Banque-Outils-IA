@@ -1,4 +1,6 @@
 # Parcours d'achat — Audit UX et parcours cible V1.3
+
+> **Historique V1.3** : le site a été simplifié depuis dans l'[annexe G V1.4](./SIMPLIFICATION_NAVIGATION_V1_4.md). Les schémas de quatre étapes et la navigation des fiches présentés plus bas décrivent l'état antérieur ; les exigences de checkout futur restent pertinentes.
 Banque Outils IA · 02/11/2026 · Dernière mise à jour : revue du site présent.
 
 ## 1. Diagnostic initial — ce qui bloquait

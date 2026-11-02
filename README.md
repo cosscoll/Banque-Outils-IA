@@ -4,7 +4,7 @@ Création d'une bibliothèque d'outils IA.
 
 **Statut : pré-lancement, aucune vente ni paiement actif.**
 
-**Pilotage à jour (02/11/2026)** : [Cahier des charges v1.1](./docs/CAHIER_DES_CHARGES_EXECUTION_2026-11-02.md) · [Exigences fonctionnelles](./docs/SPECIFICATIONS_FONCTIONNELLES_V1_1.md) · [Six spécifications produits](./docs/SPECIFICATIONS_PRODUITS_V1_1.md) · [Commercialisation et conformité](./docs/ARCHITECTURE_ET_COMMERCIALISATION_V1_1.md) · [Backlog priorisé](./docs/BACKLOG_PRIORISE_V1_1.md) · [Recette de la banque Rédaction](./docs/RECETTE_PACK_REDACTION_V1_2.md) · [Parcours d'achat et UX pré-lancement](./docs/PARCOURS_ACHAT_UX_V1_3.md). Ces documents font foi pour les décisions et statuts récents, les sections anciennes ci-dessous restent archivées à titre historique.
+**Pilotage à jour (02/11/2026)** : [Cahier des charges v1.1](./docs/CAHIER_DES_CHARGES_EXECUTION_2026-11-02.md) · [Exigences fonctionnelles](./docs/SPECIFICATIONS_FONCTIONNELLES_V1_1.md) · [Six spécifications produits](./docs/SPECIFICATIONS_PRODUITS_V1_1.md) · [Commercialisation et conformité](./docs/ARCHITECTURE_ET_COMMERCIALISATION_V1_1.md) · [Backlog priorisé](./docs/BACKLOG_PRIORISE_V1_1.md) · [Recette de la banque Rédaction](./docs/RECETTE_PACK_REDACTION_V1_2.md) · [Parcours d'achat et UX pré-lancement](./docs/PARCOURS_ACHAT_UX_V1_3.md) · [Navigation simplifiée V1.4](./docs/SIMPLIFICATION_NAVIGATION_V1_4.md). Ces documents font foi pour les décisions et statuts récents, les sections anciennes ci-dessous restent archivées à titre historique.
 
 Premier outil réellement utilisable, gratuit et local : [Assistant Messages](./outils/assistant-messages.html). Il ne sollicite aucune IA distante ; les packs commerciaux demeurent en préparation.
 

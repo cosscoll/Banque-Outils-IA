@@ -99,12 +99,13 @@ try{
     await journey.locator('.kinetic-button').click();
     assert.ok(journey.url().includes('produit.html#collections'),'Héros → six collections');
     assert.equal(await journey.locator('.collection-tile').count(),6);
-    assert.ok(await journey.locator('#comment-acheter').count(),'Étapes de découverte');
-    assert.ok(await journey.locator('.buying-step-future').isVisible(),'Achat futur clairement indiqué');
+    assert.equal(await journey.locator('#comment-acheter').count(),0,'Aucune étape superflue');
+    assert.equal(await journey.locator('.collection-tile').count(),6,'Six objectifs lisibles');
+    assert.ok(await journey.locator('.hub-status').isVisible(),'Disponibilité comprise');
     await journey.locator('.collection-tile').first().click();
     assert.ok(journey.url().includes('pack-redaction.html'),'Collection → rédaction');
     assert.equal(await journey.locator('.shop-status').innerText(),'En préparation · Aucun achat ou précommande possible');
-    assert.equal(await journey.locator('.showroom-progress a').count(),3);
+    assert.equal(await journey.locator('.showroom-progress').count(),0,'Navigation doublon retirée');
     await journey.locator('.showroom-action.primary').click();
     assert.ok(journey.url().includes('/outils/assistant-messages.html'),'Rédaction → outil réel');
     assert.ok(await journey.locator('#messageForm').count());
