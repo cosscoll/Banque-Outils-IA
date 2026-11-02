@@ -33,7 +33,7 @@
     if(/\b(prix|tarif|combien cout|acheter|commande|paiement|payant|disponib|precomman)\w*/.test(clean)){
       return {kind:'info',reason:'Les banques sont encore en préparation : aucun prix définitif, achat ou précommande n’est disponible. Vous pouvez consulter leur aperçu gratuitement.',ids:state.lastIds,options:'after',state};
     }
-    if(/\b(es tu une ia|vraie ia|intelligence artificielle|chatgpt|qui es tu|fonctionn\w*|donnees personnelles|confidentialite|stock\w*|sauvegard\w*)\b/.test(clean)){
+    if(/\b(es tu une ia|vraie ia|vrai chatbot|ce chatbot|assistant ia|intelligence artificielle|chatgpt|qui es tu|confidentialite|donnees personnelles|mes donnees|tu conserves|stock\w*|sauvegard\w*)\b/.test(clean)){
       return {kind:'info',reason:'Je suis un guide de choix automatique, pas une IA générative. J’analyse votre demande localement, sans transmettre ni conserver vos messages. Je peux vous orienter vers les six banques.',ids:[],options:'all',state};
     }
     if(/\b(merci|au revoir|bye)\b/.test(clean)&&clean.length<28){
@@ -48,7 +48,7 @@
       state.pending='';
       return {...result,reason:result.ids.length>1?'Votre projet couvre deux tâches différentes. Ces deux banques peuvent se compléter :':'Voici la banque la plus proche de votre objectif :',options:'after',state};
     }
-    if(/\b(visibilite|me faire connaitre|plus de clients|trouver des clients|attirer des clients|developper mon activite|faire de la pub|promouvoir|marketing|publicite)\b/.test(clean)){
+    if(/\b(visibilite|me faire connaitre|plus de clients|trouver des clients|attirer des clients|developper mon activite|faire de la pub|promouvoir|marketing|publicite|etre trouve sur internet|visible sur internet|etre visible en ligne)\b/.test(clean)){
       state.pending='visibility';
       return {kind:'clarify',reason:'Pour vous faire connaître, que souhaitez-vous faire en premier : créer un site, écrire des messages ou réaliser des visuels ?',options:'visibility',state};
     }
@@ -74,7 +74,7 @@
     '<button class="product-guide-toggle" id="productGuideToggle" type="button" aria-controls="productGuidePanel" aria-expanded="false">',
       '<span class="product-guide-spark" aria-hidden="true">✳</span><span>Quel produit choisir ?</span></button>',
     '<section class="product-guide-panel" id="productGuidePanel" aria-label="Guide de choix de banque" hidden>',
-      '<div class="product-guide-header"><div><strong>Votre guide produit</strong><span>Orientation automatique · gratuite</span></div>',
+      '<div class="product-guide-header"><div><strong>Conseiller produit</strong><span>Échange guidé · gratuit</span></div>',
       '<div class="product-guide-header-actions"><button type="button" id="productGuideReset" aria-label="Recommencer la conversation" title="Recommencer">↺</button>',
       '<button type="button" id="productGuideClose" aria-label="Fermer le guide" title="Fermer">×</button></div></div>',
       '<div class="product-guide-messages" id="productGuideMessages" role="log" aria-live="polite" aria-relevant="additions"></div>',
