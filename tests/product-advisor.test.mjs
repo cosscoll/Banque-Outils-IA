@@ -8,7 +8,7 @@ const js=read('assets/product-advisor.js');
 const css=read('assets/product-advisor.css');
 const context={module:{exports:{}}};
 vm.runInNewContext(js,context,{filename:'product-advisor.js'});
-const {choose,fold,PRODUCTS}=context.module.exports;
+const {choose,fold,PRODUCTS,interpret,newSession}=context.module.exports;
 
 test('guide : six banques uniques, urls locales valides, aucun réseau ni stockage',()=>{
  assert.equal(PRODUCTS.length,6);
@@ -74,9 +74,42 @@ test('guide disponible sur les pages principales et six showrooms',()=>{
  'pack-redaction.html','pack-visuel.html','pack-sites-web.html','pack-video-audio.html','pack-automatisation.html','pack-recherche-analyse.html'];
  for(const p of pages){
   const c=read(p);
-  assert.ok(c.includes('./assets/product-advisor.js?v=20261102-a1'),p);
+  assert.ok(c.includes('./assets/product-advisor.js?v=20261102-a2'),p);
   assert.ok(c.includes('./assets/product-advisor.css?v=20261102-a1'),p);
  }
  const hub=read('produit.html');
  assert.ok(hub.includes('data-open-product-guide'));
+});
+
+test('multi-tour : artisan, visibilité, question, explication et prix',()=>{
+ let state=newSession();let r=interpret('Je suis artisan',state);
+ assert.equal(r.kind,'clarify');assert.equal(r.state.role,'artisan');state=r.state;
+ r=interpret('Je veux attirer plus de clients',state);
+ assert.equal(r.kind,'clarify');assert.equal(r.options,'visibility');state=r.state;
+ r=interpret('Créer un site internet',state);
+ assert.equal(r.kind,'match');assert.equal(r.ids[0],'web');state=r.state;
+ r=interpret('Pourquoi cette banque ?',state);
+ assert.equal(r.kind,'explain');assert.equal(r.ids[0],'web');
+ r=interpret('Combien ça coûte ?',state);
+ assert.equal(r.kind,'info');assert.match(r.reason,/aucun prix définitif/);
+});
+test('multi-tour : sécurité et nuances',()=>{
+ for(const [phrase,kind,option] of [
+  ['Je veux être trouvé sur Internet','clarify','visibility'],
+  ['Je suis coiffeur et je veux gagner du temps','clarify','time'],
+  ['Je veux communiquer sur Instagram','clarify','social'],
+  ['Je ne sais pas quoi choisir','clarify','all'],
+  ['Est-ce un vrai chatbot IA ?','info','all'],
+  ['Est-ce gratuit ?','info','after']
+ ]){
+  const r=interpret(phrase);
+  assert.equal(r.kind,kind,phrase);assert.equal(r.options,option,phrase);
+ }
+ for(const phrase of ['site internet avec paiement en ligne','Automatiser mes devis','Créer une affiche et rédiger un post']){
+  assert.equal(interpret(phrase).kind,'match',phrase);
+ }
+ assert.equal(interpret('site internet avec paiement en ligne').ids[0],'web');
+ const mixed=interpret('Écrire des e-mails et créer mon site');
+ assert.equal(mixed.ids.length,2);
+ assert.deepEqual([...interpret('Pourquoi ces produits ?',mixed.state).state.lastIds],[...mixed.ids]);
 });

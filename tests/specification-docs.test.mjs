@@ -36,7 +36,7 @@ test('recette Rédaction v1.2 : critères et cas de tests',()=>{
   for(let n=1;n<=17;n++)assert.ok(recette.includes('RT-'+String(n).padStart(2,'0')),n);
   assert.ok(recette.includes('STD-08'));
   assert.ok(recette.includes('trois utilisateurs débutants'));
-  assert.ok(main.includes('Version 1.5'));
+  assert.ok(main.includes('Version 1.6'));
 });
 
 test('chatbot d orientation v1.5 relié au cahier',()=>{
@@ -44,4 +44,10 @@ test('chatbot d orientation v1.5 relié au cahier',()=>{
  assert.ok(main.includes('./CHATBOT_ORIENTATION_V1_5.md'));
  for(let n=1;n<=12;n++)assert.ok(chatbot.includes('BOT-'+String(n).padStart(2,'0')),n);
  assert.ok(chatbot.includes('Aucune API'));
+});
+
+test('guide multi-tour v1.6 documenté',()=>{
+ const doc=read('docs/CHATBOT_FONCTIONNEL_V1_6.md');
+ assert.ok(main.includes('./CHATBOT_FONCTIONNEL_V1_6.md'));
+ for(let n=1;n<=9;n++)assert.ok(doc.includes('BOT-V2-'+String(n).padStart(2,'0')),n);
 });

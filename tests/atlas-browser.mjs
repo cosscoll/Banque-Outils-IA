@@ -156,6 +156,17 @@ try{
     await guide.locator('#productGuideInput').fill('Je suis artisan et je ne sais pas quoi faire');
     await guide.locator('#productGuideForm button[type=submit]').click();
     assert.match(await guide.locator('.product-guide-bubble.from-bot').last().innerText(),/quel résultat/i,'Clarification si besoin imprécis');
+
+    await guide.locator('#productGuideInput').fill('Je voudrais attirer plus de clients');
+    await guide.locator('#productGuideForm button[type=submit]').click();
+    assert.equal(await guide.locator('[data-guide-choice=web]').count(),1,'Choix visibilité');
+    await guide.locator('[data-guide-choice=web]').click();
+    assert.equal(await guide.locator('.product-guide-result a').last().getAttribute('href'),'./pack-sites-web.html','Choix retenu');
+    await guide.locator('#productGuideInput').fill('Pourquoi cette banque ?');
+    await guide.locator('#productGuideForm button[type=submit]').click();
+    assert.match(await guide.locator('.product-guide-bubble.from-bot').last().innerText(),/pourquoi cette recommandation/i,'Explication contextuelle');
+    await guide.locator('[data-guide-choice=price]').click();
+    assert.match(await guide.locator('.product-guide-bubble.from-bot').last().innerText(),/aucun prix définitif/i,'Prix exact');
     await guide.locator('#productGuideReset').click();
     assert.equal(await guide.locator('.product-guide-result').count(),0,'Réinitialisation');
     await guide.locator('[data-guide-choice=redaction]').click();
