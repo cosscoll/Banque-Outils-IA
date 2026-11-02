@@ -52,10 +52,10 @@ test('Contact et responsive : conserver les messages de sécurité et la grille 
   assert.match(css,/\.hub-secondary/);
   assert.doesNotMatch(css,/\.showroom-progress/);
 });
-test('Cahier des charges V1.4 : décisions de simplification traçables',()=>{
+test('Cahier des charges V1.5 (navigation V1.4) : décisions de simplification traçables',()=>{
   const spec=read('docs/CAHIER_DES_CHARGES_EXECUTION_2026-11-02.md');
   const ux=read('docs/SIMPLIFICATION_NAVIGATION_V1_4.md');
-  assert.ok(spec.includes('Version 1.4'));
+  assert.ok(spec.includes('Version 1.5'));
   assert.ok(spec.includes('./SIMPLIFICATION_NAVIGATION_V1_4.md'));
   for(let i=1;i<=9;i++)assert.ok(ux.includes('SIM-'+String(i).padStart(2,'0')),i);
 });
