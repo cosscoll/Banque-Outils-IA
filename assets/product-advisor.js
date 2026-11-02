@@ -30,10 +30,10 @@
     if(!clean)return {kind:'clarify',reason:'Quelle tâche souhaitez-vous réaliser ?',options:'all',state};
     const roleMatch=clean.match(/\b(artisan|commercant|coiffeur|restaurateur|restaurant|freelance|independant|consultant|association|entrepreneur|boutique|tpe)\b/);
     if(roleMatch)state.role=roleMatch[1];
-    if(/\b(prix|tarif|combien cout|acheter|commande|paiement|payant|disponib|precomman)\w*/.test(clean)){
+    if(/\b(prix|tarifs?|combien(?:\s+\w+){0,3}\s+cout\w*|acheter|commander|precommande\w*|disponib\w*|en vente|gratuit\w*|payant\w*|payer le pack|paiement du pack)\b/.test(clean)){
       return {kind:'info',reason:'Les banques sont encore en préparation : aucun prix définitif, achat ou précommande n’est disponible. Vous pouvez consulter leur aperçu gratuitement.',ids:state.lastIds,options:'after',state};
     }
-    if(/\b(es tu une ia|vraie ia|vrai chatbot|ce chatbot|assistant ia|intelligence artificielle|chatgpt|qui es tu|confidentialite|donnees personnelles|mes donnees|tu conserves|stock\w*|sauvegard\w*)\b/.test(clean)){
+    if(/\b(es tu une ia|vraie ia|vrai chatbot|ce chatbot|assistant ia|tu es une ia|comment tu fonctionnes|comment ca fonctionne|intelligence artificielle|chatgpt|qui es tu|confidentialite|donnees personnelles|mes donnees|tu conserves|stock\w*|sauvegard\w*)\b/.test(clean)){
       return {kind:'info',reason:'Je suis un guide de choix automatique, pas une IA générative. J’analyse votre demande localement, sans transmettre ni conserver vos messages. Je peux vous orienter vers les six banques.',ids:[],options:'all',state};
     }
     if(/\b(merci|au revoir|bye)\b/.test(clean)&&clean.length<28){
