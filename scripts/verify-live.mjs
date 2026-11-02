@@ -38,9 +38,11 @@ try{
       if(await page.locator('[data-scenario="pending"]').getAttribute('aria-pressed')!=='true')throw Error('Scenario button did not update aria-pressed');
       if(!(await page.locator('#flowStatus').innerText()).includes('EN ATTENTE'))throw Error('Scenario did not update business flow status');
      }else{
-      await page.locator('[data-family="1"]').click();
-      if(await page.locator('[data-family="1"]').getAttribute('aria-pressed')!=='true')throw Error('Universe selection did not update aria-pressed');
-      if(!(await page.locator('#familyCounter').innerText()).includes('02'))throw Error('Universe details did not update');
+      if(await page.locator('.op-card').count()!==5)throw Error('Obscure Pop hero must show five cards');
+      await page.locator('#kineticToggle').click();
+      if(await page.locator('#kineticToggle').getAttribute('aria-pressed')!=='true')throw Error('Hero toggle did not update aria-pressed');
+      if(await page.locator('#kineticStage').getAttribute('data-open')!=='true')throw Error('Five-card 3D CSS stage did not open');
+      if(await page.locator('a[href="./produit.html"]').count()===0)throw Error('Products navigation missing');
      }
      report[mode]=true;report[mode+'_metrics']=metrics;
      if(runtime.length)report[mode+'_warnings']=runtime.slice(0,3);
