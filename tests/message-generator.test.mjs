@@ -15,6 +15,7 @@ test('outil de rédaction : formulaire accessible, format, copie et export',()=>
     assert.ok(html.includes(v),v);
   assert.equal((html.match(/<h1\b/g)||[]).length,1);
   assert.ok(html.includes('aria-live="polite"'));
+  assert.ok(!/<textarea[^>]+readonly/.test(html),'Le brouillon doit être éditable');
   assert.ok(html.includes('prefers-reduced-motion'));
   assert.ok(product.includes('./outils/assistant-messages.html'),'lien sur page produit');
 });
@@ -77,4 +78,70 @@ test('outil de rédaction : exercice fonctionnel réel en mémoire, trois canaux
   assert.equal(elements.messageOutput.value,'');
   assert.equal(elements.copyMessage.disabled,true);
   assert.equal(elements.saveMessage.disabled,true);
+});
+
+
+test('qualité R-02 : sorties cohérentes sur 3 canaux x 3 tons et 20 exemples français',()=>{
+  const samples=[
+    ['Atelier Papier','les commerces de quartier',"un atelier de création d'affiches",'créer une affiche claire','Contactez-nous pour les dates'],
+    ['La Boutique des Fleurs','des particuliers','des bouquets de saison','composer une décoration florale','Demandez un conseil personnalisé !'],
+    ['Studio Nord','les artisans locaux','une vitrine web accessible','présenter des services en ligne','Prenez rendez-vous.'],
+    ['Cabinet Mosaic','les entreprises','une séance de cadrage','clarifier les priorités','Souhaitez-vous en discuter ?'],
+    ['Boulangerie du Parc','les familles','des pains fabriqués sur place','choisir un pain adapté','Passez nous voir'],
+    ['L’Atelier du Bois','les associations','des réparations de meubles','redonner vie à vos meubles','Décrivez-nous votre projet'],
+    ['Agence Rivière','les commerces','une page de présentation','expliquer une offre simplement','Demandez un devis'],
+    ['Maison Sable','les nouveaux arrivants','un guide du quartier','découvrir les services locaux','Consultez le programme'],
+    ['Le Jardin Local','les habitants','un atelier de jardinage','apprendre à semer','Réservez votre place'],
+    ['Formations Nomade','les équipes','une initiation au numérique','comprendre les outils de base','Écrivez-nous'],
+    ['Artisan Léo','les propriétaires','une visite préparatoire','étudier les travaux nécessaires','Proposez un créneau'],
+    ['Optique Clara','les clients','une présentation des montures','comparer des modèles','Venez découvrir la sélection'],
+    ['Collectif Avenir','les bénévoles','une rencontre d’information','découvrir les activités','Inscrivez-vous'],
+    ['Le Café Vert','les étudiants','une rencontre hebdomadaire','échanger autour d’un café','Contactez notre équipe'],
+    ['Pépinière Sud','les jardiniers','des conseils pratiques','choisir des plantes adaptées','Posez vos questions'],
+    ['Atelier Monceau','les associations','une fiche service','préparer un événement','Demandez les détails'],
+    ['Les Éditions de la Rue','les libraires','une sélection thématique','découvrir de nouveaux titres','Consultez le catalogue'],
+    ['Horizon Conseil','les entrepreneurs','un entretien de diagnostic','cadrer les objectifs','Prenons contact'],
+    ['Le Panier Bleu','les voisins','un panier de légumes locaux','découvrir les produits du territoire','Venez nous rencontrer'],
+    ['Le Studio des Pages','les indépendants','une relecture de site','clarifier une page de vente','Écrivez pour en parler']
+  ];
+  const controls={};
+  function elem(id,val=''){
+    return {value:val,disabled:false,textContent:'',handlers:{},
+      addEventListener(event,fn){this.handlers[event]=fn;},reportValidity(){return true;},focus(){},select(){}};
+  }
+  for(const id of ['business','audience','offer','benefit','cta','channel','tone','messageForm','messageOutput','messageStatus','copyMessage','saveMessage'])
+    controls[id]=elem(id);
+  const ctx={
+    document:{getElementById:id=>controls[id],body:{appendChild(){}},createElement(){return {click(){},remove(){}}}},
+    navigator:{},Blob,URL:{createObjectURL(){return 'blob:local';},revokeObjectURL(){}},
+    setTimeout(){}
+  };
+  vm.runInNewContext(script,ctx);
+  for(const s of samples){
+    ['business','audience','offer','benefit','cta'].forEach((id,i)=>{controls[id].value=s[i]});
+    for(const channel of ['email','post','web'])for(const tone of ['pro','warm','direct']){
+      controls.channel.value=channel;controls.tone.value=tone;
+      controls.messageForm.handlers.submit({preventDefault(){}});
+      const result=controls.messageOutput.value;
+      assert.ok(result.includes(s[0]),'activité perdue');
+      assert.ok(result.includes(s[1]),'public perdu');
+      assert.ok(result.includes(s[2]),'offre perdue');
+      assert.ok(result.includes(s[3]),'bénéfice perdu');
+      assert.ok(result.includes(s[4]),'action perdue');
+      assert.doesNotMatch(result,/à les\b|à des\b|[.!?]{2}|undefined|NaN/);
+    }
+  }
+  assert.equal(samples.length,20);
+  controls.messageOutput.value='Brouillon réécrit à la main.';
+  controls.messageOutput.handlers.input();
+  assert.equal(controls.copyMessage.disabled,false);
+  assert.equal(controls.saveMessage.disabled,false);
+  controls.messageOutput.value='   ';
+  controls.messageOutput.handlers.input();
+  assert.equal(controls.copyMessage.disabled,true);
+  assert.equal(controls.saveMessage.disabled,true);
+  controls.messageOutput.value='Test';
+  controls.business.value=' ';
+  controls.messageForm.handlers.submit({preventDefault(){}});
+  assert.match(controls.messageStatus.textContent,/Complétez/,'espaces seuls interdits');
 });
