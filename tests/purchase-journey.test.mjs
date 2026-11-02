@@ -35,7 +35,7 @@ test('6 fiches : accès comparaison, démonstration, limites et pas de faux chec
   assert.ok(page.includes('Aucun achat ou précommande possible'),slug);
   assert.ok(page.includes('Prix : non fixé'),slug);
   assert.ok(page.includes('Contenu du pack envisagé'),slug);
-  assert.ok(page.includes('À savoir avant d\\'acheter'),slug);
+  assert.ok(page.includes("À savoir avant d'acheter"),slug);
   assert.ok(page.includes('href="./produit.html#collections"'),slug);
   assert.doesNotMatch(page,/Poser une question sur le produit|href="\.\/panier|href="\.\/checkout|https:\/\/github\.com\/.*\/issues\/new/);
   if(slug==='redaction'){
