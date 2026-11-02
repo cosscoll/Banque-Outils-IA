@@ -11,7 +11,7 @@ const products=read('docs/SPECIFICATIONS_PRODUITS_V1_1.md');
 const commercial=read('docs/ARCHITECTURE_ET_COMMERCIALISATION_V1_1.md');
 const backlog=read('docs/BACKLOG_PRIORISE_V1_1.md');
 const recette=read('docs/RECETTE_PACK_REDACTION_V1_2.md');
-test('specifications v1.1 links and source of truth',()=>{
+test('specifications v1.3 links and source of truth',()=>{
   for(const name of ['SPECIFICATIONS_FONCTIONNELLES_V1_1.md','SPECIFICATIONS_PRODUITS_V1_1.md','ARCHITECTURE_ET_COMMERCIALISATION_V1_1.md','BACKLOG_PRIORISE_V1_1.md','RECETTE_PACK_REDACTION_V1_2.md'])
     assert.ok(main.includes('./'+name),'Missing main documentation link '+name);
   assert.ok(read('README.md').includes('docs/CAHIER_DES_CHARGES_EXECUTION_2026-11-02.md'));
@@ -36,5 +36,5 @@ test('recette Rédaction v1.2 : critères et cas de tests',()=>{
   for(let n=1;n<=17;n++)assert.ok(recette.includes('RT-'+String(n).padStart(2,'0')),n);
   assert.ok(recette.includes('STD-08'));
   assert.ok(recette.includes('trois utilisateurs débutants'));
-  assert.ok(main.includes('Version 1.2'));
+  assert.ok(main.includes('Version 1.3'));
 });
