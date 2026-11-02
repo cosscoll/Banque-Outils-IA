@@ -67,3 +67,12 @@
 @media(max-width:900px){.commercial-grid{grid-template-columns:1fr 1fr}.contact-layout{grid-template-columns:1fr}.commercial-steps{grid-template-columns:1fr}.commercial-step{border-right:0;border-bottom:1px solid #ffffff2c}.commercial-step:last-child{border-bottom:0}}
 @media(max-width:640px){.commercial-container{width:calc(100% - 40px)}.commercial-hero{padding-top:80px}.commercial-hero h1{font-size:clamp(50px,12vw,80px)}.commercial-grid{grid-template-columns:1fr}.commercial-feature{min-height:245px}.commercial-primary,.commercial-secondary{width:100%}.contact-form{padding:23px}.commercial-end{padding:70px 0}}
 @media(prefers-reduced-motion:reduce){.commercial-feature,.commercial-primary,.commercial-secondary{transition:none}}
+
+/* Parcours de découverte : la quatrième étape n'est pas un checkout. */
+.buying-guide{padding-block:clamp(65px,7vw,110px)}
+.buying-steps{grid-template-columns:repeat(4,minmax(0,1fr))}
+.buying-steps .commercial-step h3{font-size:clamp(22px,2vw,28px)}
+.buying-steps .buying-step-future{background:#231C29}
+.buying-steps .buying-step-future span{color:#B8AFC0}
+@media(max-width:900px){.buying-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.buying-steps .commercial-step:nth-child(2){border-right:0}}
+@media(max-width:560px){.buying-steps{grid-template-columns:1fr}.buying-steps .commercial-step{border-right:0;border-bottom:1px solid #ffffff28}.buying-steps .commercial-step:last-child{border-bottom:0}}
