@@ -89,6 +89,47 @@ try{
   await generator.close();
   checked++;
 
+
+  // Chemin de découverte préachat — il doit rester non transactionnel.
+  for(const width of [390,1440]){
+    const journey=await browser.newPage({viewport:{width,height:900},deviceScaleFactor:1});
+    const errors=[];
+    journey.on('pageerror',error=>errors.push(error.message));
+    await open(journey,'index.html');
+    await journey.locator('.kinetic-button').click();
+    assert.ok(journey.url().includes('produit.html#collections'),'Héros → six collections');
+    assert.equal(await journey.locator('.collection-tile').count(),6);
+    assert.ok(await journey.locator('#comment-acheter').count(),'Étapes de découverte');
+    assert.ok(await journey.locator('.buying-step-future').isVisible(),'Achat futur clairement indiqué');
+    await journey.locator('.collection-tile').first().click();
+    assert.ok(journey.url().includes('pack-redaction.html'),'Collection → rédaction');
+    assert.equal(await journey.locator('.shop-status').innerText(),'En préparation · Aucun achat ou précommande possible');
+    assert.equal(await journey.locator('.showroom-progress a').count(),3);
+    await journey.locator('.showroom-action.primary').click();
+    assert.ok(journey.url().includes('/outils/assistant-messages.html'),'Rédaction → outil réel');
+    assert.ok(await journey.locator('#messageForm').count());
+    const overflow=await journey.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+    assert.ok(overflow<=4,'Parcours : débordement '+width+' '+overflow);
+    assert.equal(errors.length,0,'Erreurs JS du parcours '+width+': '+errors.join('; '));
+    await journey.screenshot({path:join(evidence,'achat-parcours-'+width+'.png'),fullPage:true});
+    await journey.close();
+    checked++;
+  }
+  for(const slug of ['visuel','sites-web','video-audio','automatisation','recherche-analyse']){
+    const p=await browser.newPage({viewport:{width:390,height:844}});
+    await open(p,'pack-'+slug+'.html');
+    assert.ok(await p.locator('.shop-facts').count(),'Contenu de '+slug+' expliqué');
+    const cta=p.locator('.showroom-buy-options > a').first();
+    assert.equal(await cta.getAttribute('href'),'#exemple','Pas de tunnel GitHub public depuis '+slug);
+    assert.equal(await p.locator('.shop-back-link').getAttribute('href'),'./produit.html#collections');
+    await cta.click();
+    assert.ok(p.url().includes('#exemple'),'Démo atteinte : '+slug);
+    const overflow=await p.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+    assert.ok(overflow<=4,'Débordement fiche '+slug+': '+overflow);
+    await p.close();
+    checked++;
+  }
+
 }finally{
   await browser.close();
 }
