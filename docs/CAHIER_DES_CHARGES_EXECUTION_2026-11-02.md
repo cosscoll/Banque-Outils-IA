@@ -1,68 +1,144 @@
-# Banque Outils IA — cahier des charges opérationnel
-Version : 2026-11-02 · Statut : précommercialisation · Auteur : pilotage produit
+# Banque Outils IA — cahier des charges de référence
+**Version 1.1 — 02 novembre 2026** · Statut : **vitrine opérationnelle, produits en préparation, aucune vente ouverte**.
 
-## 1. Objectif, cible et limites
-**Objectif** : fournir à un indépendant ou une petite structure une banque de vrais outils et méthodes pour réaliser une tâche précise, pas seulement un annuaire d'applications.
-**Public prioritaire** : entrepreneurs, indépendants, TPE, y compris débutants peu à l'aise avec le numérique.
-**Promesse testable** : comprendre un besoin, choisir un outil, obtenir un premier résultat et le vérifier sans connaissances techniques préalables.
-**Invariants validés** : identité Obscure Pop (jaune atténué), cinq cartes en relief au hover, header fixe « Accueil / Produit / Contact », six showrooms individualisés ; ne pas réintroduire l'ordinateur 3D retiré.
-**Garde-fous** : aucune dépense ou automatisation sans accord ; aucun Work, Codex ou agent à quota limité ; aucune licence tierce présumée ; aucun contenu premium, secret ou information client dans le dépôt public.
+> Ce document est la **source de vérité du périmètre et des décisions**. Les annexes A à D détaillent les exigences, les six banques, le commerce et l'ordre de production. Une ligne « spécifiée » ne signifie pas « développée » ; une CI verte ne signifie pas « produit prêt à vendre ».
 
-## 2. Situation de départ démontrable
-- Branche main du dépôt : cosscoll/Banque-Outils-IA ; dernière livraison connue avant cette session : 22/10/2026.
-- 18 services référencés, six méthodes publiques, six pages produit Showroom 01, simulation locale sans service IA payant.
-- GitHub Pages a indiqué un déploiement réussi, mais contrôle des navigateurs et cohérence du SHA encore à confirmer.
-- Le 22/10, 8/16 tests historiques échouaient car ils réclamaient d'anciens composants WebGL et des sélecteurs disparus.
-- Prix, vente, livraison automatique, contact commercial privé, actifs premium et tests utilisateurs réels : **non terminés**.
-- Ne pas annoncer « en ligne et fonctionnel » sur la seule base de GitHub, de tests statiques ou d'un build.
+## 0. Lire le projet en 90 secondes
+**Mission** : aider un indépendant ou une petite entreprise à utiliser des outils concrets pour écrire, créer, préparer un site, planifier une vidéo, décrire une automatisation ou mener une recherche structurée, sans jargon ni abonnement imposé.
 
-## 3. Parcours utilisateur et exigences
-| Phase | Exigence | Validation attendue |
+**Client prioritaire** : entrepreneurs, artisans et TPE souvent peu à l'aise avec les outils numériques. La promesse porte sur **un livrable vérifiable**, pas sur « l'IA fait tout à votre place ».
+
+**Le site existe** : design Obscure Pop validé, navigation Accueil / Produit / Contact, cinq cartes animées en CSS 3D, six pages produit distinctes, catalogue public de 18 services, méthodes d'initiation et premier générateur gratuit de textes locaux.
+
+**Ce qui ne peut pas être vendu maintenant** : six ZIP commerciaux complets, droits de redistribution vérifiés, prix, boutique conforme, livraison sécurisée, SAV et documents juridiques ne sont **pas** achevés. Ne pas afficher de bouton achat actif.
+
+### Annexes applicables
+| Annexe | Document | Ce qu'elle permet |
 |---|---|---|
-| Découverte | Une promesse claire et un seul chemin principal pour démarrer | 5 participants comprennent l'offre sans explication |
-| Orientation | Six familles identifiables sans jargon ; recherche 18 outils et filtres | Test clavier, tactile, recherche avec accents, zéro résultat |
-| Essai | Au moins un outil réellement fonctionnel et exportable, sans créer de compte | Essai de bout en bout sur mobile et ordinateur |
-| Présentation | Une fiche par banque avec cible, livrables, prérequis et limites | Le contenu annoncé correspond aux fichiers distribués |
-| Achat futur | Prix, règles de vente, CGV et checkout privé | Validation juridique, paiement test, reçu |
-| Livraison future | Téléchargement privé selon droit d'achat | Vérification avec/sans droit, expiration, support |
-| Accompagnement | Guide de démarrage, exemples, FAQ et mise à jour | Trois débutants terminent un scénario sans aide |
+| A | [Spécifications fonctionnelles](./SPECIFICATIONS_FONCTIONNELLES_V1_1.md) | 24 exigences F-001 à F-024, 15 scénarios de recette |
+| B | [Spécifications détaillées des six banques](./SPECIFICATIONS_PRODUITS_V1_1.md) | Entrées, sorties, produits originaux, contrôles, fichiers exacts |
+| C | [Architecture et commercialisation](./ARCHITECTURE_ET_COMMERCIALISATION_V1_1.md) | Contraintes GitHub Pages, paiements et livraison futurs, RGPD, licences, prix |
+| D | [Backlog priorisé et release gates](./BACKLOG_PRIORISE_V1_1.md) | Tâches, état, dépendances, décisions et critères de passage |
+| Historique | [Plan de fabrication initial](./PLAN_FABRICATION_SIX_BANQUES_2026-11-02.md) | Première version des engagements produit (complétée par B) |
+| Gouvernance | [Règles de publication de sprints](./SPRINT_DELIVERY_POLICY.md) | Preuves requises avant d'annoncer une livraison |
 
-## 4. Backlog de livraison
-| ID | Priorité | Tâche | Définition de terminé | État |
-|---|---|---|---|---|
-| QA-01 | P0 | Remplacer tests WebGL obsolètes | Node CI verte sur les fonctionnalités réellement présentes | PR #9 ; à vérifier |
-| QA-02 | P0 | QA navigateur du site actuel | Desktop et mobile, 13 pages historiques, aucune erreur JS/overflow, capture | En développement |
-| PUB-01 | P0 | Vérifier version publique | SHA publié, URLs et rendu réels vérifiés après fusion | Non confirmé |
-| UX-01 | P0 | Respect design validé | Aucune régression hover, animations, menu ou couleurs | Tests + validation visuelle à réaliser |
-| TOOL-01 | P0 | Outil de rédaction gratuit | Formulaire, trois formats, ton, copie, export .txt, sans API | En préparation |
-| PRODUCT-01 | P0 | Fiches de fabrication des six banques | Livrables exacts + critères qualité + licences | Spécification en cours |
-| PRODUCT-02 | P1 | Banque rédaction vendable | Guide, modèles, outil, exemples, QA, licences, stockage privé | Non livrée |
-| PRODUCT-03 | P1 | Cinq autres banques | Contenu original et parcours évalués, un produit fini à la fois | Non livrées |
-| BIZ-01 | P1 | Contact privé sans GitHub | Envoi privé, validation, informations RGPD, anti-spam | Non disponible |
-| BIZ-02 | P1 | Vente et livraison | Prix approuvés, CGV, paiement, accès après achat, remboursement | Non autorisé / non disponible |
-| OBS-01 | P2 | Performance et accessibilité | Audit LCP, CLS, INP, clavier, reduced-motion, lecteurs d'écran | Non mesuré |
+## 1. Identité visuelle et périmètre du site — décisions confirmées
+**Charte** : Obscure Pop, noir charbon, ivoire, orange, violet/lavande et sauge, avec pistache atténuée (pas de jaune fluo omniprésent). Typographies et animation actuelles conservées. Ne pas remplacer par un template générique.
 
-## 5. Règles de fabrication
-- Faire un outil **original** par collection, puis un guide simple, au moins trois scénarios fictifs, des modèles adaptés et une checklist de contrôle humain.
-- Distinguer démonstrations et traitements réellement effectués ; aucun faux avis, faux chiffre, faux bouton « acheter ».
-- Ne pas revendre ou empaqueter une application externe : liens officiels, documentation personnelle et créations originales uniquement, sauf autorisation expresse et licence vérifiée.
-- Pour chaque ressource tierce : URL, auteur, version, licence, usages autorisés, attribution et preuve ; tout doute = pas de redistribution.
-- Le site public n'héberge pas les livrables premium. La distribution commerciale exigera un espace privé et un contrôle serveur des droits d'accès.
-- Formulaire et livraison futurs : minimisation des données, mentions de confidentialité visibles, durée de conservation et droits des personnes. Le système actuel de contact GitHub public est insuffisant pour des prospects.
+**Expérience** : les cinq cartes de l'accueil s'ouvrent au **hover**, restent atteignables au clavier et au tactile ; la perspective CSS représente des usages concrets. Pas d'ordinateur 3D WebGL réintroduit sans demande et validation.
 
-## 6. Priorités de commercialisation
-1. Démontrer la valeur auprès de trois à cinq débutants avec un outil gratuit réellement utilisable.
-2. Finaliser un pack complet de rédaction et vérifier s'il résout un problème payé par la cible.
-3. Fixer prix et support en fonction de la valeur, du coût réel et des retours ; **aucun tarif fictif**.
-4. Ajouter paiements/livraison et textes légaux après validation utilisateur et juridique.
-5. Reproduire la méthode pour les cinq autres banques en conservant une personnalité visuelle propre à chaque fiche.
+**Structure de navigation** : menu supérieur **Accueil / Produit / Contact**, header sticky ; les pages catalogue, fiches, parcours et outil gratuit sont des ressources secondaires accessibles par CTA. Chaque banque a une page Showroom 01 personnalisée au contenu de la discipline, sans six pages purement clonées.
 
-## 7. Définition stricte d'un sprint livré
-Journal horodaté + fichiers + SHA + branche + tests exécutés + résultat GitHub Actions + déploiement vérifié + capture mobile/desktop. En l'absence d'une preuve, écrire explicitement « non validé ». Le travail n'est pas terminé si une étape critique échoue.
+**Communication** : français simple, pas de bloc surchargé, pas de faux avis, preuve inventée ni de promesse de résultat non testée. Une démonstration locale doit être explicitement identifiée.
 
-## 8. Sources de cadrage juridique et licences
-- CNIL, premières étapes du RGPD : https://www.cnil.fr/fr/passer-laction/rgpd-les-premieres-etapes
-- CNIL, communiquer en ligne : https://www.cnil.fr/fr/rgpd-en-pratique-communiquer-en-ligne
-- Service Public, mentions obligatoires : https://entreprendre.service-public.gouv.fr/vosdroits/F37351
-- Licence MIT et conservation des notices : https://choosealicense.com/licenses/mit/
-Ces sources orientent le cahier des charges ; leur application au montage commercial définitif devra être vérifiée avant activation des ventes.
+## 2. État vérifié et preuves à date
+Base : dépôt cosscoll/Banque-Outils-IA, branche main au SHA **d1f86439cfff5bf85a652241357c915481ba2654**, issu de PR #9 fusionnée le 02/11/2026.
+
+| Sujet | État au 02/11 | Preuve / limite |
+|---|---|---|
+| HTML/CSS du site, Obscure Pop, navigation | Publié | Fichiers main, Pages |
+| Catalogue de 18 ressources + filtres | Testé en CI | Ne signifie pas actualisation des tarifs tiers |
+| Six pages showroom | Testées en CI | Aucune des six n'est vendue |
+| Outil gratuit Rédaction | Publié et testé sur Chromium | Génération locale, copie et export ; relecture linguistique non achevée |
+| CI Node « Verify public preview » | **Succès** | Workflow GitHub sur SHA d1f86439 |
+| QA navigateur de PR | **Succès** | Chromium desktop/mobile sur SHA 208fe4d4611a5deafd04d88f41085352d7683512 |
+| GitHub Pages « build and deployment » | **Succès** | Workflow GitHub sur SHA d1f86439 |
+| « Verify live website after deployment » | **Succès** | SHA HTML et interactions accueil testés sur bureau/mobile Chromium |
+| 12 modèles + 3 cas Rédaction | Brouillon privé Google Drive | Ni ZIP final ni test terrain |
+| Banques complètes et livraison premium | **À faire** | Pas de paquet final, pas de vente |
+| Contact confidentiel pour prospects | **À faire** | Parcours actuel GitHub Issues non adapté |
+| Recette Safari iOS / vrai Android / performance terrain | **À faire** | Les tests Chromium ne suffisent pas |
+| Juridique, fiscal, prix et plateforme de vente | **Bloqué avant lancement** | Nécessite informations réelles et décisions |
+
+Liens de vérification : [PR #9](https://github.com/cosscoll/Banque-Outils-IA/pull/9), [GitHub Actions](https://github.com/cosscoll/Banque-Outils-IA/actions), [site actuel](https://cosscoll.github.io/Banque-Outils-IA/).
+
+## 3. Cible, besoins et parcours à livrer
+**Persona principal** : indépendant, artisan ou responsable de petite équipe avec un besoin concret et peu de temps pour comparer les outils.
+
+**Parcours P1 (visiteur gratuit)** : voir l'accueil → comprendre six univers → choisir Rédaction → tester un outil réel → copier/télécharger le résultat → voir les limites, exemples et prochaines étapes. **Parcours présent et automatisé en partie ; qualité novice à éprouver.**
+
+**Parcours P2 (acheteur futur)** : voir le contenu exact et les prérequis → prix et conditions → paiement sécurisé sur une plateforme commerciale adaptée → droit d'accès → ZIP privé → guide et assistance. **Non réalisé.**
+
+**Parcours P3 (gestionnaire)** : mettre à jour un produit privé versionné → QA et licences → publier disponibilité réelle → suivre ventes/support/retrait. **Spécifié seulement.**
+
+## 4. Produit : définition du minimum commercialisable
+Une **banque** comprend :
+1. Un outil **original réellement utilisable** et exportable (ou dépendances expliquées).
+2. Un guide de démarrage + un parcours de bout en bout.
+3. Au moins **10 modèles originaux** et **3 cas complets fictifs**.
+4. Checklist de qualité humaine et limites de l'outil.
+5. Formats ouverts et adaptés aux novices, compatibilité documentée.
+6. Licence, provenance des composants, version, support et conditions de mise à jour.
+
+Les trois supports du Showroom (« Guide / Exemples / Contrôle ») servent à expliquer ; ils ne remplacent pas les livrables réels. Les fichiers payants demeurent dans un **stockage privé** hors du dépôt public.
+
+| Banque | Production concrète attendue | État |
+|---|---|---|
+| 01 Rédaction | Assistant de messages, 12 gabarits, 3 cas, guide et relecture | **Partiel**, outil public + brouillons privés |
+| 02 Design & visuels | Brief graphique, SVG/HTML éditable, modèles et contrôle licences | Spécifié |
+| 03 Sites web & prototypes | Assistant arborescence + prototype statique exportable | Spécifié |
+| 04 Vidéo & audio | Storyboard local, script et planning export CSV/TXT | Spécifié |
+| 05 Première automatisation | Cartographe de flux, simulation locale sans action externe | Spécifié |
+| 06 Recherche & analyse | Matrice sources/date/fiabilité et note de décision traçable | Spécifié |
+
+Consulter les critères détaillés, entrées, sorties, cas d'erreur et format des fichiers dans l'annexe B.
+
+## 5. Exigences non fonctionnelles et sécurité
+- Tester l'interface à 320, 390, 768, 1024 et 1440 px et sur navigateur iOS/Android réel, en complément du Chromium CI.
+- Accès clavier, texte lisible, contraste cible WCAG AA, motion réduite, état visuel des contrôles et fonctionnement sans hover ; vérifier et documenter les exceptions.
+- Performance : objectifs indicatifs LCP ≤ 2,5 s / CLS ≤ 0,1 / INP ≤ 200 ms quand une mesure réelle est possible ; mesures non encore effectuées.
+- Aucune API IA, clé privée, donnée client, archive premium, tracking imposé ou composant tiers non vérifié dans le dépôt public.
+- Distinguer un outil déterministe local d'un appel à une IA générative distante. Une future intégration IA exigera information explicite, modèle de coûts, conformité et choix de l'utilisateur.
+
+## 6. Commerce — interdictions et étapes de décision
+**Point majeur :** GitHub Pages n'est pas autorisé comme hébergement gratuit d'un site destiné principalement aux transactions commerciales. Il demeure un **démonstrateur**, et non la future boutique. Source officielle : https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits.
+
+**Option documentaire à étudier** : boutique spécialisée type Payhip ou hébergement commercial adapté ; frais, CGV de la plateforme, données, fiscalité et possibilité de personnaliser la vitrine sont à vérifier. Aucune ouverture de compte ni paiement autorisés par ce document.
+
+**Avant vente** : identité vendeur, coordonnées réelles, politique confidentialité et registre RGPD, CGV, droits du consommateur, rétractation du contenu numérique, fiscalité/TVA selon marché, prix décidé, validation des licences et des packs, contrôle d'accès, reçu et support.
+
+**Contact** : remplacer le mécanisme d'issue GitHub publique avant d'inciter des prospects à confier des informations. Les formulaires doivent comporter des mentions d'information conformes.
+
+**Tarif** : aucun prix adopté. Le montant de **29 EUR** figurant dans un plan Business 02 du 15/10/2026 est une **hypothèse de test de l'offre automatisation**, non un tarif des six banques. Voir annexe C.
+
+## 7. Priorités opérationnelles
+1. **P0 / maintenant** : améliorer la correction grammaticale de l'outil Rédaction et vérifier sur des textes français divers ; audit mobile physique ; préparer 12 modèles + trois cas finaux, guide et licences.
+2. **P0 / première banque complète** : assemblage du ZIP privé, manifeste et tests de conformité ; test de trois personnes novices ; correction des difficultés observées.
+3. **P1 / prouver la valeur** : entretiens utilisateurs, objection/prix, fiche produit correspondant **strictement** au ZIP livré.
+4. **P1 / commerce, sur autorisation uniquement** : hébergement principal compatible, contact privé, textes légaux, taxes, checkout, livraison sécurisée et support.
+5. **P1 / produits suivants** : fabriquer Sites et Automatisation puis Visuels, Vidéo/audio et Recherche en respectant exactement le contrat commun.
+6. **P2 / optimisation** : mesurer réussite de tâche, suivi et accessibilité/performance ; ne pas collecter ou profiler les utilisateurs par défaut.
+
+Le backlog détaillé, les identifiants de tâches, statuts et dépendances sont dans **l'annexe D**.
+
+## 8. Critères de « terminé » et publication
+Les portes sont distinctes :
+- **G0 Spécifié** : exigence, livrable, test d'acceptation et dépendances écrits.
+- **G1 Développé** : code et fichiers présents, droits et secrets contrôlés.
+- **G2 Testé** : CI pertinente et cas limites passent, QA humaine requise selon le cas.
+- **G3 Publié en démonstration** : SHA main identique à la source, URL publique et parcours réel testés.
+- **G4 Produit accepté** : ZIP privé complet, vérifié par des utilisateurs débutants, licences validées.
+- **G5 Produit commercialisable** : G4 + droit/identité vendeur/prix/plateforme/paiement/livraison/support **et validation explicite**.
+
+**À ce jour : socle G3 sur périmètre vérifié, outil Rédaction partiellement G3 ; aucune banque G4/G5.**
+
+## 9. Limites de mandat et décisions à confirmer
+- Ne pas modifier l'identité Obscure Pop ni remplacer les showrooms validés sans accord.
+- Ne pas créer d'automatisation périodique ni utiliser Work, Codex, agents à quota limité ou Excel ; ne pas engager de dépense ni d'abonnement sans autorisation explicite.
+- Ne pas fusionner un changement présentant des tests en échec ; conserver une trace des statuts et preuves.
+- Décisions non prises : prix final, société vendeuse, moyen de paiement, hébergement commercial, adresse de contact, périmètre du support et licence client.
+- Ce cahier des charges peut progresser en documentation et prototypes sans ces décisions ; leur absence **bloque uniquement** les étapes associées, pas l'amélioration des outils et du contenu privé.
+
+## 10. Sources officielles de cadrage, vérifiées pour cette version
+- [GitHub Pages limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits)
+- [CNIL — Prospection commerciale par courriel](https://www.cnil.fr/fr/la-prospection-commerciale-par-courrier-electronique)
+- [CNIL — RGPD premières étapes](https://www.cnil.fr/fr/passer-laction/rgpd-les-premieres-etapes)
+- [Service Public — Conditions générales de vente](https://entreprendre.service-public.gouv.fr/vosdroits/F33527)
+- [DGCCRF — Droit de rétractation](https://www.economie.gouv.fr/dgccrf/les-fiches-pratiques/delais-de-reflexion-ou-de-retractation-comment-sappliquent-t-ils)
+- [Payhip — Tarifs affichés](https://payhip.com/pricing)
+
+La validation juridique et fiscale reste à effectuer pour l'entité, les produits et les marchés réellement choisis.
+
+## 11. Historique
+- **02/11/2026 v1.0** : premier cahier des charges, six plans de fabrication et outil gratuit Rédaction.
+- **02/11/2026 v1.1** : correction des statuts CI/production, séparation des cinq portes qualité, 24 exigences, recette, six spécifications produits, architecture commerciale et backlog. Ne constitue ni un lancement commercial ni un devis.

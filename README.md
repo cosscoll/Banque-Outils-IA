@@ -4,6 +4,10 @@ Création d'une bibliothèque d'outils IA.
 
 **Statut : pré-lancement, aucune vente ni paiement actif.**
 
+**Pilotage à jour (02/11/2026)** : [Cahier des charges v1.1](./docs/CAHIER_DES_CHARGES_EXECUTION_2026-11-02.md) · [Exigences fonctionnelles](./docs/SPECIFICATIONS_FONCTIONNELLES_V1_1.md) · [Six spécifications produits](./docs/SPECIFICATIONS_PRODUITS_V1_1.md) · [Commercialisation et conformité](./docs/ARCHITECTURE_ET_COMMERCIALISATION_V1_1.md) · [Backlog priorisé](./docs/BACKLOG_PRIORISE_V1_1.md). Ces documents font foi pour les décisions et statuts récents, les sections anciennes ci-dessous restent archivées à titre historique.
+
+Premier outil réellement utilisable, gratuit et local : [Assistant Messages](./outils/assistant-messages.html). Il ne sollicite aucune IA distante ; les packs commerciaux demeurent en préparation.
+
 ## Correction du site — 22 octobre 2026 : textures + suppression de l'ordinateur 3D
 
 À la demande du propriétaire, la section entière `#atelier` présentant un ordinateur 3D a été supprimée de l'accueil, avec ses boutons, le canvas, les scripts Three.js et les liens « Atelier 3D » du menu. Les fichiers de l'ancien modèle restent archivés dans le dépôt mais **ne sont plus chargés** par le site.

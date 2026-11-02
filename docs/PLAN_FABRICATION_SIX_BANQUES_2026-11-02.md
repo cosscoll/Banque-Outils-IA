@@ -1,4 +1,6 @@
 # Banque Outils IA — fabrication des six banques d'outils
+
+**Document initial conservé. Spécification complète et plus récente : [Annexe B](./SPECIFICATIONS_PRODUITS_V1_1.md). Statut et priorités : [cahier des charges v1.1](./CAHIER_DES_CHARGES_EXECUTION_2026-11-02.md).**
 Version 2026-11-02 · **Programme de production, pas catalogue de produits déjà finalisés**
 
 ## Contrat de qualité applicable à chaque banque
@@ -17,7 +19,7 @@ Chaque produit commercialisé doit contenir :
 ## Pack 01 — Rédaction & communication (MVP)
 **Pour qui** : TPE, indépendant, prestataire local. **Résultat** : message clair et relu.
 - R01 Guide « audience / proposition / bénéfice vérifié / appel à l'action ».
-- R02 Outil de composition de messages : email, publication, texte web, trois tons, copie/export .txt. Extrait gratuit public prévu : /outils/assistant-messages.html, sans IA connectée.
+- R02 Outil de composition de messages : email, publication, texte web, trois tons, copie/export .txt. Extrait gratuit public déjà disponible et testé automatiquement : /outils/assistant-messages.html, sans IA connectée ; recette linguistique et utilisateurs réels encore nécessaires.
 - R03 12 modèles de situations : annonce, relance, demande de devis, présentation d'offre, fiche service, FAQ, invitation, newsletter, post, réponse client, proposition commerciale, bio.
 - R04 Trois cas fictifs de TPE : commerce local, artisan et consultant.
 - R05 Fiche de relecture : exactitude, destinataire, promesse mesurable, confidentialité, règles de prospection.
