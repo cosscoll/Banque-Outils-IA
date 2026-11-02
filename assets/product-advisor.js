@@ -39,7 +39,7 @@
     if(/\b(merci|au revoir|bye)\b/.test(clean)&&clean.length<28){
       return {kind:'info',reason:'Avec plaisir. Vous pouvez décrire un autre objectif ou consulter les banques proposées.',ids:[],options:'after',state};
     }
-    if(/\b(pourquoi cette banque|pourquoi ce produit|pourquoi ce choix|explique|en savoir plus|qu est ce que ca fait|qu est ce que c est)\b/.test(clean)&&state.lastIds.length){
+    if(/\b(pourquoi cette banque|pourquoi ces banques|pourquoi ce produit|pourquoi ces produits|pourquoi ce choix|pourquoi eux|explique|en savoir plus|qu est ce que ca fait|qu est ce que c est)\b/.test(clean)&&state.lastIds.length){
       return {kind:'explain',ids:state.lastIds,reason:'Voici pourquoi cette recommandation correspond à votre demande, ainsi que ce que le kit est censé aider à préparer.',options:'after',state};
     }
     const result=choose(value);
