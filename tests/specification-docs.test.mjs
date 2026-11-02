@@ -36,5 +36,5 @@ test('recette Rédaction v1.2 : critères et cas de tests',()=>{
   for(let n=1;n<=17;n++)assert.ok(recette.includes('RT-'+String(n).padStart(2,'0')),n);
   assert.ok(recette.includes('STD-08'));
   assert.ok(recette.includes('trois utilisateurs débutants'));
-  assert.ok(main.includes('Version 1.3'));
+  assert.ok(main.includes('Version 1.4'));
 });

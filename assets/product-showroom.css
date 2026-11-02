@@ -124,12 +124,7 @@
 @media(max-width:1000px){.collections-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:680px){.collections-grid{grid-template-columns:1fr}.collection-tile{min-height:0}.collection-art{height:180px}}
 
-/* Parcours préachat : accès au contenu, exemple et disponibilité, sans panier fictif. */
-.showroom-progress{width:min(1340px,calc(100% - 90px));margin:0 auto 3px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;padding:4px 0 22px;border-bottom:1px solid #ffffff20;margin-bottom:3px}
-.showroom-progress a{color:#E3D8E8;text-decoration:none;font-weight:750;font-size:12px;min-height:36px;display:inline-flex;align-items:center;gap:9px}
-.showroom-progress a span{color:var(--tone);font:800 11px ui-monospace,monospace}
-.showroom-progress a:hover{color:var(--tone)}
-.showroom-progress a:focus-visible,.showroom-buy-options a:focus-visible{outline:3px solid var(--tone);outline-offset:4px}
+.showroom-buy-options a:focus-visible{outline:3px solid var(--tone);outline-offset:4px}
 .showroom-buy-options .shop-status{color:#694461;font-weight:800;line-height:1.5;margin:15px 0 21px}
 .showroom-buy-options .shop-facts-heading{font-weight:850;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#34273B;margin:20px 0 6px}
 .showroom-buy-options .shop-facts{font-size:13px;line-height:1.55;color:#53495B;margin:0}
@@ -137,4 +132,34 @@
 .showroom-buy-options .shop-back-link{background:transparent;color:#4C3055;justify-content:center;margin-top:10px;border:1px solid #CDBED3;padding:14px 18px}
 .showroom-buy-options .shop-back-link:hover{background:#F1E8F2}
 .showroom-buy .shop-next-note{font-size:13px;color:#6D5B69;border-left:3px solid #9664A0;padding-left:16px;margin-top:26px}
-@media(max-width:750px){.showroom-progress{width:calc(100% - 40px);gap:6px 17px}.showroom-progress a{font-size:11px}.showroom-buy-options{padding:24px}}
+@media(max-width:750px){.showroom-buy-options{padding:24px}}
+
+/* Navigation simplifiée V1.4 : six choix compacts, sans dupliquer le tunnel. */
+.product-hub-hero{padding:clamp(46px,5vw,76px) 0 clamp(25px,3.5vw,43px)}
+.product-hub-hero h1{font-size:clamp(48px,5.4vw,76px);margin-bottom:18px;max-width:780px}
+.product-hub-hero .commercial-lead{max-width:670px;font-size:clamp(15px,1.4vw,18px);line-height:1.55}
+.product-hub-hero .commercial-mini-proof{margin-top:15px}
+.product-hub-hero + .commercial-section{padding-top:clamp(26px,3vw,48px);padding-bottom:clamp(30px,4vw,58px)}
+.product-hub-hero + .commercial-section h2{font-size:clamp(31px,3.5vw,50px)}
+.product-hub-hero + .commercial-section .commercial-section-heading{margin-bottom:20px}
+.collections-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+.collection-tile{min-height:150px;display:grid;grid-template-columns:116px minmax(0,1fr);border-radius:15px}
+.collection-tile:hover,.collection-tile:focus-visible{transform:translateY(-4px);box-shadow:0 15px 30px #0009}
+.collection-art{height:100%;min-height:150px}
+.collection-art:before{width:50%;height:56%;left:9%;top:23%}
+.collection-art:after{width:52%;height:60%;right:5%;top:21%}
+.collection-art span{font-size:15px;top:46%;right:10%;width:35%}
+.collection-tile-body{padding:15px 19px}
+.collection-tile h3{font-size:clamp(20px,1.7vw,25px);margin:7px 0 6px}
+.collection-tile p{font-size:12px;margin:0 0 9px;line-height:1.45}
+.collection-tile .number{font-size:9px;letter-spacing:.02em}
+.collection-tile .go{padding-top:8px;font-size:11px}
+.hub-status{margin:20px 0 0;font-size:12px;color:#B9AFBF;line-height:1.6}
+.hub-secondary{padding:26px 0 38px;border-top:1px solid #ffffff22}
+.hub-secondary .commercial-container{display:flex;gap:14px 40px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.hub-secondary p{max-width:480px;color:#CCC3D0;font-size:13px;line-height:1.6;margin:0}
+.hub-secondary a{color:#E5C8FF;text-underline-offset:4px}
+@media(max-width:930px){.collections-grid{grid-template-columns:1fr 1fr}.collection-tile{grid-template-columns:92px minmax(0,1fr)}.collection-tile-body{padding:13px}.collection-art span{font-size:12px}}
+@media(max-width:740px){.collections-grid{grid-template-columns:1fr}.collection-tile{min-height:132px;grid-template-columns:100px minmax(0,1fr)}.collection-art{min-height:132px}.collection-tile h3{font-size:23px}}
+@media(max-width:410px){.collection-tile{grid-template-columns:76px minmax(0,1fr)}.collection-tile h3{font-size:20px}.collection-art span{font-size:10px}.collection-tile-body{padding:12px}}
+@media(prefers-reduced-motion:reduce){.collection-tile{transition:none}}
