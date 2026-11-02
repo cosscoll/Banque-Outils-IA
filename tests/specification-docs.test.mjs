@@ -10,8 +10,9 @@ const functional=read('docs/SPECIFICATIONS_FONCTIONNELLES_V1_1.md');
 const products=read('docs/SPECIFICATIONS_PRODUITS_V1_1.md');
 const commercial=read('docs/ARCHITECTURE_ET_COMMERCIALISATION_V1_1.md');
 const backlog=read('docs/BACKLOG_PRIORISE_V1_1.md');
+const recette=read('docs/RECETTE_PACK_REDACTION_V1_2.md');
 test('specifications v1.1 links and source of truth',()=>{
-  for(const name of ['SPECIFICATIONS_FONCTIONNELLES_V1_1.md','SPECIFICATIONS_PRODUITS_V1_1.md','ARCHITECTURE_ET_COMMERCIALISATION_V1_1.md','BACKLOG_PRIORISE_V1_1.md'])
+  for(const name of ['SPECIFICATIONS_FONCTIONNELLES_V1_1.md','SPECIFICATIONS_PRODUITS_V1_1.md','ARCHITECTURE_ET_COMMERCIALISATION_V1_1.md','BACKLOG_PRIORISE_V1_1.md','RECETTE_PACK_REDACTION_V1_2.md'])
     assert.ok(main.includes('./'+name),'Missing main documentation link '+name);
   assert.ok(read('README.md').includes('docs/CAHIER_DES_CHARGES_EXECUTION_2026-11-02.md'));
   const links=[...main.matchAll(/\]\(\.\/([^#)]+)\)/g)].map(x=>x[1]);
@@ -28,4 +29,12 @@ test('functional IDs, six product specs, release gates and safeguards',()=>{
   assert.ok(main.includes('aucune vente ouverte'));
   assert.ok(main.includes('aucune banque G4/G5'));
   assert.ok(backlog.includes('SOC-01')&&backlog.includes('LEG-01')&&backlog.includes('PAY-01'));
+});
+
+test('recette Rédaction v1.2 : critères et cas de tests',()=>{
+  for(let n=1;n<=24;n++)assert.ok(recette.includes('RQ-'+String(n).padStart(2,'0')),n);
+  for(let n=1;n<=17;n++)assert.ok(recette.includes('RT-'+String(n).padStart(2,'0')),n);
+  assert.ok(recette.includes('STD-08'));
+  assert.ok(recette.includes('trois utilisateurs débutants'));
+  assert.ok(main.includes('Version 1.2'));
 });
