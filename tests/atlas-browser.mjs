@@ -131,6 +131,66 @@ try{
     checked++;
   }
 
+
+  // Guide d'orientation : aucun compte ni API, six produits, formulations libres.
+  for(const width of [320,390,1440]){
+    const guide=await browser.newPage({viewport:{width,height:850},deviceScaleFactor:1});
+    const errors=[];
+    guide.on('pageerror',error=>errors.push(error.message));
+    await open(guide,'index.html');
+    const toggle=guide.locator('#productGuideToggle');
+    assert.equal(await toggle.count(),1,'Le guide est intégré sur l’accueil');
+    assert.equal(await guide.locator('#productGuidePanel').isVisible(),false,'Fermé par défaut');
+    await toggle.click();
+    assert.equal(await toggle.getAttribute('aria-expanded'),'true');
+    assert.equal(await guide.locator('#productGuidePanel').isVisible(),true,'Panneau visible');
+    const rect=await guide.locator('#productGuidePanel').boundingBox();
+    assert.ok(rect.x>=-1&&rect.x+rect.width<=width+1,'Panneau dans le viewport '+width);
+    await guide.locator('#productGuideInput').fill('Je veux lancer un site internet pour mon atelier');
+    await guide.locator('#productGuideForm button[type=submit]').click();
+    assert.match(await guide.locator('.product-guide-result strong').last().innerText(),/Sites web/,'Recommandation de site');
+    assert.equal(await guide.locator('.product-guide-result a').last().getAttribute('href'),'./pack-sites-web.html');
+    await guide.locator('#productGuideInput').fill('Je veux rédiger un e-mail et créer une affiche');
+    await guide.locator('#productGuideForm button[type=submit]').click();
+    assert.equal(await guide.locator('.product-guide-result').count(),3,'1 puis 2 suggestions');
+    await guide.locator('#productGuideInput').fill('Je suis artisan et je ne sais pas quoi faire');
+    await guide.locator('#productGuideForm button[type=submit]').click();
+    assert.match(await guide.locator('.product-guide-bubble.from-bot').last().innerText(),/quel résultat/i,'Clarification si besoin imprécis');
+    await guide.locator('#productGuideReset').click();
+    assert.equal(await guide.locator('.product-guide-result').count(),0,'Réinitialisation');
+    await guide.locator('[data-guide-choice=redaction]').click();
+    assert.equal(await guide.locator('.product-guide-result a').last().getAttribute('href'),'./pack-redaction.html');
+    await guide.keyboard.press('Escape');
+    assert.equal(await toggle.getAttribute('aria-expanded'),'false','Fermeture au clavier');
+    assert.equal(await guide.locator('#productGuidePanel').isVisible(),false);
+    assert.equal(errors.length,0,'Guide sans erreurs JS : '+errors.join('; '));
+    const overflow=await guide.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+    assert.ok(overflow<=4,'Aucun débordement sur accueil '+width+' '+overflow);
+    await toggle.click();
+    await guide.screenshot({path:join(evidence,'guide-produit-'+width+'.png'),fullPage:false});
+    await guide.close();
+    checked++;
+  }
+  // Accessible depuis Produit et depuis une fiche sans noyer les CTA existants.
+  const hubGuide=await browser.newPage({viewport:{width:390,height:844}});
+  await open(hubGuide,'produit.html');
+  await hubGuide.locator('[data-open-product-guide]').click();
+  assert.equal(await hubGuide.locator('#productGuidePanel').isVisible(),true);
+  await hubGuide.locator('[data-guide-choice=web]').click();
+  assert.equal(await hubGuide.locator('.product-guide-result a').last().getAttribute('href'),'./pack-sites-web.html');
+  const hubOverflow=await hubGuide.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+  assert.ok(hubOverflow<=4,'Pas de débordement page Produit avec guide');
+  await hubGuide.close();
+  checked++;
+  const packGuide=await browser.newPage({viewport:{width:390,height:844}});
+  await open(packGuide,'pack-automatisation.html');
+  await packGuide.locator('#productGuideToggle').click();
+  await packGuide.locator('#productGuideInput').fill('Comparer plusieurs prestataires');
+  await packGuide.locator('#productGuideForm button[type=submit]').click();
+  assert.equal(await packGuide.locator('.product-guide-result a').last().getAttribute('href'),'./pack-recherche-analyse.html');
+  await packGuide.close();
+  checked++;
+
 }finally{
   await browser.close();
 }

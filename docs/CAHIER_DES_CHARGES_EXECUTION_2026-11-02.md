@@ -1,7 +1,7 @@
 # Banque Outils IA — cahier des charges de référence
-**Version 1.4 — 02 novembre 2026** · Statut : **vitrine opérationnelle, produits en préparation, aucune vente ouverte**.
+**Version 1.5 — 02 novembre 2026** · Statut : **vitrine opérationnelle, produits en préparation, aucune vente ouverte**.
 
-> Ce document est la **source de vérité du périmètre et des décisions**. Les annexes A à G détaillent les exigences, les six banques, le commerce et l'ordre de production. Une ligne « spécifiée » ne signifie pas « développée » ; une CI verte ne signifie pas « produit prêt à vendre ».
+> Ce document est la **source de vérité du périmètre et des décisions**. Les annexes A à H détaillent les exigences, les six banques, le commerce et l'ordre de production. Une ligne « spécifiée » ne signifie pas « développée » ; une CI verte ne signifie pas « produit prêt à vendre ».
 
 ## 0. Lire le projet en 90 secondes
 **Mission** : aider un indépendant ou une petite entreprise à utiliser des outils concrets pour écrire, créer, préparer un site, planifier une vidéo, décrire une automatisation ou mener une recherche structurée, sans jargon ni abonnement imposé.
@@ -22,6 +22,7 @@
 | E | [Recette approfondie de la banque Rédaction](./RECETTE_PACK_REDACTION_V1_2.md) | 24 critères détaillés, 17 tests, guide, trois tests débutants et packaging |
 | F | [Parcours d'achat — UX, disponibilité et checkout futur](./PARCOURS_ACHAT_UX_V1_3.md) | Historique des exigences de commerce futur, sans activation |
 | G | [Simplification de la navigation V1.4](./SIMPLIFICATION_NAVIGATION_V1_4.md) | Navigation simplifiée réellement proposée, retrait des doublons, tests |
+| H | [Chatbot d'orientation des banques V1.5](./CHATBOT_ORIENTATION_V1_5.md) | Recommandations locales, sécurité, tests et limites du moteur |
 | Historique | [Plan de fabrication initial](./PLAN_FABRICATION_SIX_BANQUES_2026-11-02.md) | Première version des engagements produit (complétée par B) |
 | Gouvernance | [Règles de publication de sprints](./SPRINT_DELIVERY_POLICY.md) | Preuves requises avant d'annoncer une livraison |
 
@@ -149,3 +150,5 @@ La validation juridique et fiscale reste à effectuer pour l'entité, les produi
 - **02/11/2026 v1.3** : annexe F et parcours de découverte amélioré de l'accueil aux six banques, démonstrations puis disponibilité ; ancien renvoi aux issues GitHub écarté des CTA produit, aucun checkout réel.
 
 - **02/11/2026 v1.4** : simplification du site, accès cohérent depuis l'accueil vers les six banques, catalogue tiers relégué en aide secondaire, page Produit raccourcie, six fiches allégées sans liens redondants. Voir annexe G. Aucune banque commercialisée.
+
+- **02/11/2026 v1.5** : assistant conversationnel local pour orienter vers les six banques, avec explication, clarification des besoins vagues, gestion de deux besoins et accès mobile. Aucune IA externe ni API payante.
