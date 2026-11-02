@@ -28,8 +28,8 @@ Banque Outils IA · V1.1 · 02/11/2026. Référentiel de pilotage rattaché au c
 | SOC-03 | P0/S | Vérifier livraison main→Pages | SHA public conforme, build et HTTP/interaction vérifiés | **Vérifié** pour SHA d1f86439 |
 | SOC-04 | P0/M | Revue manuelle iOS/Android + clavier | 320/390/768/1440, Safari iOS/Chrome Android, focus, overflow, animations | **À faire** |
 | SOC-05 | P0/M | Audit temps de chargement et accessibilité | Mesures lab/terrain si possibles, anomalies priorisées | **À faire** |
-| R-01 | P0/S | Outil de rédaction local public | 3 canaux, 3 tons, copie/export, champs validés, aucune API | **Vérifié automatiquement** ; qualité à approfondir |
-| R-02 | P0/M | Corriger qualité grammaticale du moteur | 20 entrées fictives couvrant articles, élisions, pronoms, ponctuation | **À faire** |
+| R-01 | P0/S | Outil de rédaction local public | 3 canaux, 3 tons, édition, copie/export, champs validés, aucune API | **Version publiée : génération/copie/export ; édition et 20 cas complémentaires proposés en PR** |
+| R-02 | P0/M | Corriger qualité grammaticale du moteur | 20 entrées fictives couvrant articles, élisions, pronoms, ponctuation | **Code + 20 cas automatisés proposés en PR ; recette humaine reste à faire** |
 | R-03 | P0/M | Recette de novices | 3 indépendants sans aide obtiennent un résultat pertinent et expliquent ses limites | **À faire**, dépend de R-02 |
 | R-04 | P0/M | Inventaire des 12 modèles privés | Chaque modèle a usage, champs, exemple et contrôle, aucun fait inventé | **Partiel** : brouillon Drive |
 | R-05 | P0/M | Trois cas pratiques finalisés | Contexte→entrée→brouillon→relecture→sortie pour chacun | **Partiel** : cas fictifs brouillons |
