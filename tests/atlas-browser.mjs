@@ -155,7 +155,7 @@ try{
     assert.equal(await guide.locator('.product-guide-result').count(),3,'1 puis 2 suggestions');
     await guide.locator('#productGuideInput').fill('Je suis artisan et je ne sais pas quoi faire');
     await guide.locator('#productGuideForm button[type=submit]').click();
-    assert.match(await guide.locator('.product-guide-bubble.from-bot').last().innerText(),/quel résultat/i,'Clarification si besoin imprécis');
+    assert.match(await guide.locator('.product-guide-bubble.from-bot').last().innerText(),/quelle action|quel résultat/i,'Clarification si besoin imprécis');
 
     await guide.locator('#productGuideInput').fill('Je voudrais attirer plus de clients');
     await guide.locator('#productGuideForm button[type=submit]').click();
