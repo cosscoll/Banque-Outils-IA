@@ -7,7 +7,7 @@ import {join,dirname} from 'node:path';
 const root=dirname(dirname(fileURLToPath(import.meta.url)));
 const evidence=join(root,'qa-screenshots');
 mkdirSync(evidence,{recursive:true});
-const pages=['index.html','produit.html','contact.html','catalogue.html','fiches.html','parcours.html','avancement.html','pack-redaction.html','pack-visuel.html','pack-sites-web.html','pack-video-audio.html','pack-automatisation.html','pack-recherche-analyse.html'];
+const pages=['index.html','produit.html','contact.html','catalogue.html','fiches.html','parcours.html','avancement.html','pack-redaction.html','pack-visuel.html','pack-sites-web.html','pack-video-audio.html','pack-automatisation.html','pack-recherche-analyse.html','outils/assistant-messages.html'];
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 const open=async(page,path)=>page.goto(pathToFileURL(join(root,path)).href,{waitUntil:'domcontentloaded'});
 let checked=0;
@@ -76,6 +76,19 @@ try{
   console.log('PASS showroom interactif');
   await showroom.close();
   checked++;
+  const generator=await browser.newPage({viewport:{width:390,height:844}});
+  await open(generator,'outils/assistant-messages.html');
+  await generator.locator('#messageForm button[type="submit"]').click();
+  assert.match(await generator.locator('#messageOutput').inputValue(),/Objet :/,'Génération e-mail');
+  assert.equal(await generator.locator('#saveMessage').isEnabled(),true,'Export déverrouillé');
+  await generator.locator('#channel').selectOption('post');
+  await generator.locator('#messageForm button[type="submit"]').click();
+  assert.doesNotMatch(await generator.locator('#messageOutput').inputValue(),/Objet :/,'Changement de format');
+  await generator.screenshot({path:join(evidence,'outil-messages-mobile.png'),fullPage:true});
+  console.log('PASS générateur de messages interactif mobile');
+  await generator.close();
+  checked++;
+
 }finally{
   await browser.close();
 }
