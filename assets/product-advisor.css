@@ -36,3 +36,8 @@
 @media(max-width:480px){.product-guide{right:10px;bottom:10px}.product-guide-toggle{font-size:12px;padding:10px 13px;min-height:46px}.product-guide-panel{border-radius:16px;height:min(585px,calc(100dvh - 90px))}.product-guide-messages{padding:12px}.product-guide-result{padding:11px}.product-guide-privacy{font-size:9px}}
 @media(max-height:590px){.product-guide-panel{height:calc(100dvh - 88px);min-height:230px}.product-guide-privacy{display:none}}
 @media(prefers-reduced-motion:reduce){.product-guide-toggle{transition:none}}
+
+/* Lien discret sous l'introduction de la page Produit. */
+.hub-guide-open{margin-top:19px;border:1px solid #BDA5CF;color:#F0E4F5;background:#2D2334;padding:11px 15px;border-radius:28px;font-weight:800;font-size:13px;cursor:pointer;min-height:44px}
+.hub-guide-open span{margin-left:8px}
+.hub-guide-open:hover{background:#4A3555;border-color:#F5F1E6}
