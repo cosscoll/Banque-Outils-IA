@@ -29,3 +29,52 @@ test('outil de rédaction : promesse honnête et aucun paiement',()=>{
   assert.ok(html.includes('aucune donnée envoyée'));
   assert.doesNotMatch(html,/stripe\.com|paypal\.com|checkout|api[_-]?key/i);
 });
+
+
+test('outil de rédaction : exercice fonctionnel réel en mémoire, trois canaux, copie et export',async()=>{
+  const values={business:'Atelier Papier',audience:'les commerces de quartier',offer:'un atelier de dessin',benefit:'concevoir un visuel clair',cta:'Contactez-nous',channel:'email',tone:'pro'};
+  const elements={};
+  const make=(id,val='')=>({
+    value:val,disabled:true,textContent:'',handlers:{},
+    addEventListener(name,callback){this.handlers[name]=callback;},
+    reportValidity(){return true;},focus(){},select(){}
+  });
+  for(const [id,val] of Object.entries(values))elements[id]=make(id,val);
+  for(const id of ['messageForm','messageOutput','messageStatus','copyMessage','saveMessage'])
+    elements[id]=make(id);
+  let copied='',clicked=false,revoked=false;
+  const document={
+    getElementById(id){return elements[id]||null;},
+    createElement(){return {href:'',download:'',click(){clicked=true;},remove(){}};},
+    body:{appendChild(){}}
+  };
+  const context={
+    document,Blob,
+    navigator:{clipboard:{async writeText(value){copied=value;}}},
+    URL:{createObjectURL(){return 'blob:local';},revokeObjectURL(){revoked=true;}},
+    setTimeout(fn){fn();}
+  };
+  vm.runInNewContext(script,context,{filename:'message-generator.js'});
+  const submit=elements.messageForm.handlers.submit;
+  assert.equal(typeof submit,'function');
+  submit({preventDefault(){}});
+  assert.match(elements.messageOutput.value,/Objet :/);
+  assert.match(elements.messageOutput.value,/Atelier Papier/);
+  assert.equal(elements.copyMessage.disabled,false);
+  assert.equal(elements.saveMessage.disabled,false);
+  elements.channel.value='post';elements.tone.value='warm';
+  submit({preventDefault(){}});
+  assert.match(elements.messageOutput.value,/Atelier Papier propose/);
+  assert.doesNotMatch(elements.messageOutput.value,/Objet :/);
+  elements.channel.value='web';submit({preventDefault(){}});
+  assert.match(elements.messageOutput.value,/Notre objectif/);
+  await elements.copyMessage.handlers.click();
+  assert.equal(copied,elements.messageOutput.value,'copie du texte exact');
+  elements.saveMessage.handlers.click();
+  assert.ok(clicked,'téléchargement déclenché');
+  assert.ok(revoked,'URL temporaire révoquée');
+  elements.messageForm.handlers.reset();
+  assert.equal(elements.messageOutput.value,'');
+  assert.equal(elements.copyMessage.disabled,true);
+  assert.equal(elements.saveMessage.disabled,true);
+});
