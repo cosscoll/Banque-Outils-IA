@@ -93,7 +93,7 @@ async function handler(req,res){
    body:JSON.stringify({model:MODEL,messages:[{role:'system',content:SYSTEM},...messages],max_tokens:450,temperature:0.5,stream:false}),
    signal:AbortSignal.timeout(22000)
   });
-  if(!upstream.ok)return respond(res,upstream.status===429?429:502,{error:upstream.status===429?'provider_limited':'provider_unavailable'},origin);
+  if(!upstream.ok){const preview=process.env.VERCEL_ENV==='preview'?{upstreamStatus:upstream.status,detail:(await upstream.text()).slice(0,500)}:{};return respond(res,upstream.status===429?429:502,{error:upstream.status===429?'provider_limited':'provider_unavailable',...preview},origin);}
   const answer=await upstream.json();
   const parsed=parseReply(answer?.choices?.[0]?.message?.content);
   if(!parsed)return respond(res,502,{error:'empty_model_answer'},origin);
