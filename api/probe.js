@@ -14,5 +14,5 @@ module.exports=async function(req,res){
  try{result=JSON.parse(body||'{}');}catch{}
  res.statusCode=200;
  return res.end(JSON.stringify({headerTokenPresent:Boolean(req.headers['x-vercel-oidc-token']),envTokenPresent:Boolean(process.env.VERCEL_OIDC_TOKEN),modelResponseStatus:status,generated:status===200&&typeof result.reply==='string'&&result.reply.length>10,
-  sample:typeof result.reply==='string'?result.reply.slice(0,450):'',productIds:(result.products||[]).map(p=>p.id),error:result.error||null}));
+  sample:typeof result.reply==='string'?result.reply.slice(0,450):'',productIds:(result.products||[]).map(p=>p.id),error:result.error||null,upstreamStatus:result.upstreamStatus||null,detail:result.detail||null}));
 };
