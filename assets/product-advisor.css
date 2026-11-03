@@ -41,3 +41,14 @@
 .hub-guide-open{margin-top:19px;border:1px solid #BDA5CF;color:#F0E4F5;background:#2D2334;padding:11px 15px;border-radius:28px;font-weight:800;font-size:13px;cursor:pointer;min-height:44px}
 .hub-guide-open span{margin-left:8px}
 .hub-guide-open:hover{background:#4A3555;border-color:#F5F1E6}
+
+/* Dialogue IA génératif, consentement explicite et états réseau. */
+.product-guide-consent{display:flex;gap:9px;align-items:flex-start;padding:7px 13px 0;font-size:10px;line-height:1.45;color:#E5D7E8;cursor:pointer}
+.product-guide-consent input{flex:0 0 auto;width:15px;height:15px;accent-color:#B7D0A7;margin:0}
+.product-guide-thinking{opacity:.75;font-style:italic;animation:guide-wait 1.1s ease-in-out infinite alternate}
+@keyframes guide-wait{from{opacity:.45}to{opacity:1}}
+.product-guide-form button:disabled,.product-guide-choices button:disabled{cursor:wait;opacity:.55}
+.product-guide-result{gap:8px}
+.product-guide-privacy{margin-top:5px;padding-bottom:9px}
+@media(max-width:480px){.product-guide-consent{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.product-guide-thinking{animation:none}}

@@ -1,181 +1,148 @@
-/* Banque Outils IA — guide local : aucun réseau, traceur, stockage ni IA distante. */
+/* Banque Outils IA — genuine generative chat. No canned replies, no client-side API secret. */
 (()=>{
-  'use strict';
-  const PRODUCTS=[
-    {id:'redaction',title:'Rédaction & communication',url:'./pack-redaction.html',outcome:'Préparer des e-mails, publications et textes de présentation.',reason:'Votre besoin concerne les mots et les messages à adresser à votre public.',patterns:[[/\bredig\w*|\bredaction\b|\becri\w*|\btexte\w*|\barticle\w*|\be[\s-]?mails?\b|\bmessages?\b|\bnewsletter\w*|\bsms\b|\blettres? de motivation\b|\bfiches? produits?\b|\bposts? instagram\b|\bposts?\b|\bpublication\w*|\bprospect\w*|\baccroche\w*|\blegende\w*|\bcopywriting\b|\bcommunication\b/,6],[/\bfiches? produits?\b|\bdescription\w* produits?\b/,3]]},
-    {id:'visuel',title:'Design & visuels',url:'./pack-visuel.html',outcome:'Cadrer une affiche, une bannière ou un autre visuel.',reason:'Votre projet demande de définir une direction graphique.',patterns:[[/\baffich\w*|\bvisuel\w*|\bgraph\w*|\bimages?\b|\blogos?\b|\bflyers?\b|\bbannier\w*|\bdesign\b|\bidentite visuelle\b|\bcharte graphique\b|\bphotograph\w*|\bpresentation\w* powerpoint\b|\bcarrousel\w* visuel\w*|\bminiature\w*/,7]]},
-    {id:'web',title:'Sites web & prototypes',url:'./pack-sites-web.html',outcome:'Structurer les pages d’un site et préparer un prototype.',reason:'Votre objectif concerne la structure ou la présentation d’un site.',patterns:[[/\bsites?\b|\bpage\w* web\b|\blanding page\b|\bwordpress\b|\bvitrine\b|\bboutique en ligne\b|\be[\s-]?commerce\b|\bapplication web\b|\bprototyp\w*|\bheberg\w*|\bnom de domaine\b|\bsite internet\b|\bformulaire\w* en ligne\b|\breservation\w* en ligne\b|\bprise de rendez vous\b/,8]]},
-    {id:'medias',title:'Vidéo & audio',url:'./pack-video-audio.html',outcome:'Préparer un script, un storyboard ou un projet audio.',reason:'Vous travaillez sur un contenu vidéo ou sonore.',patterns:[[/\bvideo\w*|\bmontage\b|\bpodcast\w*|\baudio\b|\bvoix off\b|\bsous[\s-]?titres?\b|\breels?\b|\byoutube\b|\btiktok\b|\bstoryboard\b|\bfilm\w*|\bvideaste\w*|\binterview\w*|\bnarration\w*/,8]]},
-    {id:'auto',title:'Première automatisation',url:'./pack-automatisation.html',outcome:'Décrire et simuler un processus répétitif avec contrôle humain.',reason:'Vous cherchez à organiser ou éviter une tâche répétitive.',patterns:[[/\bautomati\w*|\bworkflows?\b|\bprocessus\b|\bprocess\b|\brelances? automatiques?\b|\bn8n\b|\bzapier\b|\bmake\b|\bconnecter des outils\b|\bressaisi\w*|\bdevis automatique\b|\bfactur\w* automatique\w*|\brepet\w*\b/,8],[/\btaches? repetiti\w*|\bactions? recurrent\w*|\btous les jours\b|\bchaque semaine\b/,5]]},
-    {id:'analyse',title:'Recherche & analyse',url:'./pack-recherche-analyse.html',outcome:'Comparer des options et organiser des sources fiables.',reason:'Votre besoin consiste à analyser ou comparer des informations avant de décider.',patterns:[[/\bcompar\w*|\banaly\w*|\brecherch\w*|\bbenchmark\b|\bveille\b|\betude de marche\b|\bdecisi\w*|\bsources?\b|\bdonnees?\b|\bstatistiqu\w*|\bconcurren\w*|\btableau\w*|\bdiagnostic\b|\btableaux? de bord\b|\bcomparatif\w*/,7]]}
+ 'use strict';
+ if(typeof document==='undefined'||!document.body)return;
+ const PRODUCTS={
+  redaction:{title:'Rédaction & communication',href:'./pack-redaction.html'},
+  visuel:{title:'Design & visuels',href:'./pack-visuel.html'},
+  web:{title:'Sites web & prototypes',href:'./pack-sites-web.html'},
+  medias:{title:'Vidéo & audio',href:'./pack-video-audio.html'},
+  auto:{title:'Première automatisation',href:'./pack-automatisation.html'},
+  analyse:{title:'Recherche & analyse',href:'./pack-recherche-analyse.html'}
+ };
+ const API = window.BANQUE_AI_CHAT_API || (window.location.hostname.endsWith('.vercel.app')
+  ? '/api/chat' : 'https://banque-outils-ia-chat.vercel.app/api/chat');
+ const root=document.createElement('div');
+ root.className='product-guide';root.id='productGuide';
+ root.innerHTML=[
+  '<button class="product-guide-toggle" id="productGuideToggle" type="button" aria-controls="productGuidePanel" aria-expanded="false">',
+    '<span class="product-guide-spark" aria-hidden="true">✳</span><span>Conseiller IA</span></button>',
+  '<section class="product-guide-panel" id="productGuidePanel" aria-label="Conseiller IA pour choisir une banque" hidden>',
+  '<div class="product-guide-header"><div><strong>Conseiller IA</strong><span id="productGuideStatus" role="status">Réponses générées selon votre projet</span></div>',
+  '<div class="product-guide-header-actions"><button type="button" id="productGuideReset" aria-label="Recommencer la conversation" title="Recommencer">↺</button>',
+  '<button type="button" id="productGuideClose" aria-label="Fermer le guide" title="Fermer">×</button></div></div>',
+  '<div class="product-guide-messages" id="productGuideMessages" role="log" aria-live="polite" aria-relevant="additions"></div>',
+  '<div class="product-guide-choices" id="productGuideChoices" role="group" aria-label="Exemples de projets"></div>',
+  '<form class="product-guide-form" id="productGuideForm">',
+  '<label for="productGuideInput">Décrivez votre projet</label>',
+  '<div><input id="productGuideInput" type="text" maxlength="400" placeholder="Ex. : Je cherche plus de clients…" autocomplete="off" required>',
+  '<button type="submit" id="productGuideSend">Envoyer</button></div></form>',
+  '<label class="product-guide-consent"><input id="productGuideConsent" type="checkbox"> J’accepte que mes messages soient envoyés au fournisseur d’IA pour obtenir une réponse.</label>',
+  '<p class="product-guide-privacy">N’écrivez aucune information personnelle ou confidentielle. Les réponses sont générées par une IA externe et peuvent être imparfaites. Les banques ne sont pas encore en vente.</p>',
+  '</section>'
+ ].join('');
+ document.body.appendChild(root);
+ const $=id=>root.querySelector('#'+id);
+ const toggle=$('productGuideToggle'),panel=$('productGuidePanel'),close=$('productGuideClose'),
+ reset=$('productGuideReset'),messages=$('productGuideMessages'),choices=$('productGuideChoices'),
+ form=$('productGuideForm'),input=$('productGuideInput'),consent=$('productGuideConsent'),
+ send=$('productGuideSend'),status=$('productGuideStatus');
+ let history=[],pending=false,controller=null,healthChecked=false;
+ const make=(tag,cls,text)=>{
+  const el=document.createElement(tag);
+  if(cls)el.className=cls;
+  if(text!==undefined)el.textContent=text;
+  return el;
+ };
+ const bubble=(text,type)=>{
+  const el=make('div','product-guide-bubble '+(type==='user'?'from-user':'from-bot'),text);
+  messages.appendChild(el);messages.scrollTop=messages.scrollHeight;return el;
+ };
+ const setStatus=(value)=>{status.textContent=value;};
+ const showPresets=()=>{
+  choices.replaceChildren();
+  const cases=[
+   'Je veux attirer plus de clients',
+   'Je souhaite créer un site',
+   'Je veux gagner du temps',
+   'Je dois préparer mes réseaux sociaux'
   ];
-  const fold=input=>String(input??'').toLocaleLowerCase('fr').normalize('NFD')
-    .replace(/[\u0300-\u036f]/g,'').replace(/[’']/g,' ').replace(/[^\p{L}\p{N}]+/gu,' ').replace(/\s+/g,' ').trim();
-  const choose=input=>{
-    const clean=fold(input).slice(0,250);
-    if(!clean)return {kind:'clarify',ids:[],reason:'Décrivez ce que vous souhaitez réaliser ou choisissez une idée ci-dessous.'};
-    const ranked=PRODUCTS.map((p,i)=>({id:p.id,order:i,score:p.patterns.reduce((sum,[pattern,weight])=>sum+(pattern.test(clean)?weight:0),0)}))
-      .filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.order-b.order);
-    if(!ranked.length)return {kind:'clarify',ids:[],reason:'Pour vous orienter, quel résultat voulez-vous obtenir ? Choisissez un besoin ou donnez un exemple concret.'};
-    if(ranked.length>1&&ranked[1].score>=ranked[0].score*0.72)return {kind:'match',ids:[ranked[0].id,ranked[1].id]};
-    return {kind:'match',ids:[ranked[0].id]};
-  };
-  const getProduct=id=>PRODUCTS.find(p=>p.id===id);
-  const newSession=()=>({lastIds:[],role:'',pending:''});
-  // Conversational state is stored in RAM only for the current tab; it is never sent or saved.
-  // This is guidance, NOT an LLM. Unclear requests require an explicit choice.
-  const interpret=(value,previous=newSession())=>{
-    const clean=fold(value).slice(0,250);
-    const state={lastIds:[...(previous.lastIds||[])],role:previous.role||'',pending:previous.pending||''};
-    if(!clean)return {kind:'clarify',reason:'Quelle tâche souhaitez-vous réaliser ?',options:'all',state};
-    const roleMatch=clean.match(/\b(artisan|commercant|coiffeur|restaurateur|restaurant|freelance|independant|consultant|association|entrepreneur|boutique|tpe)\b/);
-    if(roleMatch)state.role=roleMatch[1];
-    if(/\b(prix|tarifs?|combien(?:\s+\w+){0,3}\s+cout\w*|acheter|commander|precommande\w*|disponib\w*|en vente|gratuit\w*|payant\w*|payer le pack|paiement du pack)\b/.test(clean)){
-      return {kind:'info',reason:'Les banques sont encore en préparation : aucun prix définitif, achat ou précommande n’est disponible. Vous pouvez consulter leur aperçu gratuitement.',ids:state.lastIds,options:'after',state};
-    }
-    if(/\b(es tu une ia|vraie ia|vrai chatbot|ce chatbot|assistant ia|tu es une ia|comment tu fonctionnes|comment ca fonctionne|intelligence artificielle|chatgpt|qui es tu|confidentialite|donnees personnelles|mes donnees|tu conserves|stock\w*|sauvegard\w*)\b/.test(clean)){
-      return {kind:'info',reason:'Je suis un guide de choix automatique, pas une IA générative. J’analyse votre demande localement, sans transmettre ni conserver vos messages. Je peux vous orienter vers les six banques.',ids:[],options:'all',state};
-    }
-    if(/\b(merci|au revoir|bye)\b/.test(clean)&&clean.length<28){
-      return {kind:'info',reason:'Avec plaisir. Vous pouvez décrire un autre objectif ou consulter les banques proposées.',ids:[],options:'after',state};
-    }
-    if(/\b(pourquoi cette banque|pourquoi ces banques|pourquoi ce produit|pourquoi ces produits|pourquoi ce choix|pourquoi eux|explique|en savoir plus|qu est ce que ca fait|qu est ce que c est)\b/.test(clean)&&state.lastIds.length){
-      return {kind:'explain',ids:state.lastIds,reason:'Voici pourquoi cette recommandation correspond à votre demande, ainsi que ce que le kit est censé aider à préparer.',options:'after',state};
-    }
-    const result=choose(value);
-    if(result.kind==='match'){
-      state.lastIds=result.ids.slice(0,2);
-      state.pending='';
-      return {...result,reason:result.ids.length>1?'Votre projet couvre deux tâches différentes. Ces deux banques peuvent se compléter :':'Voici la banque la plus proche de votre objectif :',options:'after',state};
-    }
-    if(/\b(visibilite|me faire connaitre|plus de clients|trouver des clients|attirer des clients|developper mon activite|faire de la pub|promouvoir|marketing|publicite|etre trouve sur internet|visible sur internet|etre visible en ligne)\b/.test(clean)){
-      state.pending='visibility';
-      return {kind:'clarify',reason:'Pour vous faire connaître, que souhaitez-vous faire en premier : créer un site, écrire des messages ou réaliser des visuels ?',options:'visibility',state};
-    }
-    if(/\b(reseaux sociaux|instagram|facebook|linkedin)\b/.test(clean)){
-      state.pending='social';
-      return {kind:'clarify',reason:'Sur les réseaux sociaux, souhaitez-vous surtout écrire des publications, créer des visuels ou préparer des vidéos ?',options:'social',state};
-    }
-    if(/\b(gagner du temps|plus rapide|simplifier mon quotidien|mieux m organiser|organiser mon activite)\b/.test(clean)){
-      state.pending='time';
-      return {kind:'clarify',reason:'Quelle tâche vous prend du temps : répéter les mêmes opérations, rédiger des messages ou organiser des informations ?',options:'time',state};
-    }
-    if(state.pending&&/\b(oui|non|peut etre|je sais pas|aucune idee)\b/.test(clean)){
-      const mode=state.pending;
-      return {kind:'clarify',reason:'Pas de problème. Choisissez le résultat qui vous intéresse le plus, ou décrivez une tâche concrète.',options:mode,state};
-    }
-    return {kind:'clarify',reason:state.role?'D’accord. Quelle action souhaitez-vous réaliser pour votre activité ? Choisissez un exemple ci-dessous ou décrivez le résultat attendu.':'Pour mieux vous conseiller, que souhaitez-vous obtenir concrètement ? Vous pouvez choisir une idée ci-dessous.',options:'all',state};
-  };
-  if(typeof module!=='undefined'&&module.exports)module.exports={choose,fold,PRODUCTS,interpret,newSession};
-  if(typeof document==='undefined'||!document.body)return;
-  const root=document.createElement('div');
-  root.className='product-guide';root.id='productGuide';
-  root.innerHTML=[
-    '<button class="product-guide-toggle" id="productGuideToggle" type="button" aria-controls="productGuidePanel" aria-expanded="false">',
-      '<span class="product-guide-spark" aria-hidden="true">✳</span><span>Quel produit choisir ?</span></button>',
-    '<section class="product-guide-panel" id="productGuidePanel" aria-label="Guide de choix de banque" hidden>',
-      '<div class="product-guide-header"><div><strong>Conseiller produit</strong><span>Échange guidé · gratuit</span></div>',
-      '<div class="product-guide-header-actions"><button type="button" id="productGuideReset" aria-label="Recommencer la conversation" title="Recommencer">↺</button>',
-      '<button type="button" id="productGuideClose" aria-label="Fermer le guide" title="Fermer">×</button></div></div>',
-      '<div class="product-guide-messages" id="productGuideMessages" role="log" aria-live="polite" aria-relevant="additions"></div>',
-      '<div class="product-guide-choices" id="productGuideChoices" role="group" aria-label="Suggestions de besoins"></div>',
-      '<form class="product-guide-form" id="productGuideForm"><label for="productGuideInput">Votre besoin</label>',
-      '<div><input id="productGuideInput" type="text" maxlength="250" placeholder="Ex. : Je veux créer mon site…" autocomplete="off" required>',
-      '<button type="submit" aria-label="Envoyer le message">Envoyer</button></div></form>',
-      '<p class="product-guide-privacy">Ce guide fonctionne ici, sans IA connectée. Vos textes ne sont ni transmis ni enregistrés. Aucune banque n’est encore en vente.</p>',
-    '</section>'
-  ].join('');
-  document.body.appendChild(root);
-  const toggle=root.querySelector('#productGuideToggle');
-  const panel=root.querySelector('#productGuidePanel');
-  const close=root.querySelector('#productGuideClose');
-  const reset=root.querySelector('#productGuideReset');
-  const messages=root.querySelector('#productGuideMessages');
-  const choices=root.querySelector('#productGuideChoices');
-  const form=root.querySelector('#productGuideForm');
-  const input=root.querySelector('#productGuideInput');
-  const make=(tag,cls,value)=>{
-    const el=document.createElement(tag);
-    if(cls)el.className=cls;
-    if(value!==undefined)el.textContent=value;
-    return el;
-  };
-  const bubble=(message,who)=>{
-    const el=make('div','product-guide-bubble '+(who==='user'?'from-user':'from-bot'),message);
-    messages.appendChild(el);messages.scrollTop=messages.scrollHeight;
-    return el;
-  };
-  const choiceModes={
-    start:[['redaction','Écrire un message'],['web','Créer mon site'],['auto','Simplifier une tâche'],['all','Voir les 6 besoins']],
-    all:[['redaction','Rédiger'],['visuel','Créer un visuel'],['web','Créer un site'],['medias','Vidéo / audio'],['auto','Automatiser'],['analyse','Comparer']],
-    visibility:[['web','Créer un site'],['redaction','Écrire des messages'],['visuel','Créer des visuels']],
-    social:[['redaction','Écrire des posts'],['visuel','Créer des visuels'],['medias','Préparer des vidéos']],
-    time:[['auto','Automatiser une tâche'],['redaction','Rédiger plus facilement'],['analyse','Organiser des informations']],
-    after:[['all','Autre besoin'],['price','Le prix ?'],['restart','Recommencer']]
-  };
-  const showChoices=mode=>{
-    choices.replaceChildren();
-    for(const [id,label] of choiceModes[mode]||choiceModes.all){
-      const b=make('button','product-guide-choice',label);
-      b.type='button';b.dataset.guideChoice=id;choices.appendChild(b);
-    }
-  };
-  const display=id=>{
-    const p=getProduct(id);
-    if(!p)return;
-    const item=make('div','product-guide-result');
-    item.appendChild(make('strong',null,p.title));
-    item.appendChild(make('p',null,p.reason));
-    item.appendChild(make('p','product-guide-outcome',p.outcome));
-    item.appendChild(make('small',null,'En préparation · pas encore disponible à l’achat'));
-    const link=make('a',null,'Découvrir cette banque →');
-    link.href=p.url;item.appendChild(link);messages.appendChild(item);
-  };
-  let session=newSession();
-  const respond=(value,explicitId)=>{
-    const message=String(value).trim().slice(0,250);
-    if(!message&&!explicitId)return;
-    bubble(message,'user');
-    const result=explicitId&&getProduct(explicitId)
-      ?{kind:'match',ids:[explicitId],reason:'Voici une banque correspondant à ce besoin :',options:'after',state:{...session,lastIds:[explicitId],pending:''}}
-      :interpret(message,session);
-    session=result.state;
-    bubble(result.reason,'bot');
-    if(result.kind==='match'||result.kind==='explain'){
-      for(const id of result.ids)display(id);
-    }
-    // Previous results stay visible for continuity; long chats are kept scrollable.
-    showChoices(result.options||'all');
-    messages.scrollTop=messages.scrollHeight;
-    input.value='';
-  };
-  const start=()=>{
-    session=newSession();
-    messages.replaceChildren();
-    bubble('Bonjour ! Que souhaitez-vous réaliser ? Décrivez votre projet en quelques mots, même si vous ne connaissez pas les outils IA.','bot');
-    showChoices('start');
-  };
-  const setOpen=open=>{
-    panel.hidden=!open;toggle.setAttribute('aria-expanded',String(open));
-    if(open)input.focus();else toggle.focus();
-  };
-  start();
-  toggle.addEventListener('click',()=>setOpen(panel.hidden));
-  close.addEventListener('click',()=>setOpen(false));
-  reset.addEventListener('click',()=>{start();input.focus();});
-  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!panel.hidden){event.preventDefault();setOpen(false);}});
-  document.querySelectorAll('[data-open-product-guide]').forEach(button=>button.addEventListener('click',()=>setOpen(true)));
-  choices.addEventListener('click',event=>{
-    const button=event.target.closest('[data-guide-choice]');
-    if(!button||!choices.contains(button))return;
-    const id=button.dataset.guideChoice;
-    if(id==='all'){bubble(button.textContent,'user');bubble('Choisissez ce que vous souhaitez obtenir :','bot');showChoices('all');return;}
-    if(id==='restart'){start();input.focus();return;}
-    if(id==='price'){respond('Quels sont les prix ?');return;}
-    respond(button.textContent,id);
-  });
-  form.addEventListener('submit',event=>{
-    event.preventDefault();
-    if(input.value.trim())respond(input.value);else input.focus();
-  });
+  for(const line of cases){
+   const button=make('button','product-guide-choice',line);
+   button.type='button';button.dataset.prompt=line;choices.appendChild(button);
+  }
+ };
+ const card=product=>{
+  const p=PRODUCTS[product?.id];
+  if(!p)return;
+  const el=make('div','product-guide-result');
+  el.appendChild(make('strong',null,p.title));
+  el.appendChild(make('small',null,'Collection en préparation · pas encore en vente'));
+  const a=make('a',null,'Découvrir cette banque →');a.href=p.href;el.appendChild(a);messages.appendChild(el);
+ };
+ const setBusy=value=>{
+  pending=value;send.disabled=value;input.disabled=value;
+  choices.querySelectorAll('button').forEach(x=>x.disabled=value);
+ };
+ const getAvailable=async()=>{
+  if(healthChecked)return;
+  healthChecked=true;setStatus('Connexion au modèle IA…');
+  try{
+   const r=await fetch(API,{method:'GET',mode:'cors',cache:'no-store'});
+   const data=await r.json();
+   setStatus(r.ok&&data.ready?'IA générative disponible':'IA non configurée actuellement');
+  }catch{setStatus('Connexion IA momentanément indisponible');}
+ };
+ const start=()=>{
+  if(controller){controller.abort();controller=null;}
+  history=[];messages.replaceChildren();
+  setBusy(false);
+  bubble('Décrivez ce que vous voulez accomplir. Je vous poserai des questions si nécessaire pour trouver la banque adaptée.','bot');
+  showPresets();
+ };
+ const sendMessage=async text=>{
+  const value=String(text||'').trim().slice(0,400);
+  if(!value||pending)return;
+  if(!consent.checked){setStatus('Cochez l’accord d’envoi à l’IA pour commencer.');consent.querySelector('input').focus();return;}
+  bubble(value,'user');input.value='';
+  const payload={messages:[...history,{role:'user',content:value}]};
+  controller=new AbortController();setBusy(true);
+  setStatus('L’IA prépare une réponse…');
+  const indicator=bubble('L’IA réfléchit…','bot');indicator.classList.add('product-guide-thinking');
+  try{
+   const timer=setTimeout(()=>controller?.abort(),26000);
+   let response,data;
+   try{
+    response=await fetch(API,{method:'POST',mode:'cors',cache:'no-store',
+     headers:{'Content-Type':'application/json'},
+     body:JSON.stringify(payload),signal:controller.signal});
+    data=await response.json();
+   }finally{clearTimeout(timer);}
+   if(!response.ok||!data||typeof data.reply!=='string'||!data.reply.trim()){
+    const code=data?.error||'';
+    if(response.status===429)throw new Error('Le modèle reçoit trop de demandes. Réessayez plus tard.');
+    if(code==='not_configured')throw new Error('Le fournisseur d’IA n’est pas encore configuré.');
+    throw new Error('Le modèle d’IA est momentanément indisponible. Réessayez.');
+   }
+   indicator.remove();
+   bubble(data.reply,'bot');
+   for(const p of (Array.isArray(data.products)?data.products:[]).slice(0,2))card(p);
+   history=[...history,{role:'user',content:value},{role:'assistant',content:data.reply.slice(0,850)}].slice(-6);
+   setStatus('Réponse générée par IA');
+  }catch(err){
+   indicator.remove();
+   bubble(err?.name==='AbortError'?'La réponse a pris trop de temps. Réessayez.':
+    err instanceof Error&&/trop de demandes|n.est pas encore configuré|momentanément indisponible/.test(err.message)?err.message:
+    'Connexion à l’IA impossible pour le moment. Réessayez.','bot');
+   setStatus('IA momentanément indisponible');
+  }finally{
+   controller=null;setBusy(false);input.focus();messages.scrollTop=messages.scrollHeight;
+  }
+ };
+ const open=value=>{
+  if(!value&&controller){controller.abort();controller=null;}
+  panel.hidden=!value;toggle.setAttribute('aria-expanded',String(value));
+  if(value){getAvailable();input.focus();}else toggle.focus();
+ };
+ start();
+ toggle.addEventListener('click',()=>open(panel.hidden));
+ close.addEventListener('click',()=>open(false));
+ reset.addEventListener('click',()=>{start();input.focus();setStatus('Nouvelle conversation');});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden){e.preventDefault();open(false);}});
+ document.querySelectorAll('[data-open-product-guide]').forEach(button=>button.addEventListener('click',()=>open(true)));
+ form.addEventListener('submit',e=>{e.preventDefault();sendMessage(input.value);});
+ choices.addEventListener('click',e=>{
+  const target=e.target.closest('button[data-prompt]');
+  if(target&&!pending)sendMessage(target.dataset.prompt);
+ });
 })();
