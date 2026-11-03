@@ -1,7 +1,7 @@
 # Banque Outils IA — cahier des charges de référence
-**Version 1.6 — 02 novembre 2026** · Statut : **vitrine opérationnelle, produits en préparation, aucune vente ouverte**.
+**Version 1.7 — 03 novembre 2026** · Statut : **vitrine opérationnelle, produits en préparation, aucune vente ouverte**.
 
-> Ce document est la **source de vérité du périmètre et des décisions**. Les annexes A à I détaillent les exigences, les six banques, le commerce et l'ordre de production. Une ligne « spécifiée » ne signifie pas « développée » ; une CI verte ne signifie pas « produit prêt à vendre ».
+> Ce document est la **source de vérité du périmètre et des décisions**. Les annexes A à J détaillent les exigences, les six banques, le commerce et l'ordre de production. Une ligne « spécifiée » ne signifie pas « développée » ; une CI verte ne signifie pas « produit prêt à vendre ».
 
 ## 0. Lire le projet en 90 secondes
 **Mission** : aider un indépendant ou une petite entreprise à utiliser des outils concrets pour écrire, créer, préparer un site, planifier une vidéo, décrire une automatisation ou mener une recherche structurée, sans jargon ni abonnement imposé.
@@ -24,6 +24,7 @@
 | G | [Simplification de la navigation V1.4](./SIMPLIFICATION_NAVIGATION_V1_4.md) | Navigation simplifiée réellement proposée, retrait des doublons, tests |
 | H | [Chatbot d'orientation des banques V1.5](./CHATBOT_ORIENTATION_V1_5.md) | Recommandations locales, sécurité, tests et limites du moteur |
 | I | [Chatbot conversationnel V1.6](./CHATBOT_FONCTIONNEL_V1_6.md) | Dialogue multi-tours, questions de clarification, explications et recette |
+| J | [Chatbot IA générative V1.7](./CHATBOT_GENERATIF_V1_7.md) | Service LLM, sécurité, consentement, coûts et recette |
 | Historique | [Plan de fabrication initial](./PLAN_FABRICATION_SIX_BANQUES_2026-11-02.md) | Première version des engagements produit (complétée par B) |
 | Gouvernance | [Règles de publication de sprints](./SPRINT_DELIVERY_POLICY.md) | Preuves requises avant d'annoncer une livraison |
 
@@ -155,3 +156,5 @@ La validation juridique et fiscale reste à effectuer pour l'entité, les produi
 - **02/11/2026 v1.5** : assistant conversationnel local pour orienter vers les six banques, avec explication, clarification des besoins vagues, gestion de deux besoins et accès mobile. Aucune IA externe ni API payante.
 
 - **02/11/2026 v1.6** : le guide garde désormais le contexte pendant la session, propose des questions ciblées pour les demandes vagues, explique un conseil précédent et distingue achat de pack et paiement à intégrer dans un site. Aucun LLM externe ni paiement.
+
+- **03/11/2026 v1.7** : chatbot à génération par vrai modèle de langage via endpoint serveur Vercel, fin des réponses à mots-clés ; aucune vente ouverte. Activation réelle subordonnée à la validation du modèle et du déploiement.
