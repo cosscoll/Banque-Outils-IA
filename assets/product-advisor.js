@@ -112,6 +112,7 @@
     const code=data?.error||'';
     if(response.status===429)throw new Error('Le modèle reçoit trop de demandes. Réessayez plus tard.');
     if(code==='not_configured')throw new Error('Le fournisseur d’IA n’est pas encore configuré.');
+    if(code==='not_activated')throw new Error('Le conseiller IA attend l’activation du fournisseur.');
     throw new Error('Le modèle d’IA est momentanément indisponible. Réessayez.');
    }
    indicator.remove();
@@ -122,7 +123,7 @@
   }catch(err){
    indicator.remove();
    bubble(err?.name==='AbortError'?'La réponse a pris trop de temps. Réessayez.':
-    err instanceof Error&&/trop de demandes|n.est pas encore configuré|momentanément indisponible/.test(err.message)?err.message:
+    err instanceof Error&&/trop de demandes|n.est pas encore configuré|attend l.activation|momentanément indisponible/.test(err.message)?err.message:
     'Connexion à l’IA impossible pour le moment. Réessayez.','bot');
    setStatus('IA momentanément indisponible');
   }finally{

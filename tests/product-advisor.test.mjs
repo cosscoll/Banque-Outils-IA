@@ -18,11 +18,13 @@ function response(){
 const getBody=res=>JSON.parse(res.body);
 const pairs=[{role:'user',content:'Je souhaite attirer plus de clients'},{role:'assistant',content:'Quel canal souhaitez-vous privilégier ?'},{role:'user',content:'Un site web pour mon atelier'}];
 const previousToken=process.env.AI_GATEWAY_API_KEY;
+const previousEnabled=process.env.BANQUE_CHAT_ENABLED;
 const previousOidc=process.env.VERCEL_OIDC_TOKEN;
 const originalFetch=global.fetch;
-const withToken=()=>{process.env.AI_GATEWAY_API_KEY='test-backend-token';};
+const withToken=()=>{process.env.AI_GATEWAY_API_KEY='test-backend-token';process.env.BANQUE_CHAT_ENABLED='true';};
 function clean(){
  if(previousToken===undefined)delete process.env.AI_GATEWAY_API_KEY;else process.env.AI_GATEWAY_API_KEY=previousToken;
+ if(previousEnabled===undefined)delete process.env.BANQUE_CHAT_ENABLED;else process.env.BANQUE_CHAT_ENABLED=previousEnabled;
  if(previousOidc===undefined)delete process.env.VERCEL_OIDC_TOKEN;else process.env.VERCEL_OIDC_TOKEN=previousOidc;
  global.fetch=originalFetch;
 }
@@ -60,12 +62,12 @@ test('API : extraction de recommandations depuis la vraie réponse du modèle, s
 });
 test('API : origine externe refusée et modèle non configuré explicitement indisponible',async()=>{
  try{
-  delete process.env.AI_GATEWAY_API_KEY;delete process.env.VERCEL_OIDC_TOKEN;
+  delete process.env.AI_GATEWAY_API_KEY;delete process.env.VERCEL_OIDC_TOKEN;delete process.env.BANQUE_CHAT_ENABLED;
   const rejected=response();await backend({method:'POST',headers:{origin:'https://evil.example'},body:{messages:pairs}},rejected);
   assert.equal(rejected.statusCode,403);
   const unavailable=response();await backend(request('POST',{messages:pairs}),unavailable);
   assert.equal(unavailable.statusCode,503);
-  assert.equal(getBody(unavailable).error,'not_configured');
+  assert.equal(getBody(unavailable).error,'not_activated');
   const status=response();await backend(request('GET',null),status);
   assert.equal(getBody(status).ready,false);
  }finally{clean();}
@@ -106,9 +108,23 @@ test('Pages : la fenêtre conserve des contrôles identifiables et aucune clé c
  const pages=['index.html','produit.html','contact.html','catalogue.html','fiches.html','parcours.html','avancement.html','pack-redaction.html','pack-visuel.html','pack-sites-web.html','pack-video-audio.html','pack-automatisation.html','pack-recherche-analyse.html'];
  for(const p of pages){
   const html=readFileSync(new URL('../'+p,import.meta.url),'utf8');
-  assert.match(html,/product-advisor\.js\?v=20261103-g1/,p);
+  assert.match(html,/product-advisor\.js\?v=20261103-g2/,p);
   assert.match(html,/product-advisor\.css\?v=20261103-g1/,p);
  }
  assert.doesNotMatch(client,/AI_GATEWAY_API_KEY|VERCEL_OIDC_TOKEN|sk-[a-z0-9]{15,}/i);
  assert.match(client,/data-open-product-guide|document\.querySelectorAll\('\[data-open-product-guide\]'\)/);
+});
+
+test('API : header OIDC Vercel utilisé seulement après activation',async()=>{
+ const old=global.fetch;
+ try{
+  process.env.BANQUE_CHAT_ENABLED='true';delete process.env.AI_GATEWAY_API_KEY;delete process.env.VERCEL_OIDC_TOKEN;
+  let authorization='';
+  global.fetch=async(_url,opts)=>{authorization=opts.headers.Authorization;return {ok:true,json:async()=>({choices:[{message:{content:'Bonjour, quel type de site souhaitez-vous ? [[packs:web]]'}}]})};};
+  const req=request('POST',{messages:[{role:'user',content:'Je veux un site'}]},'oidc-req-unique');
+  req.headers['x-vercel-oidc-token']='test-oidc-token';
+  const res=response();await backend(req,res);
+  assert.equal(res.statusCode,200);
+  assert.equal(authorization,'Bearer test-oidc-token');
+ }finally{global.fetch=old;clean();}
 });
