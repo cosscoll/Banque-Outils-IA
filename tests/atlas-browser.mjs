@@ -132,76 +132,84 @@ try{
   }
 
 
-  // Guide d'orientation : aucun compte ni API, six produits, formulations libres.
+  // Le modèle est externe : tests d'interface avec un vrai contrat HTTP simulé,
+  // sans appel payant ni fausses réponses locales dans l'application.
+  const attachModel=async(page,requests)=>{
+    await page.route('**/api/chat',async route=>{
+      const method=route.request().method();
+      const headers={'access-control-allow-origin':'*','access-control-allow-methods':'GET,POST,OPTIONS','access-control-allow-headers':'Content-Type'};
+      if(method==='OPTIONS')return route.fulfill({status:204,headers,body:''});
+      if(method==='GET')return route.fulfill({status:200,headers,contentType:'application/json',body:JSON.stringify({ready:true,modelKind:'generative'})});
+      const body=JSON.parse(route.request().postData()||'{}');
+      requests.push(body);
+      const isSecond=body.messages?.length>1;
+      const mock={
+        reply:isSecond?'Pour votre communication, préparez une newsletter qui présente votre activité.':'Pour votre atelier, un site vitrine peut présenter les réalisations et faciliter les contacts.',
+        products:isSecond?[{id:'redaction',name:'Rédaction & communication',url:'/pack-redaction.html'}]:[{id:'web',name:'Sites web & prototypes',url:'/pack-sites-web.html'}]
+      };
+      return route.fulfill({status:200,headers,contentType:'application/json',body:JSON.stringify(mock)});
+    });
+  };
   for(const width of [320,390,1440]){
-    const guide=await browser.newPage({viewport:{width,height:850},deviceScaleFactor:1});
-    const errors=[];
-    guide.on('pageerror',error=>errors.push(error.message));
-    await open(guide,'index.html');
-    const toggle=guide.locator('#productGuideToggle');
-    assert.equal(await toggle.count(),1,'Le guide est intégré sur l’accueil');
-    assert.equal(await guide.locator('#productGuidePanel').isVisible(),false,'Fermé par défaut');
+    const page=await browser.newPage({viewport:{width,height:850},deviceScaleFactor:1});
+    const requests=[],errors=[];
+    page.on('pageerror',e=>errors.push(e.message));
+    await attachModel(page,requests);
+    await open(page,'index.html');
+    const toggle=page.locator('#productGuideToggle');
+    assert.equal(await toggle.count(),1);
     await toggle.click();
-    assert.equal(await toggle.getAttribute('aria-expanded'),'true');
-    assert.equal(await guide.locator('#productGuidePanel').isVisible(),true,'Panneau visible');
-    const rect=await guide.locator('#productGuidePanel').boundingBox();
+    assert.equal(await page.locator('#productGuidePanel').isVisible(),true);
+    const rect=await page.locator('#productGuidePanel').boundingBox();
     assert.ok(rect.x>=-1&&rect.x+rect.width<=width+1,'Panneau dans le viewport '+width);
-    await guide.locator('#productGuideInput').fill('Je veux lancer un site internet pour mon atelier');
-    await guide.locator('#productGuideForm button[type=submit]').click();
-    assert.match(await guide.locator('.product-guide-result strong').last().innerText(),/Sites web/,'Recommandation de site');
-    assert.equal(await guide.locator('.product-guide-result a').last().getAttribute('href'),'./pack-sites-web.html');
-    await guide.locator('#productGuideInput').fill('Je veux rédiger un e-mail et créer une affiche');
-    await guide.locator('#productGuideForm button[type=submit]').click();
-    assert.equal(await guide.locator('.product-guide-result').count(),3,'1 puis 2 suggestions');
-    await guide.locator('#productGuideInput').fill('Je suis artisan et je ne sais pas quoi faire');
-    await guide.locator('#productGuideForm button[type=submit]').click();
-    assert.match(await guide.locator('.product-guide-bubble.from-bot').last().innerText(),/quelle action|quel résultat/i,'Clarification si besoin imprécis');
-
-    await guide.locator('#productGuideInput').fill('Je voudrais attirer plus de clients');
-    await guide.locator('#productGuideForm button[type=submit]').click();
-    assert.equal(await guide.locator('[data-guide-choice=web]').count(),1,'Choix visibilité');
-    await guide.locator('[data-guide-choice=web]').click();
-    assert.equal(await guide.locator('.product-guide-result a').last().getAttribute('href'),'./pack-sites-web.html','Choix retenu');
-    await guide.locator('#productGuideInput').fill('Pourquoi cette banque ?');
-    await guide.locator('#productGuideForm button[type=submit]').click();
-    assert.match(await guide.locator('.product-guide-bubble.from-bot').last().innerText(),/pourquoi cette recommandation/i,'Explication contextuelle');
-    await guide.locator('[data-guide-choice=price]').click();
-    assert.match(await guide.locator('.product-guide-bubble.from-bot').last().innerText(),/aucun prix définitif/i,'Prix exact');
-    await guide.locator('#productGuideReset').click();
-    assert.equal(await guide.locator('.product-guide-result').count(),0,'Réinitialisation');
-    await guide.locator('[data-guide-choice=redaction]').click();
-    assert.equal(await guide.locator('.product-guide-result a').last().getAttribute('href'),'./pack-redaction.html');
-    await guide.keyboard.press('Escape');
-    assert.equal(await toggle.getAttribute('aria-expanded'),'false','Fermeture au clavier');
-    assert.equal(await guide.locator('#productGuidePanel').isVisible(),false);
-    assert.equal(errors.length,0,'Guide sans erreurs JS : '+errors.join('; '));
-    const overflow=await guide.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
-    assert.ok(overflow<=4,'Aucun débordement sur accueil '+width+' '+overflow);
+    await page.locator('#productGuideInput').fill('Créer un site vitrine pour mon atelier');
+    await page.locator('#productGuideSend').click();
+    assert.equal(requests.length,0,'Consentement nécessaire avant envoi '+width);
+    assert.match(await page.locator('#productGuideStatus').innerText(),/accord d’envoi/);
+    await page.locator('#productGuideConsent').check();
+    await page.locator('#productGuideSend').click();
+    await page.locator('.product-guide-result').first().waitFor();
+    assert.equal(requests.length,1,'Première requête modèle');
+    assert.equal(requests[0].messages[0].content,'Créer un site vitrine pour mon atelier');
+    assert.equal(await page.locator('.product-guide-result a').last().getAttribute('href'),'./pack-sites-web.html');
+    await page.locator('#productGuideInput').fill('Et comment préparer une newsletter ?');
+    await page.locator('#productGuideSend').click();
+    await page.waitForFunction(()=>document.querySelectorAll('.product-guide-result').length===2);
+    assert.equal(requests.length,2,'Seconde requête modèle');
+    assert.equal(requests[1].messages.length,3,'Le contexte du premier échange est transmis');
+    assert.match(requests[1].messages[1].content,/site vitrine/);
+    assert.equal(await page.locator('.product-guide-result a').last().getAttribute('href'),'./pack-redaction.html');
+    await page.locator('#productGuideReset').click();
+    assert.equal(await page.locator('.product-guide-result').count(),0,'Reset');
+    await page.keyboard.press('Escape');
+    assert.equal(await toggle.getAttribute('aria-expanded'),'false');
+    assert.equal(errors.length,0,'Aucune erreur JS '+width+': '+errors.join('; '));
+    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+    assert.ok(overflow<=4,'Chatbot sans débordement '+width+': '+overflow);
     await toggle.click();
-    await guide.screenshot({path:join(evidence,'guide-produit-'+width+'.png'),fullPage:false});
-    await guide.close();
-    checked++;
+    await page.screenshot({path:join(evidence,'chatbot-generatif-'+width+'.png'),fullPage:false});
+    await page.close();checked++;
   }
-  // Accessible depuis Produit et depuis une fiche sans noyer les CTA existants.
-  const hubGuide=await browser.newPage({viewport:{width:390,height:844}});
-  await open(hubGuide,'produit.html');
-  await hubGuide.locator('[data-open-product-guide]').click();
-  assert.equal(await hubGuide.locator('#productGuidePanel').isVisible(),true);
-  await hubGuide.locator('[data-guide-choice=web]').click();
-  assert.equal(await hubGuide.locator('.product-guide-result a').last().getAttribute('href'),'./pack-sites-web.html');
-  const hubOverflow=await hubGuide.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
-  assert.ok(hubOverflow<=4,'Pas de débordement page Produit avec guide');
-  await hubGuide.close();
-  checked++;
-  const packGuide=await browser.newPage({viewport:{width:390,height:844}});
-  await open(packGuide,'pack-automatisation.html');
-  await packGuide.locator('#productGuideToggle').click();
-  await packGuide.locator('#productGuideInput').fill('Comparer plusieurs prestataires');
-  await packGuide.locator('#productGuideForm button[type=submit]').click();
-  assert.equal(await packGuide.locator('.product-guide-result a').last().getAttribute('href'),'./pack-recherche-analyse.html');
-  await packGuide.close();
-  checked++;
-
+  const hub=await browser.newPage({viewport:{width:390,height:844}});
+  const hubReq=[];await attachModel(hub,hubReq);
+  await open(hub,'produit.html');
+  await hub.locator('[data-open-product-guide]').click();
+  assert.equal(await hub.locator('#productGuidePanel').isVisible(),true);
+  await hub.locator('#productGuideConsent').check();
+  await hub.locator('.product-guide-choice').first().click();
+  await hub.locator('.product-guide-result a').first().waitFor();
+  assert.equal(hubReq.length,1);
+  await hub.close();checked++;
+  const product=await browser.newPage({viewport:{width:390,height:844}});
+  const productReq=[];await attachModel(product,productReq);
+  await open(product,'pack-automatisation.html');
+  await product.locator('#productGuideToggle').click();
+  await product.locator('#productGuideConsent').check();
+  await product.locator('#productGuideInput').fill('Comment développer mon entreprise ?');
+  await product.locator('#productGuideSend').click();
+  await product.locator('.product-guide-result a').first().waitFor();
+  assert.equal(productReq.length,1);
+  await product.close();checked++;
 }finally{
   await browser.close();
 }
