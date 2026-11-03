@@ -80,7 +80,7 @@ async function handler(req,res){
   res.setHeader('Access-Control-Allow-Headers','Content-Type');
   return respond(res,204,{},origin);
  }
- const credential=process.env.AI_GATEWAY_API_KEY||process.env.VERCEL_OIDC_TOKEN;
+ const credential=process.env.AI_GATEWAY_API_KEY||req.headers?.['x-vercel-oidc-token']||process.env.VERCEL_OIDC_TOKEN;
  if(req.method==='GET')return respond(res,200,{ready:Boolean(credential),modelKind:'generative',historyStored:false},origin);
  if(req.method!=='POST')return respond(res,405,{error:'method_not_allowed'},origin);
  if(!credential)return respond(res,503,{error:'not_configured'},origin);
