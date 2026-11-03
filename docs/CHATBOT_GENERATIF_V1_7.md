@@ -33,3 +33,6 @@ Site GitHub Pages → widget Obscure Pop → API HTTPS sur Vercel Functions → 
 
 ## Prérequis de production
 Le site actuel est statique : une fonction serveur est nécessaire. Activer un budget ferme AI Gateway par projet et un mécanisme anti-abus durable avant une forte fréquentation. Vérifier les politiques de conservation du fournisseur. Ne pas engager d'achats de crédits ou de recharge automatique. Ne pas annoncer un chatbot IA en ligne avant un échange réel validé.
+
+## État d'activation au 03/11/2026
+Le test Vercel réel sur déploiement protégé a renvoyé HTTP 403 avec le code customer_verification_required : Vercel exige une carte bancaire pour activer même les crédits gratuits AI Gateway. Aucun moyen de paiement n'a été ajouté. L'API comporte donc une porte de sécurité BANQUE_CHAT_ENABLED désactivée par défaut. Elle ne peut répondre avec un LLM tant que l'utilisateur n'a pas validé le fournisseur et que ce paramètre n'a pas été activé. La fonction utilise le header runtime x-vercel-oidc-token de Vercel (plutôt qu'une variable d'environnement absente) lorsque l'activation sera autorisée. Les coûts potentiels du modèle/hébergement nécessitent un plafond budgétaire.
