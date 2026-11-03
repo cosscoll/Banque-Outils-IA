@@ -108,7 +108,7 @@ test('Pages : la fenêtre conserve des contrôles identifiables et aucune clé c
  const pages=['index.html','produit.html','contact.html','catalogue.html','fiches.html','parcours.html','avancement.html','pack-redaction.html','pack-visuel.html','pack-sites-web.html','pack-video-audio.html','pack-automatisation.html','pack-recherche-analyse.html'];
  for(const p of pages){
   const html=readFileSync(new URL('../'+p,import.meta.url),'utf8');
-  assert.match(html,/product-advisor\.js\?v=20261103-g1/,p);
+  assert.match(html,/product-advisor\.js\?v=20261103-g2/,p);
   assert.match(html,/product-advisor\.css\?v=20261103-g1/,p);
  }
  assert.doesNotMatch(client,/AI_GATEWAY_API_KEY|VERCEL_OIDC_TOKEN|sk-[a-z0-9]{15,}/i);
