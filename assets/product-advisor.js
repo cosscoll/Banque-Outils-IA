@@ -93,7 +93,7 @@
  const sendMessage=async text=>{
   const value=String(text||'').trim().slice(0,400);
   if(!value||pending)return;
-  if(!consent.checked){setStatus('Cochez l’accord d’envoi à l’IA pour commencer.');consent.querySelector('input').focus();return;}
+  if(!consent.checked){setStatus('Cochez l’accord d’envoi à l’IA pour commencer.');consent.focus();return;}
   bubble(value,'user');input.value='';
   const payload={messages:[...history,{role:'user',content:value}]};
   controller=new AbortController();setBusy(true);
