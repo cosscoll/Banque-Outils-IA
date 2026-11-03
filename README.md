@@ -4,7 +4,7 @@ Création d'une bibliothèque d'outils IA.
 
 **Statut : pré-lancement, aucune vente ni paiement actif.**
 
-**Pilotage à jour (02/11/2026)** : [Cahier des charges v1.1](./docs/CAHIER_DES_CHARGES_EXECUTION_2026-11-02.md) · [Exigences fonctionnelles](./docs/SPECIFICATIONS_FONCTIONNELLES_V1_1.md) · [Six spécifications produits](./docs/SPECIFICATIONS_PRODUITS_V1_1.md) · [Commercialisation et conformité](./docs/ARCHITECTURE_ET_COMMERCIALISATION_V1_1.md) · [Backlog priorisé](./docs/BACKLOG_PRIORISE_V1_1.md) · [Recette de la banque Rédaction](./docs/RECETTE_PACK_REDACTION_V1_2.md) · [Parcours d'achat et UX pré-lancement](./docs/PARCOURS_ACHAT_UX_V1_3.md) · [Navigation simplifiée V1.4](./docs/SIMPLIFICATION_NAVIGATION_V1_4.md) · [Guide produit conversationnel V1.5](./docs/CHATBOT_ORIENTATION_V1_5.md) · [Chatbot multi-tours V1.6](./docs/CHATBOT_FONCTIONNEL_V1_6.md). Ces documents font foi pour les décisions et statuts récents, les sections anciennes ci-dessous restent archivées à titre historique.
+**Pilotage à jour (03/11/2026)** : [Cahier des charges v1.1](./docs/CAHIER_DES_CHARGES_EXECUTION_2026-11-02.md) · [Exigences fonctionnelles](./docs/SPECIFICATIONS_FONCTIONNELLES_V1_1.md) · [Six spécifications produits](./docs/SPECIFICATIONS_PRODUITS_V1_1.md) · [Commercialisation et conformité](./docs/ARCHITECTURE_ET_COMMERCIALISATION_V1_1.md) · [Backlog priorisé](./docs/BACKLOG_PRIORISE_V1_1.md) · [Recette de la banque Rédaction](./docs/RECETTE_PACK_REDACTION_V1_2.md) · [Parcours d'achat et UX pré-lancement](./docs/PARCOURS_ACHAT_UX_V1_3.md) · [Navigation simplifiée V1.4](./docs/SIMPLIFICATION_NAVIGATION_V1_4.md) · [Guide produit conversationnel V1.5](./docs/CHATBOT_ORIENTATION_V1_5.md) · [Chatbot multi-tours V1.6](./docs/CHATBOT_FONCTIONNEL_V1_6.md) · [Chatbot IA générative V1.7](./docs/CHATBOT_GENERATIF_V1_7.md). Ces documents font foi pour les décisions et statuts récents, les sections anciennes ci-dessous restent archivées à titre historique.
 
 Premier outil réellement utilisable, gratuit et local : [Assistant Messages](./outils/assistant-messages.html). Il ne sollicite aucune IA distante ; les packs commerciaux demeurent en préparation.
 
@@ -146,3 +146,6 @@ Fichiers : `assets/journey-nav.css`, `assets/journey-nav.js`, les cinq pages HTM
 - Navigation des cinq pages antérieures harmonisée ; anciens menus mobiles et leurs contrôleurs obsolètes supprimés.
 
 **Vérifications :** 11/11 contrôles UX/structure et 12/12 contrôles historiques de la vitrine 3D réussis. Syntaxes CSS/JavaScript vérifiées. L'accès public GitHub Pages n'a pas pu être testé par un navigateur de l'environnement actuel. Aucun service payant activé.
+
+## Conseiller IA génératif — 03 novembre 2026
+Le widget transmet les échanges à une API Vercel sécurisée, qui appelle un véritable modèle de langage via AI Gateway. L'ancien classement local n'est plus utilisé. Les messages sont transmis seulement après consentement explicite. Les six packs restent en préparation. Lire docs/CHATBOT_GENERATIF_V1_7.md avant mise en service, notamment les prérequis budgétaires et de sécurité.
